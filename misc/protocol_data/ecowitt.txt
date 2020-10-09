@@ -1,0 +1,8 @@
+{ host: '192.168.160.247',
+  connection: 'Close',
+  'content-type': 'application/x-www-form-urlencoded',
+  'content-length': '443' }
+body: PASSKEY=42B056FC063605F951D8D3BAA00037C1&stationtype=EasyWeatherV1.5.4&dateutc=2020-10-03+15:39:06&tempinf=71.8&humidityin=73&baromrelin=29.540&baromabsin=28.760&tempf=61.5&humidity=99&winddir=236&windspeedmph=0.0&windgustmph=0.0&maxdailygust=3.4&rainratein=0.425&eventrainin=1.102&hourlyrainin=0.083&dailyrainin=1.102&weeklyrainin=1.961&monthlyrainin=1.122&totalrainin=3.752&solarradiation=0.00&uv=0&wh65batt=0&freq=868M&model=WS2900_V2.01.10
+
+
+method: post

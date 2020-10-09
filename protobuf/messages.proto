@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+message WeatherObservation {
+    // Unix timestamp of this weather observation
+    uint64 timestamp = 1;
+
+    // Temperature in Celsius
+    float temperature = 2;
+
+    // Dew point in Celsius
+    float dewpoint = 3;
+
+    // Humidity in percentage (%)
+    uint32 humidity = 4;
+
+    // Absolute pressure in hpa
+    float pressure_rel = 5;
+
+    // Relative pressure in hpa
+    float pressure_abs = 6;
+
+    // Wind direction in degrees (0 - 360)
+    uint32 wind_direction = 7;
+
+    // Wind speed in km/h
+    float wind_speed = 8;
+
+    // Wind gust in km/h
+    float wind_gust = 9;
+
+    // Max recorded daily gust in km/h
+    float wind_gust_max_daily = 10;
+
+    // How much rain it fell in mm during the last event
+    float rain_event = 11;
+
+    // Current rain faill in mm/hr
+    float rain_rate = 12;
+
+    // Total amount of rain in the last hour in mm
+    float rain_hourly = 13;
+
+    // Total amount of rain in the last day in mm
+    float rain_daily = 14;
+
+    // Total amount of rain in the last week in mm
+    float rain_weekly = 15;
+
+    // Total amount of rain in the last month in mm
+    float rain_monthly = 16;
+
+    // Total amount of rain in mm
+    float rain_total = 17;
+
+    // UV index
+    uint32 uv = 18;
+
+    // Solar radiation in w/m2
+    float solar_radiation = 19;
+}

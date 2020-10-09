@@ -1,0 +1,6 @@
+METHOD: GET
+Data in path aka query params
+
+  url:
+   '/weatherstation/updateweatherstation.php?ID=id&PASSWORD=key&indoortempf=72.0&tempf=61.5&dewptf=61.2&windchillf=61.5&indoorhumidity=73&humidity=99&windspeedmph=0.0&windgustmph=0.0&winddir=235&absbaromin=28.751&baromin=29.531&rainin=0.425&dailyrainin=1.102&weeklyrainin=1.961&monthlyrainin=1.122&solarradiation=0.00&UV=0&dateutc=2020-10-03%2015:40:58&softwaretype=EasyWeatherV1.5.4&action=updateraw&realtime=1&rtfreq=5',
+

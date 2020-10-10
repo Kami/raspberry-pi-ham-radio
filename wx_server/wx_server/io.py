@@ -8,8 +8,7 @@ import structlog
 
 from generated.protobuf import messages_pb2
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../data/"))
+from wx_server.configuration import get_config
 
 LOG = structlog.get_logger(__name__)
 
@@ -75,8 +74,6 @@ def get_weather_observation_for_date(date: datetime.datetime, return_closest=Tru
             date_prev = date - datetime.timedelta(minutes=index)
             dates.append(date_prev)
 
-    print(dates)
-
     target_directory = get_directory_path_for_date(date=date)
 
     for date in dates:
@@ -102,7 +99,7 @@ def get_directory_path_for_date(date: datetime.datetime) -> str:
     month = zero_pad_value(date.month)
     day = zero_pad_value(date.day)
 
-    target_directory = os.path.join(DATA_DIR, year, month, day)
+    target_directory = os.path.join(get_config()["main"]["data_dir"], year, month, day)
     return target_directory
 
 

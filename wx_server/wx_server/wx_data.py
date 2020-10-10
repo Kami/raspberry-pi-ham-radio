@@ -44,6 +44,5 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
 
     persist_weather_observation(observation_pb)
     date = datetime.datetime.fromtimestamp(observation_pb.timestamp)
-    print(get_weather_observation_for_date(date))
 
     return '', 200, {}

@@ -1,3 +1,4 @@
+import hashlib
 import datetime
 
 import structlog
@@ -9,6 +10,7 @@ from flask import current_app as app
 
 from wx_server.formatters import format_ecowitt_weather_data
 from wx_server.formatters import dict_to_protobuf
+from wx_server.configuration import get_config
 from wx_server.io import persist_weather_observation
 from wx_server.io import get_weather_observation_for_date
 
@@ -20,15 +22,13 @@ wx_data_app = Blueprint('wxz_data', __name__, url_prefix='/v1/wx/data')
 
 LOG = structlog.get_logger(__name__)
 
-# Maps station id to a secret
-VALID_SECRETS = {
-    "home": "foobar"
-}
-
 
 @wx_data_app.route('/<string:station_id>/<string:secret>', methods=['POST'])
 def handle_wx_data(station_id: str, secret: str) -> Response:
-    if secret != VALID_SECRETS.get(station_id, None):
+    config_secret = get_config()["secrets"].get(station_id, "")
+    secret_hash = hashlib.sha256(b"%s:%s" % (station_id.encode("utf-8"), secret.encode("utf-8"))).hexdigest()
+
+    if secret_hash != config_secret:
         LOG.info("Received invalid or missing secret, aborting request")
         return 'Invalid or missing secret', 403, {}
 

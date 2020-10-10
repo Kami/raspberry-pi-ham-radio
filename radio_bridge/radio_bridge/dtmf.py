@@ -28,7 +28,7 @@ class DTMFDecoder(object):
 
     def __init__(self,
                  file_path: str = "/tmp/recording.wav",
-                 rate: int = 20000):
+                 rate: int = 44100):
         self._file_path = file_path
         self._rate = rate
 

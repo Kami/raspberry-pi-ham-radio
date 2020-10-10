@@ -105,7 +105,7 @@ class DTMFSequenceReader(object):
         while self._started:
             if iteration_counter >= max_loop_iterations:
                 # Max iterations reached, reset read_sequence and start from scratch
-                LOG.debug("Max iterations reached, reseting read_sequence and iteration counter")
+                LOG.info("Max iterations reached, reseting read_sequence and iteration counter")
 
                 read_sequence = ""
                 iteration_counter = 0
@@ -121,7 +121,7 @@ class DTMFSequenceReader(object):
                 iteration_counter = 0
                 read_sequence += char
 
-                LOG.debug("Got char %s, current sequence: %s" % (char, read_sequence))
+                LOG.info("Got char %s, current sequence: %s" % (char, read_sequence))
 
                 # If sequence is valid
                 plugin = self._sequence_to_plugin_map.get(read_sequence, None)

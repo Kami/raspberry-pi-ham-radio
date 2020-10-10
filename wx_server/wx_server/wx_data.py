@@ -43,6 +43,6 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
     observation_pb = dict_to_protobuf(res)
 
     persist_weather_observation(observation_pb)
-    date = datetime.datetime.fromtimestamp(observation_pb.timestamp)
+    log.debug("Weather observation persisted", observation_pb=observation_pb)
 
     return '', 200, {}

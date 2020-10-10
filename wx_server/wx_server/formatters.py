@@ -19,9 +19,9 @@ def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:
     result["timestamp"] = int(result["datetime"].timestamp())
 
     # Temperature, dewpoint and humidity
-    result["temperature"] = fahrenheit_to_celsius(float(data["tempinf"]))  # celsius
-    result["dewpoint"] = fahrenheit_to_celsius(float(data["humidityin"]))  # celsius
+    result["temperature"] = fahrenheit_to_celsius(float(data["tempf"]))  # celsius
     result["humidity"] = int(data["humidity"])  # %
+    result["dewpoint"] = result["temperature"] - ((100 - result["humidity"]) / 5.0)  # celsius
 
     # Pressure data
     result["pressure_abs"] = inches_of_mercury_to_hpa(float(data["baromabsin"]))  # hpa

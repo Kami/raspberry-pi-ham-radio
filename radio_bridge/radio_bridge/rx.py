@@ -17,9 +17,9 @@ class RX(object):
                  file_path: str ="/tmp/recording.wav",
                  audio_format=pyaudio.paInt16,
                  channels: int = 1,
-                 rate: int = 44100,
+                 rate: int = 48000,
                  chunk_size: int = 2 ** 12,  # frames per buffer
-                 time: int = 0.4):
+                 time: int = 0.2):
         self._device_index = input_device_index
         self._file_path = file_path
         self._audio_format = audio_format

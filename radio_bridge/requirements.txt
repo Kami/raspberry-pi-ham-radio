@@ -1,0 +1,4 @@
+pluginlib==0.8.0
+gTTS==2.1.1
+PyAudio==0.2.11
+scipy==1.5.2

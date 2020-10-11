@@ -10,6 +10,8 @@ import pluginlib
 # Maps DTMF sequence to a plugin class instance (singleton)
 DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP: Dict[str, Type[BasePlugin]] = {}
 
+REGISTERED_PLUGINS: Dict[str, Type[BasePlugin]] = {}
+
 LOG = structlog.getLogger(__name__)
 
 INITIALIZED = False
@@ -19,10 +21,10 @@ def get_plugin_class_for_dtmf_sequence(sequence: str) -> Optional[Type[BasePlugi
 
 
 def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
-    return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP
+    return REGISTERED_PLUGINS
 
 def _load_and_register_plugins() -> None:
-    global INITIALIZED
+    global INITIALIZED, REGISTERED_PLUGINS
 
     if INITIALIZED:
         return
@@ -33,13 +35,18 @@ def _load_and_register_plugins() -> None:
     for plugin_name, plugin_class in plugins["DTMFPlugin"].items():
         LOG.debug("Found plugin: %s" % (plugin_name))
 
+        REGISTERED_PLUGINS[plugin_name] = plugin_class()
+
         dtmf_sequence = plugin_class.DTMF_SEQUENCE
 
-        if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
-            raise ValueError("DTMF sequence #%s is already registered for another plugin" % (dtmf_sequence))
+        if dtmf_sequence:
+            if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
+                raise ValueError("DTMF sequence #%s is already registered for another plugin" % (dtmf_sequence))
 
-        DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()
-        LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
+            DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()
+            LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
+        else:
+            LOG.debug("Registered plugin %s" % (plugin_name))
 
     INITIALIZED = True
 

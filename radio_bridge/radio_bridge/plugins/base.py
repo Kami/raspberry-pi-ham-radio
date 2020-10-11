@@ -1,5 +1,6 @@
 from typing import Dict
 from typing import Callable
+from typing import Optional
 
 import os
 
@@ -27,14 +28,32 @@ INITIALIZED = False
 @pluginlib.Parent("DTMFPlugin")
 class BasePlugin(object):
     NAME: str
-    DTMF_SEQUENCE: str
+    DTMF_SEQUENCE: Optional[str] = None
 
     def __init__(self):
         self._tts = TextToSpeech()
         self._audio_player = AudioPlayer()
 
+    def initialize(self, config) -> None:
+        """
+        Initialize plugin with plugin specific configuration (if any exists).
+        """
+        pass
+
     @pluginlib.abstractmethod
     def run(self):
+        pass
+
+    def enable_tx(self):
+        """
+        Enable transmit functionality of the readio.
+        """
+        pass
+
+    def disable_tx(self):
+        """
+        Disable transmit functionality of the readio.
+        """
         pass
 
     def say(self, text: str):

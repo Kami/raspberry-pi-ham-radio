@@ -219,11 +219,12 @@ class DTMFDecoder(object):
 
 
 class DTMFSequenceReader(object):
-    def __init__(self, sequence_to_plugin_map: Dict[str, Callable] = None):
+    def __init__(self, server, sequence_to_plugin_map: Dict[str, Callable] = None):
         """
         :param sequence_to_plugin_map: Maps sequence to a plugin class to be invoked when that
                                        sequence is read.
         """
+        self._server = server
         self._sequence_to_plugin_map = sequence_to_plugin_map or {}
 
         self._started = False
@@ -247,6 +248,9 @@ class DTMFSequenceReader(object):
         max_loop_iterations = 15
 
         while self._started:
+            # TODO: Check if there are any cron jobs scheduled to run now and run them
+            print("in loop")
+            print(self._server._cron_jobs_to_run)
             if iteration_counter >= max_loop_iterations:
                 # Max iterations reached, reset read_sequence and start from scratch
                 LOG.info("Max iterations reached, reseting read_sequence and iteration counter")

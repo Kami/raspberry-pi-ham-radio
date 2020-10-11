@@ -31,7 +31,7 @@ CONFIG = None
 LOG = structlog.get_logger()
 
 
-def load_and_parse_config(config_path: str, validate=True):
+def load_and_parse_config(config_path: str, validate: bool = True):
     global CONFIG
 
     log = LOG.bind(config_path=config_path)
@@ -69,7 +69,7 @@ def validate_config(config):
     return config
 
 
-def get_config():
+def get_config() -> configparser.ConfigParser:
     """
     Retrieved loaded and parsed config instance.
 
@@ -80,4 +80,5 @@ def get_config():
     if not CONFIG:
         load_and_parse_config(CONFIG_PATH)
 
+    assert CONFIG is not None
     return CONFIG

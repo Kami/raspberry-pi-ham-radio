@@ -1,11 +1,16 @@
 from typing import List
 from typing import Dict
+from typing import Any
 from typing import Callable
+from typing import Optional
+
+import abc
+import wave
 
 import structlog
 import numpy as np
 
-from scipy.io import wavfile as wav
+from scipy.io import wavfile
 from scipy.fftpack import fft
 
 from radio_bridge.rx import RX
@@ -15,30 +20,49 @@ LOG = structlog.getLogger(__name__)
 MAX_SEQUENCE_LENGTH = 6
 
 # Maps DTMF character to frequency boundaries
-DTMF_TABLE = {
+DTMF_TABLE_HIGH_LOW = {
     '1': [1209, 697], '2': [1336, 697], '3': [1477, 697], 'A': [1633, 697],
     '4': [1209, 770], '5': [1336, 770], '6': [1477, 770], 'B': [1633, 770],
     '7': [1209, 852], '8': [1336, 852], '9': [1477, 852], 'C': [1633, 852],
     '*': [1209, 941], '0': [1336, 941], '#': [1477, 941], 'D': [1633, 941],
 }
 
+DTMF_TABLE_LOW_HIGH = {(697, 1209): "1", (697, 1336): "2", (697, 1477): "3", (770, 1209): "4", (770, 1336): "5", (770, 1477): "6", (852, 1209): "7", (852, 1336): "8", (852, 1477): "9", (941, 1209): "*", (941, 1336): "0", (941, 1477): "#", (697, 1633): "A", (770, 1633): "B", (852, 1633): "C", (941, 1633): "D"}
 
-class DTMFDecoder(object):
+class BaseDTMFDecoderImplementation(object):
 
-
-    def __init__(self,
-                 file_path: str = "/tmp/recording.wav",
-                 rate: int = 48000):
+    def __init__(self, file_path: str = "/tmp/recording.wav",
+                 **implementation_kwargs: Any):
         self._file_path = file_path
-        self._rate = rate
 
+    @abc.abstractmethod
     def decode(self) -> str:
-        # reading voice
-        data = wav.read(self._file_path, 'rb')
+        pass
+
+    def _get_sample_rate(self):
+        """
+        Return sample (frame) rate for the input file.
+        """
+        with wave.open(self._file_path, 'r') as wav:
+            (_, _, sample_rate, _, _, _) = wav.getparams()
+
+        return sample_rate
+
+
+
+class FFT1DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
+    """
+    DTMF decoder based on simple FFT.
+    """
+    def decode(self, return_on_first_char: bool = True) -> str:
+        sample_rate = self._get_sample_rate()
+
+        # Read audio data
+        data = wavfile.read(self._file_path, 'rb')
 
         # data is voice signal. its type is list(or numpy array)
         # Calculate fourier trasform of data
-        FourierTransformOfData = np.fft.fft(np.array(data[1]), self._rate)
+        FourierTransformOfData = np.fft.fft(np.array(data[1]), sample_rate)
 
         # Convert fourier transform complex number to integer numbers
         for i in range(len(FourierTransformOfData)):
@@ -54,15 +78,22 @@ class DTMFDecoder(object):
                 FilteredFrequencies.append(i)
 
         # Detect and print pressed button
-        for char, frequency_pair in DTMF_TABLE.items():
+        result = ""
+
+        for char, frequency_pair in DTMF_TABLE_HIGH_LOW.items():
             if (self._is_number_in_array(FilteredFrequencies, frequency_pair[0]) and
                 self._is_number_in_array(FilteredFrequencies, frequency_pair[1])):
-                LOG.debug("Foound matching DTMF char %s in recording %s" % (char, self._file_path))
-                return char
+                LOG.debug("Found matching DTMF char %s in recording %s" % (char, self._file_path))
 
-        LOG.debug("No matching DTMF sequence found in recording %s" % (self._file_path))
+                result += char
 
-        return None
+                if return_on_first_char:
+                    return result
+
+        if not result:
+            LOG.debug("No matching DTMF sequence found in recording %s" % (self._file_path))
+
+        return result
 
     def _is_number_in_array(self, array: List[int], number: int) -> bool:
         offset = 5
@@ -72,6 +103,119 @@ class DTMFDecoder(object):
                 return True
 
         return False
+
+
+class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
+    # Based on https://github.com/ribt/dtmf-decoder
+
+    def __init__(self, file_path: str = "/tmp/recording.wav",
+                 acceptable_error: int = 20, process_intervals: float = 0.05):
+        """
+        :param acceptable_error. Acceptable frequency error in hertz.
+        :param process_intervals: Process in <x> second intervals.
+        """
+        super(FFT2DTMFDecoderImplementation, self).__init__(file_path=file_path)
+
+        self._acceptable_error = acceptable_error
+        self._process_intervals = process_intervals
+
+    def decode(self, return_on_first_char: bool = True) -> str:
+        fps, data = wavfile.read(self._file_path, 'rb')
+
+        assert len(data.shape) == 1, "input is not mono"
+
+        precision = self._process_intervals
+        duration = len(data) / fps
+        step = int(len(data) // (duration // precision))
+
+        result = ""
+        char = ""
+
+        for i in range(0, len(data)-step, step) :
+            signal = data[i:i+step]
+
+            fourier = np.fft.fft(signal)
+            frequencies = np.fft.fftfreq(signal.size, d=1/fps)
+
+            # Low
+            debut = np.where(frequencies > 0)[0][0]
+            fin = np.where(frequencies > 1050)[0][0]
+
+            freq = frequencies[debut:fin]
+            amp = abs(fourier.real[debut:fin])
+
+            lf = freq[np.where(amp == max(amp))[0][0]]
+
+            delta = self._acceptable_error
+            best = 0
+
+            for f in [697, 770, 852, 941] :
+                if abs(lf-f) < delta :
+                    delta = abs(lf-f)
+                    best = f
+
+            lf = best
+
+            # High
+            debut = np.where(frequencies > 1100)[0][0]
+            fin = np.where(frequencies > 2000)[0][0]
+
+            freq = frequencies[debut:fin]
+            amp = abs(fourier.real[debut:fin])
+
+            hf = freq[np.where(amp == max(amp))[0][0]]
+
+            delta = self._acceptable_error
+            best = 0
+
+            for f in [1209, 1336, 1477, 1633] :
+                if abs(hf-f) < delta :
+                    delta = abs(hf-f)
+                    best = f
+
+            hf = best
+
+            t = int(i//step * precision)
+
+            if lf == 0 or hf == 0 :
+                char = ""
+            elif DTMF_TABLE_LOW_HIGH[(lf,hf)] != char:
+                char = DTMF_TABLE_LOW_HIGH[(lf,hf)]
+                result += char
+
+                if return_on_first_char:
+                    return result
+
+        return result
+
+
+
+class DTMFDecoder(object):
+
+    implementations = {
+        "fft_1": FFT1DTMFDecoderImplementation,
+        "fft_2": FFT2DTMFDecoderImplementation
+    }
+
+    def __init__(self, file_path: str = "/tmp/recording.wav",
+                 implementation: str = "fft_2", **implementation_kwargs: Any):
+        self._file_path = file_path
+        self._implentation = implementation
+        self._implentation_kwargs = implementation_kwargs
+
+        if not implementation in self.implementations:
+            raise ValueError("Invalid implementation: %s. Valid implementation are: %s" %
+                             (implementation, ",".join(self.implementations)))
+
+        self._decoder = self.implementations[implementation](file_path=file_path,
+                                                             **self._implentation_kwargs)
+
+    def decode(self, return_on_first_char: bool = True) -> str:
+        """
+        :param return_on_first_char: True if we should return on a first matching character instead
+                                     of processing the whole sequence.
+        """
+        return self._decoder.decode()
 
 
 class DTMFSequenceReader(object):

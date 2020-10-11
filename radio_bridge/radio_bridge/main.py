@@ -4,8 +4,10 @@ import structlog
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from wx_server.configuration import load_and_parse_config
+from wx_server.configuration import load_and_parse_config as wx_server_load_and_parse_config
 
+from radio_bridge.configuration import load_and_parse_config
+from radio_bridge.configuration import get_config
 from radio_bridge.log import configure_logging
 from radio_bridge.dtmf import DTMFSequenceReader
 from radio_bridge.plugins import get_available_plugins
@@ -44,8 +46,10 @@ class RadioBridgeServer(object):
 
         self._scheduler.add_job(lambda: self._cron_jobs_to_run.append("a"), "interval", seconds=5)
 
-        load_and_parse_config(WX_SERVER_CONFIG_PATH)
-        configure_logging(LOGGING_CONFIG_PATH)
+        load_and_parse_config(CONFIG_PATH)
+        config = get_config()
+        configure_logging(config["main"]["logging_config"])
+        wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)
 
         LOG.info("Active plugins: %s" % (self._all_plugins))
 

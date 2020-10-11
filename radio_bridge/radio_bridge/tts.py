@@ -9,6 +9,7 @@ from radio_bridge.configuration import get_config
 
 LOG = structlog.getLogger(__name__)
 
+CACHE_GENERATED_AUDIO_FILES = get_config()["tts"]["enable_cache"]
 CACHED_AUDO_FILES_PATH = get_config()["tts"]["cache_directory"]
 
 
@@ -27,9 +28,13 @@ class TextToSpeech(object):
         # TODO: Add cron job which auto purges old recording cached files
         file_hash = hashlib.md5(text.encode("utf-8")).hexdigest()
         file_name = "%s.mp3" % (file_hash)
-        file_path = os.path.join(CACHED_AUDO_FILES_PATH, file_name)
 
-        if use_cache:
+        if CACHE_GENERATED_AUDIO_FILES:
+            file_path = os.path.join("/tmp", file_name)
+        else:
+            file_path = os.path.join(CACHED_AUDO_FILES_PATH, file_name)
+
+        if CACHE_GENERATED_AUDIO_FILES and use_cache:
             if os.path.isfile(file_path):
                 LOG.debug("Using cache file: %s" % (file_path))
                 return file_path

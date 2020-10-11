@@ -20,6 +20,7 @@ DEFAULT_VALUES = {
     },
     "tts": {
         "library": "gtts",
+        "enable_cache": True,
         "cache_directory": "/tmp/tts-audio-cache"
     },
     "dtmf": {

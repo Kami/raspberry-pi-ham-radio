@@ -19,7 +19,8 @@ DEFAULT_VALUES = {
         "sample_rate": 48000
     },
     "tts": {
-        "library": "gtts"
+        "library": "gtts",
+        "cache_directory": "/tmp/tts-audio-cache"
     },
     "dtmf": {
         "implementation": "fft_2"

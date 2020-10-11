@@ -5,9 +5,11 @@ import hashlib
 import structlog
 from gtts import gTTS
 
+from radio_bridge.configuration import get_config
+
 LOG = structlog.getLogger(__name__)
 
-CACHED_AUDO_FILES_PATH = "/tmp/gtts-audio-cache"
+CACHED_AUDO_FILES_PATH = get_config()["tts"]["cache_directory"]
 
 
 class TextToSpeech(object):

@@ -249,8 +249,6 @@ class DTMFSequenceReader(object):
 
         while self._started:
             # TODO: Check if there are any cron jobs scheduled to run now and run them
-            print("in loop")
-            print(self._server._cron_jobs_to_run)
             if iteration_counter >= max_loop_iterations:
                 # Max iterations reached, reset read_sequence and start from scratch
                 LOG.info("Max iterations reached, reseting read_sequence and iteration counter")
@@ -276,7 +274,8 @@ class DTMFSequenceReader(object):
 
                 if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
                     if plugin:
-                        LOG.info("Found valid sequence \"%s\", invoking callback" % (read_sequence))
+                        LOG.info("Found valid sequence \"%s\", invoking plugin \"%s\"" % (read_sequence,
+                                                                                          plugin.NAME))
                         plugin.run()
                     else:
                         LOG.info("Max sequence length limit reached, reseting sequence")

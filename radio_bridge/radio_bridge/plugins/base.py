@@ -28,6 +28,7 @@ INITIALIZED = False
 @pluginlib.Parent("DTMFPlugin")
 class BasePlugin(object):
     NAME: str
+    DESCRIPTION: str
     DTMF_SEQUENCE: Optional[str] = None
 
     def __init__(self):
@@ -64,7 +65,7 @@ class BasePlugin(object):
         self._audio_player.play_file(file_path=CALLSIGN_AUDIO_PATH)
 
         # 2. Play actual requested text
-        # TODO: Add support for caching playbacks for a while.
-        # Use hash of text for unique id
+        LOG.trace("Playing text \"%s\"" % (text))
+
         file_path = self._tts.text_to_speech(text=text)
         self._audio_player.play_file(file_path=file_path, delete_after_play=False)

@@ -21,7 +21,18 @@ def get_plugin_class_for_dtmf_sequence(sequence: str) -> Optional[Type[BasePlugi
 
 
 def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
+    """
+    Return a list of all the available and registered plugins.
+    """
     return REGISTERED_PLUGINS
+
+
+def get_plugins_with_dtmf_sequence() -> Dict[str, Type[BasePlugin]]:
+    """
+    Return a list of all the available plugins which are triggered via DTMF sequence.
+    """
+    return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP
+
 
 def _load_and_register_plugins() -> None:
     global INITIALIZED, REGISTERED_PLUGINS

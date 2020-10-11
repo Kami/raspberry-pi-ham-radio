@@ -24,6 +24,7 @@ RAIN_NO_RAIN = ""
 
 class WeatherObservationPlugin(BasePlugin):
     NAME = "Current weather"
+    DESCRIPTION = "Current weather information."
     DTMF_SEQUENCE = "34"
 
     def run(self):

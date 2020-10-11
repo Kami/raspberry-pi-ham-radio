@@ -6,3 +6,4 @@ gTTS==2.1.1
 PyAudio==0.2.11
 scipy==1.5.2
 apscheduler==3.6.3
+mutagen==1.45.1

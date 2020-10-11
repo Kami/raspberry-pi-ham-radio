@@ -36,7 +36,7 @@ class RX(object):
         atexit.register(self.stop)
 
     def record_audio(self):
-        LOG.debug("Starting recording")
+        LOG.trace("Starting recording")
 
         # Start Recording
         self.stream = self.audio.open(format=self._audio_format,
@@ -61,7 +61,7 @@ class RX(object):
         if not self.frames_buffer:
             return None
 
-        LOG.debug("Writting frame buffer to %s" % (self._file_path))
+        LOG.trace("Writting frame buffer to %s" % (self._file_path))
 
         with wave.open(self._file_path, 'wb') as wf:
             wf.setnchannels(self._channels)

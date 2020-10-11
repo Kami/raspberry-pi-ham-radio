@@ -29,3 +29,7 @@ Plugins:
 - [ ] Cron plugin
   - [ ] Say text on specified intervals
 - [ ] Weather elsewhere plugin - ability to retrieve weather for other city / station
+
+Misc:
+
+- [ ] Lint (flake8, black, mypy)

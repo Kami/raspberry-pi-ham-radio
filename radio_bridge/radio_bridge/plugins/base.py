@@ -7,6 +7,7 @@ import os
 import structlog
 import pluginlib
 
+from radio_bridge.configuration import get_config
 from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
 
@@ -32,6 +33,7 @@ class BasePlugin(object):
     DTMF_SEQUENCE: Optional[str] = None
 
     def __init__(self):
+        self._tx_mode = get_config()["main"]["tx_mode"]
         self._tts = TextToSpeech()
         self._audio_player = AudioPlayer()
 
@@ -47,25 +49,36 @@ class BasePlugin(object):
 
     def enable_tx(self):
         """
-        Enable transmit functionality of the readio.
+        Enable transmit functionality of the radio.
         """
-        pass
+        if self._tx_mode == "vox":
+            return
+
+        LOG.trace("Enabling TX mode")
 
     def disable_tx(self):
         """
-        Disable transmit functionality of the readio.
+        Disable transmit functionality of the radio.
         """
-        pass
+        if self._tx_mode == "vox":
+            return
+
+        LOG.trace("Disabling TX mode")
 
     def say(self, text: str):
         """
         Run tts on the provided text and play it via the audi player.
         """
-        # 1. Play callsign / hello message
-        self._audio_player.play_file(file_path=CALLSIGN_AUDIO_PATH)
+        self.enable_tx()
 
-        # 2. Play actual requested text
-        LOG.trace("Playing text \"%s\"" % (text))
+        try:
+            # 1. Play callsign / hello message
+            self._audio_player.play_file(file_path=CALLSIGN_AUDIO_PATH)
 
-        file_path = self._tts.text_to_speech(text=text)
-        self._audio_player.play_file(file_path=file_path, delete_after_play=False)
+            # 2. Play actual requested text
+            LOG.trace("Playing text \"%s\"" % (text))
+
+            file_path = self._tts.text_to_speech(text=text)
+            self._audio_player.play_file(file_path=file_path, delete_after_play=False)
+        finally:
+            self.disable_tx()

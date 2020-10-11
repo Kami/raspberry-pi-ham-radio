@@ -6,7 +6,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from wx_server.configuration import load_and_parse_config as wx_server_load_and_parse_config
 
-from radio_bridge.configuration import load_and_parse_config
 from radio_bridge.configuration import get_config
 from radio_bridge.log import configure_logging
 from radio_bridge.dtmf import DTMFSequenceReader
@@ -19,8 +18,6 @@ DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/radio_brid
 
 DEFAULT_WX_SERVER_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../../wx_server/conf/wx_server.conf'))
 WX_SERVER_CONFIG_PATH = os.environ.get("WX_SERVER_CONFIG_PATH", DEFAULT_WX_SERVER_CONFIG_PATH)
-
-CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
 LOG = structlog.getLogger(__name__)
 
@@ -46,7 +43,6 @@ class RadioBridgeServer(object):
 
         self._scheduler.add_job(lambda: self._cron_jobs_to_run.append("a"), "interval", seconds=5)
 
-        load_and_parse_config(CONFIG_PATH)
         config = get_config()
         configure_logging(config["main"]["logging_config"])
         wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)

@@ -7,9 +7,8 @@ import structlog
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
-LOG = structlog.get_logger()
-
-CONFIG = None
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/radio_bridge.conf'))
+CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
 DEFAULT_VALUES = {
     "main": {
@@ -26,6 +25,10 @@ DEFAULT_VALUES = {
         "implementation": "fft_2"
     }
 }
+
+CONFIG = None
+
+LOG = structlog.get_logger()
 
 
 def load_and_parse_config(config_path: str, validate=True):
@@ -55,7 +58,7 @@ def validate_config(config):
     config["main"]["logging_config"] = config["main"]["logging_config"].replace("{rootdir}", ROOT_DIR)
 
     if not os.path.isfile(config["main"]["logging_config"]):
-        raise ValueError("Logging config %s doesn't exist or it it's not a file" %
+        raise ValueError("Logging config %s doesn't exist or it's not a file" %
                          (config["main"]["logging_config"]))
 
     # TODO validate dtms implementation, tts library
@@ -67,9 +70,14 @@ def validate_config(config):
 
 
 def get_config():
+    """
+    Retrieved loaded and parsed config instance.
+
+    If config hasn't be loaded yet, it will be loaded and parsed by this method.
+    """
     global CONFIG
 
     if not CONFIG:
-        load_and_parse_config()
+        load_and_parse_config(CONFIG_PATH)
 
     return CONFIG

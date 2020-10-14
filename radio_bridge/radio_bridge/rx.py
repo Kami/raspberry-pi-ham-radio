@@ -33,7 +33,16 @@ class RX(object):
 
         self.frames_buffer = []
 
+        device_info = self._get_device_info(self._device_index)
+        LOG.debug("Using audio device with index %s and name %s." % (self._device_index,
+                                                                     device_info["name"]), **device_info)
+
         atexit.register(self.stop)
+
+    def _get_device_info(self, device_index: int) -> dict:
+        p = pyaudio.PyAudio()
+        result = p.get_device_info_by_host_api_device_index(0, device_index)
+        return result
 
     def record_audio(self):
         LOG.trace("Starting recording")

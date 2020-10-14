@@ -16,7 +16,8 @@ DEFAULT_VALUES = {
         "tx_mode": "vox",
     },
     "audio": {
-        "sample_rate": 48000
+        "input_device_index": 0,
+        "sample_rate": 48000,
     },
     "tts": {
         "library": "gtts",

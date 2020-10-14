@@ -14,6 +14,7 @@ from scipy.io import wavfile
 from scipy.fftpack import fft
 
 from radio_bridge.rx import RX
+from radio_bridge.configuration import get_config
 
 LOG = structlog.getLogger(__name__)
 
@@ -227,9 +228,13 @@ class DTMFSequenceReader(object):
         self._server = server
         self._sequence_to_plugin_map = sequence_to_plugin_map or {}
 
+        config = get_config()
+
         self._started = False
         self._dtmf_decoder = DTMFDecoder()
-        self._rx = RX()
+        print(config["audio"]["sample_rate"])
+        self._rx = RX(input_device_index=int(config["audio"]["input_device_index"]),
+                      rate=int(config["audio"]["sample_rate"]))
 
     def start(self):
         self._started = True

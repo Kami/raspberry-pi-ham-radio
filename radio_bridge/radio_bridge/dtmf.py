@@ -13,12 +13,7 @@ import numpy as np
 from scipy.io import wavfile
 from scipy.fftpack import fft
 
-from radio_bridge.rx import RX
-from radio_bridge.configuration import get_config
-
 LOG = structlog.getLogger(__name__)
-
-MAX_SEQUENCE_LENGTH = 6
 
 # Maps DTMF character to frequency boundaries
 DTMF_TABLE_HIGH_LOW = {
@@ -29,6 +24,7 @@ DTMF_TABLE_HIGH_LOW = {
 }
 
 DTMF_TABLE_LOW_HIGH = {(697, 1209): "1", (697, 1336): "2", (697, 1477): "3", (770, 1209): "4", (770, 1336): "5", (770, 1477): "6", (852, 1209): "7", (852, 1336): "8", (852, 1477): "9", (941, 1209): "*", (941, 1336): "0", (941, 1477): "#", (697, 1633): "A", (770, 1633): "B", (852, 1633): "C", (941, 1633): "D"}
+
 
 class BaseDTMFDecoderImplementation(object):
 
@@ -217,77 +213,3 @@ class DTMFDecoder(object):
                                      of processing the whole sequence.
         """
         return self._decoder.decode()
-
-
-class DTMFSequenceReader(object):
-    def __init__(self, server, sequence_to_plugin_map: Dict[str, Callable] = None):
-        """
-        :param sequence_to_plugin_map: Maps sequence to a plugin class to be invoked when that
-                                       sequence is read.
-        """
-        self._server = server
-        self._sequence_to_plugin_map = sequence_to_plugin_map or {}
-
-        config = get_config()
-
-        self._started = False
-        self._dtmf_decoder = DTMFDecoder()
-        print(config["audio"]["sample_rate"])
-        self._rx = RX(input_device_index=int(config["audio"]["input_device_index"]),
-                      rate=int(config["audio"]["sample_rate"]))
-
-    def start(self):
-        self._started = True
-
-        return self._read_sequence_and_invoke_plugin()
-
-    def stop(self):
-        self._started = False
-
-    def _read_sequence_and_invoke_plugin(self) -> None:
-        last_char = None
-        read_sequence = ""
-        iteration_counter = 0
-
-        # How many loop iterations before we reset the read_sequence array
-        max_loop_iterations = 15
-
-        while self._started:
-            # TODO: Check if there are any cron jobs scheduled to run now and run them
-            if iteration_counter >= max_loop_iterations:
-                # Max iterations reached, reset read_sequence and start from scratch
-                LOG.info("Max iterations reached, reseting read_sequence and iteration counter")
-
-                read_sequence = ""
-                iteration_counter = 0
-
-            self._rx.record_audio()
-            char = self._dtmf_decoder.decode()
-
-            if char != last_char:
-                if not char:
-                    iteration_counter += 1
-                    continue
-
-                iteration_counter = 0
-                read_sequence += char
-
-                LOG.info("Got char %s, current sequence: %s" % (char, read_sequence))
-
-                # If sequence is valid
-                plugin = self._sequence_to_plugin_map.get(read_sequence, None)
-
-                if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
-                    if plugin:
-                        LOG.info("Found valid sequence \"%s\", invoking plugin \"%s\"" % (read_sequence,
-                                                                                          plugin.NAME))
-                        plugin.run()
-                    else:
-                        LOG.info("Max sequence length limit reached, reseting sequence")
-
-                    read_sequence = ""
-            else:
-                iteration_counter += 1
-                continue
-
-            last_char = char

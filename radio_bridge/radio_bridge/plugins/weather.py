@@ -3,7 +3,7 @@ import datetime
 from wx_server.io import get_weather_observation_for_date
 from generated.protobuf import messages_pb2
 
-from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
 
 __all__ = ["WeatherObservationPlugin"]
 
@@ -22,7 +22,7 @@ WIND_DATA_NO_WIND = "No wind."
 RAIN_RAIN = "Rain {rain_rate} mm per hour"
 RAIN_NO_RAIN = ""
 
-class WeatherObservationPlugin(BasePlugin):
+class WeatherObservationPlugin(BaseDTMFPlugin):
     NAME = "Current weather"
     DESCRIPTION = "Current weather information."
     DTMF_SEQUENCE = "34"

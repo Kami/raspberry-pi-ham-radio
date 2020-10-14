@@ -11,7 +11,7 @@ from radio_bridge.configuration import get_config
 from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
 
-__all__ = ["BasePlugin"]
+__all__ = ["BaseDTMFPlugin", "BaseRegularPlugin"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AUDIO_FILES_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../audio_files"))
@@ -26,11 +26,9 @@ LOG = structlog.getLogger(__name__)
 INITIALIZED = False
 
 
-@pluginlib.Parent("DTMFPlugin")
 class BasePlugin(object):
     NAME: str
     DESCRIPTION: str
-    DTMF_SEQUENCE: Optional[str] = None
 
     def __init__(self):
         self._tx_mode = get_config()["main"]["tx_mode"]
@@ -41,10 +39,6 @@ class BasePlugin(object):
         """
         Initialize plugin with plugin specific configuration (if any exists).
         """
-        pass
-
-    @pluginlib.abstractmethod
-    def run(self):
         pass
 
     def enable_tx(self):
@@ -82,3 +76,27 @@ class BasePlugin(object):
             self._audio_player.play_file(file_path=file_path, delete_after_play=False)
         finally:
             self.disable_tx()
+
+
+@pluginlib.Parent("DTMFPlugin")
+class BaseDTMFPlugin(BasePlugin):
+    """
+    Base class for plugins which are invoked by a specific DTMF sequence.
+    """
+    NAME: str
+    DESCRIPTION: str
+    DTMF_SEQUENCE: Optional[str] = None
+
+    @pluginlib.abstractmethod
+    def run(self):
+        pass
+
+
+@pluginlib.Parent("RegularPlugin")
+class BaseRegularPlugin(BasePlugin):
+    """
+    Base class for plugins which are not tied to a specific DTMF sequence (think timer plugins,
+    etc.).
+    """
+    NAME: str
+    DESCRIPTION: str

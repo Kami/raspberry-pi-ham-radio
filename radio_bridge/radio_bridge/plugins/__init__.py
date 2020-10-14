@@ -50,14 +50,17 @@ def _load_and_register_plugins() -> None:
 
         dtmf_sequence = plugin_class.DTMF_SEQUENCE
 
-        if dtmf_sequence:
-            if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
-                raise ValueError("DTMF sequence #%s is already registered for another plugin" % (dtmf_sequence))
+        if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
+            raise ValueError("DTMF sequence #%s is already registered for another plugin" % (dtmf_sequence))
 
-            DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()
-            LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
-        else:
-            LOG.debug("Registered plugin %s" % (plugin_name))
+        DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()
+        LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
+
+    for plugin_name, plugin_class in plugins["RegularPlugin"].items():
+        LOG.debug("Found plugin: %s" % (plugin_name))
+
+        REGISTERED_PLUGINS[plugin_name] = plugin_class()
+        LOG.debug("Registered plugin %s" % (plugin_name))
 
     INITIALIZED = True
 

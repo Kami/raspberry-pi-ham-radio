@@ -1,11 +1,11 @@
-from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 
 """
 Plugin which says all the available commands.
 """
 
-class HelpPlugin(BasePlugin):
+class HelpPlugin(BaseDTMFPlugin):
     NAME = "Help Plugin"
     DESCRIPTION = "List available commands."
     DTMF_SEQUENCE = "12"

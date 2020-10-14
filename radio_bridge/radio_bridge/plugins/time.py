@@ -2,14 +2,14 @@ import datetime
 
 import structlog
 
-from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
 
 __all__ = ["CurrentTimePlugin"]
 
 TEXT = "Current time is {hour_local} {minute_local} local. {hour_utc}, {minute_utc} U T C."
 
 
-class CurrentTimePlugin(BasePlugin):
+class CurrentTimePlugin(BaseDTMFPlugin):
     NAME = "Current time"
     DESCRIPTION = "Current date and time."
     DTMF_SEQUENCE = "23"

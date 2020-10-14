@@ -1,4 +1,5 @@
 import os
+import threading
 
 import structlog
 
@@ -46,12 +47,12 @@ class RadioBridgeServer(object):
 
         self._scheduler = BackgroundScheduler()
 
+        # Holds a list of ids for cron jobs which should run during the next iteration of the main loop
+        self._cron_jobs_to_run_lock = threading.Lock()
         self._cron_jobs_to_run = []
 
     def start(self):
         self._started = True
-
-        self._scheduler.add_job(lambda: self._cron_jobs_to_run.append("a"), "interval", seconds=5)
 
         config = get_config()
         configure_logging(config["main"]["logging_config"])
@@ -62,9 +63,32 @@ class RadioBridgeServer(object):
         # Start the scheduler
         self._scheduler.start()
 
+        # Add any configured jobs to the scheduler
+        cron_plugin = self._all_plugins["CronSayPlugin"]
+        jobs = cron_plugin.get_scheduler_jobs()
+
+        def add_job_to_jobs_to_run(job_id):
+            def add_job_to_jobs_to_run_inner():
+                print("adding job")
+                print(job_id)
+                self._cron_jobs_to_run_lock.acquire()
+
+                try:
+                    self._cron_jobs_to_run.append(job_id)
+                finally:
+                    self._cron_jobs_to_run_lock.release()
+
+            return add_job_to_jobs_to_run_inner
+
+        for job_id, job_trigger in jobs:
+            print(job_trigger)
+            self._scheduler.add_job(add_job_to_jobs_to_run(job_id),
+                                    trigger=job_trigger,
+                                    id=job_id)
+
         LOG.info("Radio Bridge Server Started")
 
-        # Run main read on input loop and invoke callbacks
+        # Run main read on input loop and invoke corresponding plugin callbacks
         self._main_loop()
 
     def _main_loop(self) -> None:
@@ -77,6 +101,8 @@ class RadioBridgeServer(object):
         max_loop_iterations = 15
 
         while self._started:
+            self._run_scheduled_jobs()
+
             # TODO: Check if there are any cron jobs scheduled to run now and run them
             if iteration_counter >= max_loop_iterations:
                 # Max iterations reached, reset read_sequence and start from scratch
@@ -115,6 +141,31 @@ class RadioBridgeServer(object):
                 continue
 
             last_char = char
+
+    def _run_scheduled_jobs(self) -> None:
+        """
+        Function which runs as part of every loop iteration and checks if there are any scheduled
+        jobs which should run.
+
+        If they are, it runs them sequentially in order and removes them from jobs to run at the end.
+        """
+        jobs_to_run = self._cron_jobs_to_run[:]
+
+        LOG.trace("Jobs scheduled to run: %s" % (jobs_to_run))
+
+        cron_plugin = self._all_plugins["CronSayPlugin"]
+        # TODO: If there is a "pile up", auto drop old jobs to make sure we don't end up stick in
+        # infinite job execution loop
+
+        for job_id in jobs_to_run:
+            LOG.debug("Running scheduled job: %s" % (job_id))
+
+            try:
+                cron_plugin.run(job_id=job_id)
+            finally:
+                self._cron_jobs_to_run_lock.acquire()
+                self._cron_jobs_to_run.remove(job_id)
+                self._cron_jobs_to_run_lock.release()
 
     def stop(self):
         self._started = False

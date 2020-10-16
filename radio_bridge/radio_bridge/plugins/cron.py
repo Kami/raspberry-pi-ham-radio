@@ -75,6 +75,9 @@ class CronSayItemConfig(object):
         self.type = type
         self.value = value
 
+        if self.type == "file" and not os.path.isfile(self.value):
+            raise ValueError("File %s doesn't exist" % (self.value))
+
         # Lazily populated on first .duration property access
         self._duration = None
 
@@ -105,27 +108,27 @@ class CronSayPlugin(BaseRegularPlugin):
     def __init__(self):
         super(CronSayPlugin, self).__init__()
 
-        # Maps job id to text to say
-        self._job_id_to_text_map = self._parse_job_specs()
-
         plugin_config = get_config()["plugin:cron"]
-        self._parse_and_validate_config(plugin_config)
+        self._job_id_to_config_map = self._parse_and_validate_config(plugin_config)
 
     def run(self, job_id: str) -> None:
-        if job_id not in self._job_id_to_text_map:
+        if job_id not in self._job_id_to_config_map:
             raise ValueError("Unknown job: %s" % (job_id))
 
         # play file if type is file
+        job_config = self._job_id_to_config_map[job_id]
 
-        context = self._get_text_format_context()
-        print(context)
-        text_to_say = self._job_id_to_text_map[job_id].format(**context)
-        print(text_to_say)
-        self.say(text_to_say)
+        if job_config.type == "text":
+            context = self._get_text_format_context()
+            text_to_say = self._job_id_to_config_map[job_id].value.format(**context)
+            self.say(text_to_say)
+        elif job_config.type == "file":
+            self._audio_player.play_file(file_path=job_config.value, delete_after_play=False)
 
-    def _parse_and_validate_config(self, config):
+    def _parse_and_validate_config(self, config) -> Dict[str, CronSayItemConfig]:
         plugin_config = get_config()["plugin:cron"]
 
+        result = {}
         for job_id, job_specs in plugin_config.items():
             split = job_specs.split(JOB_SPEC_DELIMITER)
 
@@ -159,6 +162,9 @@ class CronSayPlugin(BaseRegularPlugin):
                 raise ValueError("Calculated audio duration for job %s is longer than maximum "
                                  "allowed (%s seconds > %s seconds)" % (job_id, item.duration, MAXIMUM_PLAYBACK_DURATION))
 
+            result[job_id] = item
+
+        return result
 
     def _validate_config(self, config):
         """"

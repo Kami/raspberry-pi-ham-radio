@@ -2,6 +2,8 @@ from typing import Dict
 from typing import Type
 from typing import Optional
 
+import itertools
+
 from radio_bridge.plugins.base import BasePlugin
 
 import structlog
@@ -43,7 +45,7 @@ def _load_and_register_plugins() -> None:
     loader = pluginlib.PluginLoader(modules=["radio_bridge.plugins"])
     plugins = loader.plugins
 
-    for plugin_name, plugin_class in plugins["DTMFPlugin"].items():
+    for plugin_name, plugin_class in itertools.chain(plugins["DTMFPlugin"].items(), plugins["DTMFWithDataPlugin"].items()):
         LOG.debug("Found plugin: %s" % (plugin_name))
 
         REGISTERED_PLUGINS[plugin_name] = plugin_class()

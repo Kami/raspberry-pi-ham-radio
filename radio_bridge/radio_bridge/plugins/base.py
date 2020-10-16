@@ -92,6 +92,21 @@ class BaseDTMFPlugin(BasePlugin):
         pass
 
 
+@pluginlib.Parent("DTMFWithDataPlugin")
+class BaseDTMFWithDataPlugin(BasePlugin):
+    """
+    Base class for plugins which are invoked by a specific DTMF sequence and take additiona data
+    which is passed to the run() method.
+    """
+    NAME: str
+    DESCRIPTION: str
+    DTMF_SEQUENCE: Optional[str] = None
+
+    @pluginlib.abstractmethod
+    def run(self, sequence: str):
+        pass
+
+
 @pluginlib.Parent("RegularPlugin")
 class BaseRegularPlugin(BasePlugin):
     """

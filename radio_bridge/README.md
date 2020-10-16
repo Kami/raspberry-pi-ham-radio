@@ -31,6 +31,8 @@ Main
 - [ ] Rate limiting / abuse pervention - each command can run x times per time period, depending
   on the command / plugin
 - [ ] Move common logging, config parsing code into common pacakge
+- [ ] Emulator mode so plugins and functionality can be tested without a radio
+- [ ] Ability to enable specific plugins
 
 Plugins:
 

@@ -4,23 +4,10 @@ from wx_server.io import get_weather_observation_for_date
 from generated.protobuf import messages_pb2
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
+from radio_bridge.utils import weather as weather_utils
 
 __all__ = ["WeatherObservationPlugin"]
 
-WEATHER_OBSERVATION_SHORT = """
-Temperature {temperature} degrees celsius.
-Dew point {dewpoint}.
-Pressure {pressure} hPa.
-{wind}
-{rain}
-UV index: {uv_index}
-""".strip()
-
-WIND_DATA_WIND = "Wind {wind_speed} kilometers per hour from the {wind_direction}."
-WIND_DATA_NO_WIND = "No wind."
-
-RAIN_RAIN = "Rain {rain_rate} mm per hour"
-RAIN_NO_RAIN = ""
 
 class WeatherObservationPlugin(BaseDTMFPlugin):
     NAME = "Current weather"
@@ -37,7 +24,7 @@ class WeatherObservationPlugin(BaseDTMFPlugin):
             return
 
         # 2. Convert it to text and say it
-        text = self._observation_pb_to_text(observation_pb)
+        text = weather_utils.observation_pb_to_text(observation_pb)
         self.say(text)
 
     def _observation_pb_to_text(self, observation_pb: messages_pb2.WeatherObservation) -> str:
@@ -46,7 +33,7 @@ class WeatherObservationPlugin(BaseDTMFPlugin):
         humidity = observation_pb.humidity
         pressure = round(observation_pb.pressure_rel, 1)
         wind_speed = round(observation_pb.wind_speed, 1)
-        wind_direction = self._get_wind_direction_text(observation_pb.wind_direction)
+        wind_direction = get_wind_direction_text(observation_pb.wind_direction)
         rain_rate = round(observation_pb.rain_rate, 1)
         uv_index = observation_pb.uv
 

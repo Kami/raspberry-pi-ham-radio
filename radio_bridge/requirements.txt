@@ -7,3 +7,5 @@ PyAudio==0.2.11
 scipy==1.5.2
 apscheduler==3.6.3
 mutagen==1.45.1
+requests==2.24.0
+xmltodict==0.12.0

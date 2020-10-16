@@ -1,4 +1,9 @@
+from typing import Tuple
+from typing import Callable
+
 import os
+import fnmatch
+import functools
 import threading
 
 import structlog
@@ -13,6 +18,7 @@ from radio_bridge.rx import RX
 from radio_bridge.dtmf import DTMFDecoder
 from radio_bridge.plugins import get_available_plugins
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
+from radio_bridge.plugins.base import BasePlugin
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/logging.conf'))
@@ -38,6 +44,7 @@ class RadioBridgeServer(object):
         self._all_plugins = get_available_plugins()
         self._dtmf_plugins = get_plugins_with_dtmf_sequence()
         self._sequence_to_plugin_map = self._dtmf_plugins
+        print(self._dtmf_plugins)
 
         config = get_config()
 
@@ -69,8 +76,6 @@ class RadioBridgeServer(object):
 
         def add_job_to_jobs_to_run(job_id):
             def add_job_to_jobs_to_run_inner():
-                print("adding job")
-                print(job_id)
                 self._cron_jobs_to_run_lock.acquire()
 
                 try:
@@ -81,7 +86,6 @@ class RadioBridgeServer(object):
             return add_job_to_jobs_to_run_inner
 
         for job_id, job_trigger in jobs:
-            print(job_trigger)
             self._scheduler.add_job(add_job_to_jobs_to_run(job_id),
                                     trigger=job_trigger,
                                     id=job_id)
@@ -125,15 +129,15 @@ class RadioBridgeServer(object):
                 LOG.info("Got char %s, current sequence: %s" % (char, read_sequence))
 
                 # If sequence is valid
-                plugin = self._sequence_to_plugin_map.get(read_sequence, None)
+                plugin, callback = self._get_plugin_for_dtmf_sequence(sequence=read_sequence)
 
                 if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
                     if plugin:
                         LOG.info("Found valid sequence \"%s\", invoking plugin \"%s\"" % (read_sequence,
                                                                                           plugin.NAME))
-                        plugin.run()
+                        callback()
                     else:
-                        LOG.info("Max sequence length limit reached, reseting sequence")
+                        LOG.info("Max sequence length limit reached, resetting sequence")
 
                     read_sequence = ""
             else:
@@ -141,6 +145,23 @@ class RadioBridgeServer(object):
                 continue
 
             last_char = char
+
+    def _get_plugin_for_dtmf_sequence(self, sequence: str) -> Tuple[BasePlugin, Callable]:
+        """
+        Retrieve reference to the Plugin class instance and pre-applied plugin.run() method for the
+        provided DTMF sequence (if any is found registered for that sequence).
+        """
+        for plugin_sequence, plugin_instance in self._sequence_to_plugin_map.items():
+            if fnmatch.fnmatch(sequence, plugin_sequence):
+                if "?" in plugin_sequence:
+                    data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
+                    callback = functools.partial(plugin_instance.run, sequence=data_sequence)
+                else:
+                    callback = plugin_instance_run
+
+                return plugin_instance, callback
+
+        return None, None
 
     def _run_scheduled_jobs(self) -> None:
         """

@@ -13,6 +13,7 @@ CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 DEFAULT_VALUES = {
     "main": {
         "logging_config": "{rootdir}/conf/logging.conf",
+        "dev_mode": False,
         "tx_mode": "vox",
     },
     "audio": {

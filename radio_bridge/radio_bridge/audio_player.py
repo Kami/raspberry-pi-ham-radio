@@ -18,7 +18,7 @@ from mutagen.wave import WAVE
 
 LOG = structlog.getLogger(__name__)
 
-__all__ = ["AudioPlayer"]
+__all__ = ["AudioPlayer", "get_audio_file_duration"]
 
 
 class AudioPlayer(object):
@@ -63,3 +63,19 @@ class AudioPlayer(object):
 
         args = "aplay -q %s" % (shlex.quote(file_path))
         subprocess.run(args, shell=True, check=True)
+
+
+def get_audio_file_duration(file_path: str) -> float:
+    _, ext = os.path.splitext(file_path)
+
+    if ext not in [".mp3", ".wav"]:
+        raise ValueError("Unsupported file format: %s (%s)" % (ext, file_path))
+
+    if ext == ".mp3":
+        mp3 = MP3(file_path)
+        duration = mp3.info.length
+    elif ext == ".wav":
+        wav = WAVE(file_path)
+        duration = wav.info.length
+
+    return duration

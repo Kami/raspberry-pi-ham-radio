@@ -4,6 +4,8 @@ from typing import Any
 from typing import Tuple
 from typing import Type
 
+import os
+import re
 import datetime
 
 import structlog
@@ -14,6 +16,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from radio_bridge.plugins.base import BaseRegularPlugin
 from radio_bridge.configuration import get_config
+from radio_bridge.audio_player import get_audio_file_duration
 
 """
 Plugin which allows schedueling of say task to run at specific intervals.
@@ -36,6 +39,65 @@ TRIGGER_TYPE_TO_KWARGS_TYPE_MAP = {
     }
 }
 
+# Maximum length of text in words in seconds. Used to prevent very long texts from polluting the frequency
+# for too long
+# Maximum playback duration in seconds for the synthesised text or played audio files
+# TODO: Define in config
+MAXIMUM_PLAYBACK_DURATION = 30
+
+# We assume saying / playing a single world takes 1 second on average (less for short words,
+# longer for longer ones. this also doesn't include punctuations, etc)
+AVERAGE_AUDIO_DURATION_PER_WORD = 1
+
+# Minimum interval for trigger in seconds. Jobs can't run more often than this specified einterval.
+MINIMUM_TRIGGER_INTERVAL = 120
+
+DEV_MODE = get_config()["main"].getboolean("dev_mode")
+
+
+class CronSayItemConfig(object):
+    # Job id
+    job_id: str
+
+    # Job trigger instance based on the original parsed job_kwargs
+    trigger_instance: BaseTrigger
+
+    # Item type (text, audio)
+    type: str
+
+    # Item value - text to say for text jobs, path to audio file to play for audio jobs
+    value: str
+
+    def __init__(self, job_id: str, trigger_instance: BaseTrigger,
+                 type: str, value: str):
+        self.job_id = job_id
+        self.trigger_instance = trigger_instance
+        self.type = type
+        self.value = value
+
+        # Lazily populated on first .duration property access
+        self._duration = None
+
+    @property
+    def duration(self):
+        if not self._duration:
+            if self.type == "text":
+                self._duration = CronSayPlugin.calculate_duration_for_text(text=self.value)
+            elif self.type == "file":
+                self._duration = get_audio_file_duration(file_path=self.value)
+
+        return self._duration
+
+    # TODO: Add __repr__
+    def __repr__(self):
+        value = self.value
+
+        if self.type == "file":
+            value = os.path.basename(self.value)
+
+        return ("<CronSayItemConfig job_id=%s,trigger_instance=%s,type=%s,value=%s,play_duration=%ss>" % (
+                self.job_id, self.trigger_instance, self.type, value, self.duration))
+
 
 class CronSayPlugin(BaseRegularPlugin):
     NAME = "Cron Plugin"
@@ -46,15 +108,111 @@ class CronSayPlugin(BaseRegularPlugin):
         # Maps job id to text to say
         self._job_id_to_text_map = self._parse_job_specs()
 
+        plugin_config = get_config()["plugin:cron"]
+        self._parse_and_validate_config(plugin_config)
+
     def run(self, job_id: str) -> None:
         if job_id not in self._job_id_to_text_map:
             raise ValueError("Unknown job: %s" % (job_id))
+
+        # play file if type is file
 
         context = self._get_text_format_context()
         print(context)
         text_to_say = self._job_id_to_text_map[job_id].format(**context)
         print(text_to_say)
         self.say(text_to_say)
+
+    def _parse_and_validate_config(self, config):
+        plugin_config = get_config()["plugin:cron"]
+
+        for job_id, job_specs in plugin_config.items():
+            split = job_specs.split(JOB_SPEC_DELIMITER)
+
+            if len(split) != 4:
+                raise ValueError("Plugin job specification \"%s\" is invalid" % (job_specs))
+
+            job_trigger = split[0]
+            job_kwargs_str = split[1]
+            job_type = split[2]
+            job_value = split[3]
+
+            if job_type == "text":
+                pass
+            elif job_type == "file":
+                pass
+            else:
+                raise ValueError("Unknown job type \"%s\" for job %s" % (job_type, job_id))
+
+            trigger_instance = self._get_job_trigger_for_job_spec(job_id, job_trigger, job_kwargs_str)
+            item = CronSayItemConfig(job_id=job_id, trigger_instance=trigger_instance,
+                                     type=job_type,
+                                     value=job_value)
+
+            trigger_interval_seconds = self._get_interval_in_seconds(item.trigger_instance)
+
+            if not DEV_MODE and trigger_interval_seconds < MINIMUM_TRIGGER_INTERVAL:
+                raise ValueError("Requested interval for job %s is %s seconds, but minimum "
+                                 "allowed value is %s seconds" % (job_id, trigger_interval_seconds, MINIMUM_TRIGGER_INTERVAL))
+
+            if not DEV_MODE and item.duration > MAXIMUM_PLAYBACK_DURATION:
+                raise ValueError("Calculated audio duration for job %s is longer than maximum "
+                                 "allowed (%s seconds > %s seconds)" % (job_id, item.duration, MAXIMUM_PLAYBACK_DURATION))
+
+
+    def _validate_config(self, config):
+        """"
+        Validate plugin config and ensure it doesn't contain any words or files which don't meet the
+        maximum duration criteria.
+        """
+        plugin_config = get_config()["plugin:cron"]
+
+        for job_id, job_specs in plugin_config.items():
+            split = job_specs.split(JOB_SPEC_DELIMITER)
+            job_trigger = split[0]
+            job_kwargs_str = split[1]
+
+            job_type = split[2]
+            job_value = split[3]
+
+            if job_type == "text":
+                pass
+            elif job_type == "file":
+                pass
+            else:
+                raise ValueError("Unknown job type \"%s\" for job %s" % (job_type, job_id))
+
+    def _validate_text_job(self, job_id: str, job_spec):
+        pass
+
+    def _get_interval_in_seconds(self, trigger_instance: BaseTrigger) -> int:
+        """
+        Return interval in seconds for the provided trigger instance.
+        """
+        if isinstance(trigger_instance, IntervalTrigger):
+            weeks = getattr(trigger_instance.interval, "weeks", 0)
+            days = getattr(trigger_instance.interval, "days", 0)
+            hours = getattr(trigger_instance.interval, "hours", 0)
+            seconds = getattr(trigger_instance.interval, "seconds", 0)
+        elif isinstance(trigger_instance, CronTrigger):
+            # TODO
+            weeks, days, hours, seconds = 0, 0, 0, 0
+
+        return (weeks * 7 * 24 * 60 * 60) + (days * 24 * 60 * 60) + (hours * 60 * 60) + seconds
+
+    @classmethod
+    def calculate_duration_for_text(cls, text: str, slow: bool = False) -> int:
+        """
+        Calculate approximate duration of audio generated by gTTS for the provided text string.
+        """
+        words = re.split(r"\s+", text)
+
+        duration = len(words) * AVERAGE_AUDIO_DURATION_PER_WORD
+
+        if slow:
+            duration *= 1.3
+
+        return duration
 
     def _get_text_format_context(self) -> Dict[str, str]:
         """
@@ -103,30 +261,34 @@ class CronSayPlugin(BaseRegularPlugin):
         return result
 
     def _get_job_trigger_for_job_spec(self, job_id: str, job_trigger: str, job_kwargs_str: str) -> BaseTrigger:
-        job_kwargs_dict: Dict[str, Any] = {}
-
-        for pair in job_kwargs_str.split(","):
-            key, value = pair.split("=")
-            job_kwargs_dict[key] = value
-
+        """
+        Return BaseTrigger instance for the provided CronSay job specification.
+        """
         if job_trigger == "interval":
+            job_kwargs_dict: Dict[str, Any] = {}
+
+            for pair in job_kwargs_str.split(","):
+                key, value = pair.split("=")
+                job_kwargs_dict[key] = value
+
             cls = IntervalTrigger
+
+            trigger_kwargs = {}
+
+            for kwarg_key, kwarg_type in TRIGGER_TYPE_TO_KWARGS_TYPE_MAP[job_trigger].items():
+                trigger_kwarg_value = job_kwargs_dict.get(kwarg_key, None)
+
+                if trigger_kwarg_value is not None:
+                    trigger_kwargs[kwarg_key] = kwarg_type(trigger_kwarg_value)
+
+            cls_instance = cls(**trigger_kwargs)
         elif job_trigger == "cron":
             cls = CronTrigger
+            cls_instance = cls.from_crontab(job_kwargs_str)
         else:
             raise ValueError("Unknown job trigger specified: %s" % (job_trigger))
 
-        trigger_kwargs = {}
-
-        for kwarg_key, kwarg_type in TRIGGER_TYPE_TO_KWARGS_TYPE_MAP[job_trigger].items():
-            trigger_kwarg_value = job_kwargs_dict.get(kwarg_key, None)
-
-            if trigger_kwarg_value is not None:
-                trigger_kwargs[kwarg_key] = kwarg_type(trigger_kwarg_value)
-
-        cls_instance = cls(**trigger_kwargs)
-
         LOG.debug("Using trigger kwargs \"%s\" for scheduler trigger %s and job %s: %s" % (
-        str(trigger_kwargs), job_trigger, job_id, cls_instance))
+        str(job_kwargs_str), job_trigger, job_id, cls_instance))
 
         return cls_instance

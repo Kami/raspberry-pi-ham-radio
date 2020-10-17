@@ -69,64 +69,6 @@ class BaseDTMFDecoderImplementation(object):
         return sample_rate
 
 
-class FFT1DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
-    """
-    DTMF decoder based on simple FFT.
-    """
-
-    def decode(self, return_on_first_char: bool = True) -> str:
-        sample_rate = self._get_sample_rate()
-
-        # Read audio data
-        data = wavfile.read(self._file_path, "rb")
-
-        # data is voice signal. its type is list(or numpy array)
-        # Calculate fourier trasform of data
-        FourierTransformOfData = np.fft.fft(np.array(data[1]), sample_rate)
-
-        # Convert fourier transform complex number to integer numbers
-        for i in range(len(FourierTransformOfData)):
-            FourierTransformOfData[i] = int(np.absolute(FourierTransformOfData[i]))
-
-        # Calculate lower bound for filtering fourier trasform numbers
-        LowerBound = 20 * np.average(FourierTransformOfData)
-
-        # Filter fourier transform data (only select frequencies that X(jw) is greater than
-        # LowerBound)
-        FilteredFrequencies = []
-        for i in range(len(FourierTransformOfData)):
-            if FourierTransformOfData[i] > LowerBound:
-                FilteredFrequencies.append(i)
-
-        # Detect and print pressed button
-        result = ""
-
-        for char, frequency_pair in DTMF_TABLE_HIGH_LOW.items():
-            if self._is_number_in_array(
-                FilteredFrequencies, frequency_pair[0]
-            ) and self._is_number_in_array(FilteredFrequencies, frequency_pair[1]):
-                LOG.debug("Found matching DTMF char %s in recording %s" % (char, self._file_path))
-
-                result += char
-
-                if return_on_first_char:
-                    return result
-
-        if not result:
-            LOG.debug("No matching DTMF sequence found in recording %s" % (self._file_path))
-
-        return result
-
-    def _is_number_in_array(self, array: List[int], number: int) -> bool:
-        offset = 5
-
-        for i in range(number - offset, number + offset):
-            if i in array:
-                return True
-
-        return False
-
-
 class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
     # Based on https://github.com/ribt/dtmf-decoder
 

@@ -18,13 +18,14 @@ LOCATION_CODE_TO_CITY_MAP = {
     "07": "Novo Mesto",
 }
 
+# NOQA
 CITY_TO_XML_LOCATION_MAP = {
-    "Ljubljana": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_LJUBL-ANA_BEZIGRAD_latest.xml",
-    "Maribor": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_MARIBOR_SLIVNICA_latest.xml",
-    "Celje": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_CELJE_latest.xml",
-    "Brnik": "",
-    "Koper": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_PORTOROZ_SECOVLJE_latest.xml",
-    "Novo Mesto": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_NOVO-MES_latest.xml",
+    "Ljubljana": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_LJUBL-ANA_BEZIGRAD_latest.xml",  # NOQA
+    "Maribor": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_MARIBOR_SLIVNICA_latest.xml",  # NOQA
+    "Celje": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_CELJE_latest.xml",  # NOQA
+    "Brnik": "",  # NOQA
+    "Koper": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_PORTOROZ_SECOVLJE_latest.xml",  # NOQA
+    "Novo Mesto": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_NOVO-MES_latest.xml",  # NOQA
 }
 
 LOG = structlog.getLogger(__name__)

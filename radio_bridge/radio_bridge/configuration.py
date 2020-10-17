@@ -52,7 +52,6 @@ def load_and_parse_config(config_path: str, validate: bool = True):
 
 
 def validate_config(config):
-    logging_config = config["main"]["logging_config"]
     config["main"]["logging_config"] = config["main"]["logging_config"].replace(
         "{rootdir}", ROOT_DIR
     )

@@ -1,7 +1,5 @@
 import datetime
 
-import structlog
-
 from radio_bridge.plugins.base import BaseDTMFPlugin
 
 __all__ = ["CurrentTimePlugin"]

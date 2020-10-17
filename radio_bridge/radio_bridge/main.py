@@ -75,8 +75,9 @@ class RadioBridgeServer(object):
 
         self._scheduler = BackgroundScheduler()
 
-        # Holds a list of ids for cron jobs which should run during the next iteration of the main loop
         self._cron_jobs_to_run_lock = threading.Lock()
+        # Holds a list of ids for cron jobs which should run during the next iteration of the main
+        # loop
         self._cron_jobs_to_run = []
 
     def start(self):
@@ -128,7 +129,6 @@ class RadioBridgeServer(object):
         else:
             # In regular RX mode, each recording is 0.4 seconds long, which means, we use the same
             # number of iterations in emulator mode
-            select_timeout = 0.1
             max_loop_iterations = MAX_LOOP_ITERATIONS_EMULATOR_MODE
 
         while self._started:
@@ -150,8 +150,6 @@ class RadioBridgeServer(object):
                 def reset_tty():
                     LOG.debug("Resetting TTY")
                     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
-
-                import atexit
 
                 atexit.register(reset_tty)
                 tty.setcbreak(sys.stdin.fileno())
@@ -220,7 +218,8 @@ class RadioBridgeServer(object):
         Function which runs as part of every loop iteration and checks if there are any scheduled
         jobs which should run.
 
-        If they are, it runs them sequentially in order and removes them from jobs to run at the end.
+        If they are, it runs them sequentially in order and removes them from jobs to run at the
+        end.
         """
         jobs_to_run = self._cron_jobs_to_run[:]
 

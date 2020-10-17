@@ -1,11 +1,8 @@
-import logging
 import atexit
 
 import wave
 import pyaudio
 import structlog
-
-from scipy.io import wavfile as wav
 
 LOG = structlog.getLogger(__name__)
 

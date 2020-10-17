@@ -1,4 +1,3 @@
-from typing import List
 from typing import Dict
 from typing import Any
 from typing import Tuple
@@ -39,8 +38,6 @@ TRIGGER_TYPE_TO_KWARGS_TYPE_MAP = {
     }
 }
 
-# Maximum length of text in words in seconds. Used to prevent very long texts from polluting the frequency
-# for too long
 # Maximum playback duration in seconds for the synthesised text or played audio files
 # TODO: Define in config
 MAXIMUM_PLAYBACK_DURATION = 30
@@ -174,31 +171,6 @@ class CronSayPlugin(BaseRegularPlugin):
             result[job_id] = item
 
         return result
-
-    def _validate_config(self, config):
-        """ "
-        Validate plugin config and ensure it doesn't contain any words or files which don't meet the
-        maximum duration criteria.
-        """
-        plugin_config = get_config()["plugin:cron"]
-
-        for job_id, job_specs in plugin_config.items():
-            split = job_specs.split(JOB_SPEC_DELIMITER)
-            job_trigger = split[0]
-            job_kwargs_str = split[1]
-
-            job_type = split[2]
-            job_value = split[3]
-
-            if job_type == "text":
-                pass
-            elif job_type == "file":
-                pass
-            else:
-                raise ValueError('Unknown job type "%s" for job %s' % (job_type, job_id))
-
-    def _validate_text_job(self, job_id: str, job_spec):
-        pass
 
     def _get_interval_in_seconds(self, trigger_instance: BaseTrigger) -> int:
         """

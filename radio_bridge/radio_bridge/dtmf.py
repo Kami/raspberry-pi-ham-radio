@@ -1,8 +1,5 @@
 from typing import List
-from typing import Dict
 from typing import Any
-from typing import Callable
-from typing import Optional
 
 import abc
 import wave
@@ -11,7 +8,6 @@ import structlog
 import numpy as np
 
 from scipy.io import wavfile
-from scipy.fftpack import fft
 
 LOG = structlog.getLogger(__name__)
 
@@ -95,7 +91,8 @@ class FFT1DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
         # Calculate lower bound for filtering fourier trasform numbers
         LowerBound = 20 * np.average(FourierTransformOfData)
 
-        # Filter fourier transform data (only select frequencies that X(jw) is greater than LowerBound)
+        # Filter fourier transform data (only select frequencies that X(jw) is greater than
+        # LowerBound)
         FilteredFrequencies = []
         for i in range(len(FourierTransformOfData)):
             if FourierTransformOfData[i] > LowerBound:
@@ -204,8 +201,6 @@ class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
 
             hf = best
 
-            t = int(i // step * precision)
-
             if lf == 0 or hf == 0:
                 char = ""
             elif DTMF_TABLE_LOW_HIGH[(lf, hf)] != char:
@@ -235,7 +230,7 @@ class DTMFDecoder(object):
         self._implentation = implementation
         self._implentation_kwargs = implementation_kwargs
 
-        if not implementation in self.implementations:
+        if implementation not in self.implementations:
             raise ValueError(
                 "Invalid implementation: %s. Valid implementation are: %s"
                 % (implementation, ",".join(self.implementations))

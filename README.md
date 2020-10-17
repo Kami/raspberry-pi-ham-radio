@@ -1,7 +1,16 @@
 # Raspberry Pi Ham Radio Controller
 
+![CI](https://github.com/Kami/raspberry-pi-ham-radio/workflows/CI/badge.svg?branch=master)
+
 This repository contains source code and related information which allows users to expose various
 information over ham radio frequencies.
+
+## Supported Python versions:
+
+* Python 3.6
+* Python 3.7
+* Python 3.8
+* Python 3.9
 
 ## Notes
 

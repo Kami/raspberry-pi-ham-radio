@@ -3,7 +3,6 @@ from gevent import monkey
 monkey.patch_all()
 
 import os
-import logging
 
 import structlog
 from flask import Flask

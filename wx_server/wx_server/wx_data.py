@@ -1,20 +1,15 @@
 import hashlib
-import datetime
 
 import structlog
 
 from flask import Blueprint
 from flask import Response
 from flask import request
-from flask import current_app as app
 
 from wx_server.formatters import format_ecowitt_weather_data
 from wx_server.formatters import dict_to_protobuf
 from wx_server.configuration import get_config
 from wx_server.io import persist_weather_observation
-from wx_server.io import get_weather_observation_for_date
-
-from generated.protobuf import messages_pb2
 
 __all__ = ["wx_data_app"]
 

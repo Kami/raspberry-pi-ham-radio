@@ -2,7 +2,6 @@ from typing import Optional
 
 import os
 import datetime
-import pathlib
 
 import structlog
 

@@ -45,7 +45,6 @@ def load_and_parse_config(config_path: str, validate: bool = True) -> None:
 
 
 def validate_config(config):
-    data_dir = config["main"]["data_dir"]
     config["main"]["data_dir"] = config["main"]["data_dir"].replace("{rootdir}", ROOT_DIR)
 
     if not os.path.isdir(config["main"]["data_dir"]):
@@ -53,7 +52,6 @@ def validate_config(config):
             "Data dir %s doesn't exist or it's not a directory" % (config["main"]["data_dir"])
         )
 
-    logging_config = config["main"]["logging_config"]
     config["main"]["logging_config"] = config["main"]["logging_config"].replace(
         "{rootdir}", ROOT_DIR
     )

@@ -168,8 +168,8 @@ class DTMFDecoder(object):
         **implementation_kwargs: Any,
     ):
         self._file_path = file_path
-        self._implentation = implementation
-        self._implentation_kwargs = implementation_kwargs
+        self._implementation = implementation
+        self._implementation_kwargs = implementation_kwargs
 
         if implementation not in self.implementations:
             raise ValueError(
@@ -178,7 +178,7 @@ class DTMFDecoder(object):
             )
 
         self._decoder = self.implementations[implementation](
-            file_path=file_path, **self._implentation_kwargs
+            file_path=file_path, **self._implementation_kwargs
         )
 
     def decode(self, return_on_first_char: bool = True) -> str:

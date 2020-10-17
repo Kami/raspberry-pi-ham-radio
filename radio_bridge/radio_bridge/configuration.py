@@ -10,6 +10,10 @@ ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/radio_bridge.conf"))
 CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
+VALID_TTS_IMPLEMENTATIONS = []
+
+VALID_DTMF_DECODER_IMPLEMENTATION = []
+
 DEFAULT_VALUES = {
     "main": {
         "logging_config": "{rootdir}/conf/logging.conf",
@@ -25,8 +29,8 @@ DEFAULT_VALUES = {
         "input_device_index": 0,
         "sample_rate": 48000,
     },
-    "tts": {"library": "gtts", "enable_cache": True, "cache_directory": "/tmp/tts-audio-cache"},
-    "dtmf": {"implementation": "fft_2"},
+    "tts": {"implementation": "gtts", "enable_cache": True, "cache_directory": "/tmp/tts-audio-cache",},
+    "dtmf": {"implementation": "fft_2",},
 }
 
 CONFIG = None
@@ -67,11 +71,16 @@ def validate_config(config):
             % (config["main"]["logging_config"])
         )
 
-    # TODO validate dtms implementation, tts library
     if config["tx"]["mode"] not in ["vox", "gpio"]:
         raise ValueError(
-            "Invalid tx.mode value: %s. valid values: vox, gpio" % (config["tx"]["mode"])
+            "Invalid tx.mode value: %s. Valid values: vox, gpio" % (config["tx"]["mode"])
         )
+
+    if config["tts"]["implementation"] not in ["gtts", "espeak"]:
+        raise ValueError(
+            "Invalid tts.library value: %s. Valid values: gtts, espeak" % (config["tts"]["implementation"])
+        )
+
 
     return config
 

@@ -38,7 +38,7 @@ class BasePlugin(object):
 
     def __init__(self):
         self._tx_mode = get_config()["tx"]["mode"]
-        self._tts = TextToSpeech()
+        self._tts = TextToSpeech(implementation=get_config()["tts"]["implementation"])
         self._audio_player = AudioPlayer()
 
     def initialize(self, config) -> None:

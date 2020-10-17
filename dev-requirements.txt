@@ -3,3 +3,4 @@ mypy
 mypy-protobuf
 flake8
 pylint
+black

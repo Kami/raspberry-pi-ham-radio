@@ -7,7 +7,7 @@ import structlog
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
-DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/radio_bridge.conf'))
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/radio_bridge.conf"))
 CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
 DEFAULT_VALUES = {
@@ -20,14 +20,8 @@ DEFAULT_VALUES = {
         "input_device_index": 0,
         "sample_rate": 48000,
     },
-    "tts": {
-        "library": "gtts",
-        "enable_cache": True,
-        "cache_directory": "/tmp/tts-audio-cache"
-    },
-    "dtmf": {
-        "implementation": "fft_2"
-    }
+    "tts": {"library": "gtts", "enable_cache": True, "cache_directory": "/tmp/tts-audio-cache"},
+    "dtmf": {"implementation": "fft_2"},
 }
 
 CONFIG = None
@@ -59,16 +53,21 @@ def load_and_parse_config(config_path: str, validate: bool = True):
 
 def validate_config(config):
     logging_config = config["main"]["logging_config"]
-    config["main"]["logging_config"] = config["main"]["logging_config"].replace("{rootdir}", ROOT_DIR)
+    config["main"]["logging_config"] = config["main"]["logging_config"].replace(
+        "{rootdir}", ROOT_DIR
+    )
 
     if not os.path.isfile(config["main"]["logging_config"]):
-        raise ValueError("Logging config %s doesn't exist or it's not a file" %
-                         (config["main"]["logging_config"]))
+        raise ValueError(
+            "Logging config %s doesn't exist or it's not a file"
+            % (config["main"]["logging_config"])
+        )
 
     # TODO validate dtms implementation, tts library
     if config["main"]["tx_mode"] not in ["vox", "gpio"]:
-        raise ValueError("Invalid tx_mode value: %s. valid values: vox, gpio" %
-                         (config["main"]["tx_mode"]))
+        raise ValueError(
+            "Invalid tx_mode value: %s. valid values: vox, gpio" % (config["main"]["tx_mode"])
+        )
 
     return config
 

@@ -18,6 +18,10 @@ class CurrentTimePlugin(BaseDTMFPlugin):
         now_local = datetime.datetime.now()
         now_utc = datetime.datetime.utcnow()
 
-        text = TEXT.format(hour_local=now_local.hour, minute_local=now_local.minute,
-                           hour_utc=now_utc.hour, minute_utc=now_utc.minute)
+        text = TEXT.format(
+            hour_local=now_local.hour,
+            minute_local=now_local.minute,
+            hour_utc=now_utc.hour,
+            minute_utc=now_utc.minute,
+        )
         self.say(text=text)

@@ -70,7 +70,7 @@ class BasePlugin(object):
             self._audio_player.play_file(file_path=CALLSIGN_AUDIO_PATH)
 
             # 2. Play actual requested text
-            LOG.trace("Playing text \"%s\"" % (text))
+            LOG.trace('Playing text "%s"' % (text))
 
             file_path = self._tts.text_to_speech(text=text)
             self._audio_player.play_file(file_path=file_path, delete_after_play=False)
@@ -83,6 +83,7 @@ class BaseDTMFPlugin(BasePlugin):
     """
     Base class for plugins which are invoked by a specific DTMF sequence.
     """
+
     NAME: str
     DESCRIPTION: str
     DTMF_SEQUENCE: Optional[str] = None
@@ -98,6 +99,7 @@ class BaseDTMFWithDataPlugin(BasePlugin):
     Base class for plugins which are invoked by a specific DTMF sequence and take additiona data
     which is passed to the run() method.
     """
+
     NAME: str
     DESCRIPTION: str
     DTMF_SEQUENCE: Optional[str] = None
@@ -113,5 +115,6 @@ class BaseRegularPlugin(BasePlugin):
     Base class for plugins which are not tied to a specific DTMF sequence (think timer plugins,
     etc.).
     """
+
     NAME: str
     DESCRIPTION: str

@@ -39,13 +39,14 @@ class AudioPlayer(object):
 
     def _play_mp3(self, file_path: str) -> None:
         if not shutil.which("mpg123"):
-            raise Exception("Unable to find \"mpg123\" binary. Make sure it's installed on the "
-                            "system.")
+            raise Exception(
+                'Unable to find "mpg123" binary. Make sure it\'s installed on the ' "system."
+            )
 
         mp3 = MP3(file_path)
         duration = mp3.info.length
 
-        LOG.trace("Playing audio file \"%s\"" % (file_path), duration=duration)
+        LOG.trace('Playing audio file "%s"' % (file_path), duration=duration)
 
         args = "mpg123 -q %s" % (shlex.quote(file_path))
         p = subprocess.run(args, shell=True, check=True)
@@ -53,13 +54,14 @@ class AudioPlayer(object):
 
     def _play_wav(self, file_path: str) -> None:
         if not shutil.which("aplay"):
-            raise Exception("Unable to find \"aplay\" binary. Make sure it's installed on the "
-                            "system.")
+            raise Exception(
+                'Unable to find "aplay" binary. Make sure it\'s installed on the ' "system."
+            )
 
         wav = WAVE(file_path)
         duration = wav.info.length
 
-        LOG.trace("Playing audio file \"%s\"" % (file_path), duration=duration)
+        LOG.trace('Playing audio file "%s"' % (file_path), duration=duration)
 
         args = "aplay -q %s" % (shlex.quote(file_path))
         subprocess.run(args, shell=True, check=True)

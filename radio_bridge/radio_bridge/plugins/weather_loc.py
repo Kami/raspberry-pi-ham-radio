@@ -15,7 +15,7 @@ LOCATION_CODE_TO_CITY_MAP = {
     "03": "Celje",
     "04": "Brnik",
     "05": "Portoroz",
-    "07": "Novo Mesto"
+    "07": "Novo Mesto",
 }
 
 CITY_TO_XML_LOCATION_MAP = {

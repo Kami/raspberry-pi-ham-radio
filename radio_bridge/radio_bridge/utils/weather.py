@@ -39,13 +39,15 @@ def observation_pb_to_text(observation_pb: messages_pb2.WeatherObservation) -> s
     else:
         rain = RAIN_NO_RAIN
 
-    text = WEATHER_OBSERVATION_SHORT.format(temperature=temperature,
-                                            dewpoint=dewpoint,
-                                            humidity=humidity,
-                                            pressure=pressure,
-                                            wind=wind,
-                                            rain=rain,
-                                            uv_index=uv_index)
+    text = WEATHER_OBSERVATION_SHORT.format(
+        temperature=temperature,
+        dewpoint=dewpoint,
+        humidity=humidity,
+        pressure=pressure,
+        wind=wind,
+        rain=rain,
+        uv_index=uv_index,
+    )
 
     return text
 

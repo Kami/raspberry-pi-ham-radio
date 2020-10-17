@@ -51,11 +51,13 @@ def get_bucket_name_for_date(date: datetime.datetime) -> str:
     """
     hour = zero_pad_value(date.hour)
     minute = zero_pad_value(date.minute)
-    bucket_name = '%s%s' % (hour, minute)
+    bucket_name = "%s%s" % (hour, minute)
     return bucket_name
 
 
-def get_weather_observation_for_date(date: datetime.datetime, return_closest=True) -> Optional[messages_pb2.WeatherObservation]:
+def get_weather_observation_for_date(
+    date: datetime.datetime, return_closest=True
+) -> Optional[messages_pb2.WeatherObservation]:
     """
     Return wethaer observation for the provided date.
 
@@ -105,7 +107,7 @@ def get_directory_path_for_date(date: datetime.datetime) -> str:
 
 def get_file_path_for_date(date: datetime.datetime, target_directory: str) -> str:
     bucket_name = get_bucket_name_for_date(date=date)
-    file_name = 'observation_%s.pb' % (bucket_name)
+    file_name = "observation_%s.pb" % (bucket_name)
     file_path = os.path.join(target_directory, file_name)
     return file_path
 

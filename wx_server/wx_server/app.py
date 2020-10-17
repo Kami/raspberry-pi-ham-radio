@@ -1,4 +1,5 @@
 from gevent import monkey
+
 monkey.patch_all()
 
 import os
@@ -13,8 +14,8 @@ from wx_server.configuration import load_and_parse_config
 from wx_server.configuration import get_config
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/logging.conf'))
-DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/wx_server.conf'))
+LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/logging.conf"))
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/wx_server.conf"))
 
 CONFIG_PATH = os.environ.get("WX_SERVER_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 

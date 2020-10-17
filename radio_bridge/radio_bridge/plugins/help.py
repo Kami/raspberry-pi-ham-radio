@@ -5,6 +5,7 @@ from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 Plugin which says all the available commands.
 """
 
+
 class HelpPlugin(BaseDTMFPlugin):
     NAME = "Help Plugin"
     DESCRIPTION = "List available commands."
@@ -20,6 +21,11 @@ class HelpPlugin(BaseDTMFPlugin):
             for char in plugin_class.DTMF_SEQUENCE:
                 sequence_text += char + " "
 
-            text_to_say += "\n%s. %s. Sequence %s. %s" % (index + 1, plugin_class.NAME, sequence_text, plugin_class.DESCRIPTION)
+            text_to_say += "\n%s. %s. Sequence %s. %s" % (
+                index + 1,
+                plugin_class.NAME,
+                sequence_text,
+                plugin_class.DESCRIPTION,
+            )
 
         self.say(text_to_say)

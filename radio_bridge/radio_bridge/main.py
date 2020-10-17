@@ -27,10 +27,12 @@ from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 from radio_bridge.plugins.base import BasePlugin
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/logging.conf'))
-DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/radio_bridge.conf'))
+LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/logging.conf"))
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/radio_bridge.conf"))
 
-DEFAULT_WX_SERVER_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../../wx_server/conf/wx_server.conf'))
+DEFAULT_WX_SERVER_CONFIG_PATH = os.path.abspath(
+    os.path.join(BASE_DIR, "../../wx_server/conf/wx_server.conf")
+)
 WX_SERVER_CONFIG_PATH = os.environ.get("WX_SERVER_CONFIG_PATH", DEFAULT_WX_SERVER_CONFIG_PATH)
 
 LOG = structlog.getLogger(__name__)
@@ -66,8 +68,10 @@ class RadioBridgeServer(object):
         config = get_config()
 
         self._dtmf_decoder = DTMFDecoder()
-        self._rx = RX(input_device_index=int(config["audio"]["input_device_index"]),
-                      rate=int(config["audio"]["sample_rate"]))
+        self._rx = RX(
+            input_device_index=int(config["audio"]["input_device_index"]),
+            rate=int(config["audio"]["sample_rate"]),
+        )
 
         self._scheduler = BackgroundScheduler()
 
@@ -103,9 +107,7 @@ class RadioBridgeServer(object):
             return add_job_to_jobs_to_run_inner
 
         for job_id, job_trigger in jobs:
-            self._scheduler.add_job(add_job_to_jobs_to_run(job_id),
-                                    trigger=job_trigger,
-                                    id=job_id)
+            self._scheduler.add_job(add_job_to_jobs_to_run(job_id), trigger=job_trigger, id=job_id)
 
         LOG.info("Radio Bridge Server Started")
 
@@ -144,19 +146,23 @@ class RadioBridgeServer(object):
                 self._rx.record_audio()
                 char = self._dtmf_decoder.decode()
             else:
+
                 def reset_tty():
                     LOG.debug("Resetting TTY")
                     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
 
                 import atexit
+
                 atexit.register(reset_tty)
                 tty.setcbreak(sys.stdin.fileno())
 
                 if sys.stdin in select.select([sys.stdin], [], [], SELECT_TIMEOUT)[0]:
                     char = sys.stdin.read(1)
                     if char not in VALID_DTMF_CHARACTERS:
-                        LOG.error("Invalid DTMF character: %s. Valid characters are: %s" % (
-                        char, ", ".join(VALID_DTMF_CHARACTERS)))
+                        LOG.error(
+                            "Invalid DTMF character: %s. Valid characters are: %s"
+                            % (char, ", ".join(VALID_DTMF_CHARACTERS))
+                        )
                         continue
                     LOG.info("Read DTMF character %s from the keyboard" % (char))
                 else:
@@ -177,8 +183,10 @@ class RadioBridgeServer(object):
 
                 if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
                     if plugin:
-                        LOG.info("Found valid sequence \"%s\", invoking plugin \"%s\"" % (read_sequence,
-                                                                                          plugin.NAME))
+                        LOG.info(
+                            'Found valid sequence "%s", invoking plugin "%s"'
+                            % (read_sequence, plugin.NAME)
+                        )
                         callback()
                     else:
                         LOG.info("Max sequence length limit reached, resetting sequence")

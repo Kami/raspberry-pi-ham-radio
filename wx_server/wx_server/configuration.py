@@ -7,7 +7,7 @@ import structlog
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
-DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, '../conf/wx_server.conf'))
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/wx_server.conf"))
 CONFIG_PATH = os.environ.get("WX_SERVER_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
 DEFAULT_VALUES = {
@@ -49,15 +49,20 @@ def validate_config(config):
     config["main"]["data_dir"] = config["main"]["data_dir"].replace("{rootdir}", ROOT_DIR)
 
     if not os.path.isdir(config["main"]["data_dir"]):
-        raise ValueError("Data dir %s doesn't exist or it's not a directory" %
-                         (config["main"]["data_dir"]))
+        raise ValueError(
+            "Data dir %s doesn't exist or it's not a directory" % (config["main"]["data_dir"])
+        )
 
     logging_config = config["main"]["logging_config"]
-    config["main"]["logging_config"] = config["main"]["logging_config"].replace("{rootdir}", ROOT_DIR)
+    config["main"]["logging_config"] = config["main"]["logging_config"].replace(
+        "{rootdir}", ROOT_DIR
+    )
 
     if not os.path.isfile(config["main"]["logging_config"]):
-        raise ValueError("Logging config %s doesn't exist or it's not a file" %
-                         (config["main"]["logging_config"]))
+        raise ValueError(
+            "Logging config %s doesn't exist or it's not a file"
+            % (config["main"]["logging_config"])
+        )
 
     return config
 

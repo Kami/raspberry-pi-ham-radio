@@ -39,12 +39,9 @@ class TextToSpeech(object):
                 LOG.debug("Using cache file: %s" % (file_path))
                 return file_path
 
-        LOG.trace("Performing TTS on text \"%s\"" % (text))
+        LOG.trace('Performing TTS on text "%s"' % (text))
 
-        audio_file = gTTS(text=text,
-                          lang="en-US",
-                          slow=slow,
-                          lang_check=False)
+        audio_file = gTTS(text=text, lang="en-US", slow=slow, lang_check=False)
 
         audio_file.save(file_path)
 

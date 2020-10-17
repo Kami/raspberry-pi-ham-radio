@@ -11,15 +11,18 @@ LOG = structlog.getLogger(__name__)
 
 # Based on https://github.com/notpike/Hambone (MIT license)
 
+
 class RX(object):
-    def __init__(self,
-                 input_device_index: int = 0,
-                 file_path: str ="/tmp/recording.wav",
-                 audio_format=pyaudio.paInt16,
-                 channels: int = 1,
-                 rate: int = 48000,
-                 chunk_size: int = 2 ** 12,  # frames per buffer
-                 time: int = 0.2):
+    def __init__(
+        self,
+        input_device_index: int = 0,
+        file_path: str = "/tmp/recording.wav",
+        audio_format=pyaudio.paInt16,
+        channels: int = 1,
+        rate: int = 48000,
+        chunk_size: int = 2 ** 12,  # frames per buffer
+        time: int = 0.2,
+    ):
         self._device_index = input_device_index
         self._file_path = file_path
         self._audio_format = audio_format
@@ -34,8 +37,11 @@ class RX(object):
         self.frames_buffer = []
 
         device_info = self._get_device_info(self._device_index)
-        LOG.debug("Using audio device with index %s and name %s." % (self._device_index,
-                                                                     device_info["name"]), **device_info)
+        LOG.debug(
+            "Using audio device with index %s and name %s."
+            % (self._device_index, device_info["name"]),
+            **device_info,
+        )
 
         atexit.register(self.stop)
 
@@ -48,12 +54,14 @@ class RX(object):
         LOG.trace("Starting recording")
 
         # Start Recording
-        self.stream = self.audio.open(format=self._audio_format,
-                                channels=self._channels,
-                                input_device_index=self._device_index,
-                                rate=self._rate,
-                                input=True,
-                                frames_per_buffer=self._chunk_size)
+        self.stream = self.audio.open(
+            format=self._audio_format,
+            channels=self._channels,
+            input_device_index=self._device_index,
+            rate=self._rate,
+            input=True,
+            frames_per_buffer=self._chunk_size,
+        )
 
         # Read frames
         for i in range(0, int(self._rate / self._chunk_size * self._record_time)):
@@ -72,11 +80,11 @@ class RX(object):
 
         LOG.trace("Writting frame buffer to %s" % (self._file_path))
 
-        with wave.open(self._file_path, 'wb') as wf:
+        with wave.open(self._file_path, "wb") as wf:
             wf.setnchannels(self._channels)
             wf.setsampwidth(self.audio.get_sample_size(self._audio_format))
             wf.setframerate(self._rate)
-            wf.writeframes(b''.join(self.frames_buffer))
+            wf.writeframes(b"".join(self.frames_buffer))
 
             self.frames_buffer = []
 

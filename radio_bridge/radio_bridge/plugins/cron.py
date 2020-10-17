@@ -35,7 +35,7 @@ TRIGGER_TYPE_TO_KWARGS_TYPE_MAP = {
         "seconds": int,
         "start_date": str,
         "end_date": str,
-        "timezone": str
+        "timezone": str,
     }
 }
 
@@ -68,8 +68,7 @@ class CronSayItemConfig(object):
     # Item value - text to say for text jobs, path to audio file to play for audio jobs
     value: str
 
-    def __init__(self, job_id: str, trigger_instance: BaseTrigger,
-                 type: str, value: str):
+    def __init__(self, job_id: str, trigger_instance: BaseTrigger, type: str, value: str):
         self.job_id = job_id
         self.trigger_instance = trigger_instance
         self.type = type
@@ -98,8 +97,10 @@ class CronSayItemConfig(object):
         if self.type == "file":
             value = os.path.basename(self.value)
 
-        return ("<CronSayItemConfig job_id=%s,trigger_instance=%s,type=%s,value=%s,play_duration=%ss>" % (
-                self.job_id, self.trigger_instance, self.type, value, self.duration))
+        return (
+            "<CronSayItemConfig job_id=%s,trigger_instance=%s,type=%s,value=%s,play_duration=%ss>"
+            % (self.job_id, self.trigger_instance, self.type, value, self.duration)
+        )
 
 
 class CronSayPlugin(BaseRegularPlugin):
@@ -133,7 +134,7 @@ class CronSayPlugin(BaseRegularPlugin):
             split = job_specs.split(JOB_SPEC_DELIMITER)
 
             if len(split) != 4:
-                raise ValueError("Plugin job specification \"%s\" is invalid" % (job_specs))
+                raise ValueError('Plugin job specification "%s" is invalid' % (job_specs))
 
             job_trigger = split[0]
             job_kwargs_str = split[1]
@@ -145,29 +146,37 @@ class CronSayPlugin(BaseRegularPlugin):
             elif job_type == "file":
                 pass
             else:
-                raise ValueError("Unknown job type \"%s\" for job %s" % (job_type, job_id))
+                raise ValueError('Unknown job type "%s" for job %s' % (job_type, job_id))
 
-            trigger_instance = self._get_job_trigger_for_job_spec(job_id, job_trigger, job_kwargs_str)
-            item = CronSayItemConfig(job_id=job_id, trigger_instance=trigger_instance,
-                                     type=job_type,
-                                     value=job_value)
+            trigger_instance = self._get_job_trigger_for_job_spec(
+                job_id, job_trigger, job_kwargs_str
+            )
+            item = CronSayItemConfig(
+                job_id=job_id, trigger_instance=trigger_instance, type=job_type, value=job_value
+            )
 
             trigger_interval_seconds = self._get_interval_in_seconds(item.trigger_instance)
 
             if not DEV_MODE and trigger_interval_seconds < MINIMUM_TRIGGER_INTERVAL:
-                raise ValueError("Requested interval for job %s is %s seconds, but minimum "
-                                 "allowed value is %s seconds" % (job_id, trigger_interval_seconds, MINIMUM_TRIGGER_INTERVAL))
+                raise ValueError(
+                    "Requested interval for job %s is %s seconds, but minimum "
+                    "allowed value is %s seconds"
+                    % (job_id, trigger_interval_seconds, MINIMUM_TRIGGER_INTERVAL)
+                )
 
             if not DEV_MODE and item.duration > MAXIMUM_PLAYBACK_DURATION:
-                raise ValueError("Calculated audio duration for job %s is longer than maximum "
-                                 "allowed (%s seconds > %s seconds)" % (job_id, item.duration, MAXIMUM_PLAYBACK_DURATION))
+                raise ValueError(
+                    "Calculated audio duration for job %s is longer than maximum "
+                    "allowed (%s seconds > %s seconds)"
+                    % (job_id, item.duration, MAXIMUM_PLAYBACK_DURATION)
+                )
 
             result[job_id] = item
 
         return result
 
     def _validate_config(self, config):
-        """"
+        """ "
         Validate plugin config and ensure it doesn't contain any words or files which don't meet the
         maximum duration criteria.
         """
@@ -186,7 +195,7 @@ class CronSayPlugin(BaseRegularPlugin):
             elif job_type == "file":
                 pass
             else:
-                raise ValueError("Unknown job type \"%s\" for job %s" % (job_type, job_id))
+                raise ValueError('Unknown job type "%s" for job %s' % (job_type, job_id))
 
     def _validate_text_job(self, job_id: str, job_spec):
         pass
@@ -249,7 +258,9 @@ class CronSayPlugin(BaseRegularPlugin):
             split = job_specs.split(JOB_SPEC_DELIMITER)
             job_trigger = split[0]
             job_kwargs_str = split[1]
-            job_trigger_instance = self._get_job_trigger_for_job_spec(job_id, job_trigger, job_kwargs_str)
+            job_trigger_instance = self._get_job_trigger_for_job_spec(
+                job_id, job_trigger, job_kwargs_str
+            )
 
             job = (job_id, job_trigger_instance)
             jobs.append(job)
@@ -266,7 +277,9 @@ class CronSayPlugin(BaseRegularPlugin):
 
         return result
 
-    def _get_job_trigger_for_job_spec(self, job_id: str, job_trigger: str, job_kwargs_str: str) -> BaseTrigger:
+    def _get_job_trigger_for_job_spec(
+        self, job_id: str, job_trigger: str, job_kwargs_str: str
+    ) -> BaseTrigger:
         """
         Return BaseTrigger instance for the provided CronSay job specification.
         """
@@ -294,7 +307,9 @@ class CronSayPlugin(BaseRegularPlugin):
         else:
             raise ValueError("Unknown job trigger specified: %s" % (job_trigger))
 
-        LOG.debug("Using trigger kwargs \"%s\" for scheduler trigger %s and job %s: %s" % (
-        str(job_kwargs_str), job_trigger, job_id, cls_instance))
+        LOG.debug(
+            'Using trigger kwargs "%s" for scheduler trigger %s and job %s: %s'
+            % (str(job_kwargs_str), job_trigger, job_id, cls_instance)
+        )
 
         return cls_instance

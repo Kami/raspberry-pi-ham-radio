@@ -48,16 +48,17 @@ class WeatherObservationPlugin(BaseDTMFPlugin):
         else:
             rain = RAIN_NO_RAIN
 
-        text = WEATHER_OBSERVATION_SHORT.format(temperature=temperature,
-                                                dewpoint=dewpoint,
-                                                humidity=humidity,
-                                                pressure=pressure,
-                                                wind=wind,
-                                                rain=rain,
-                                                uv_index=uv_index)
+        text = WEATHER_OBSERVATION_SHORT.format(
+            temperature=temperature,
+            dewpoint=dewpoint,
+            humidity=humidity,
+            pressure=pressure,
+            wind=wind,
+            rain=rain,
+            uv_index=uv_index,
+        )
 
         return text
-
 
     def _get_wind_direction_text(self, wind_direction: int) -> str:
         """

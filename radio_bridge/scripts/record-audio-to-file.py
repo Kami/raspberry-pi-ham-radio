@@ -15,10 +15,8 @@ def main(path: str, duration: int) -> None:
     rx.record_audio()
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description="Record audio to a .wav file"
-    )
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Record audio to a .wav file")
     parser.add_argument(
         "--path",
         type=str,

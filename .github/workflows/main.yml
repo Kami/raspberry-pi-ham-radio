@@ -14,7 +14,8 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6]
+          #python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v1
@@ -27,8 +28,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install tox tox-gh-actions
     - name: Test with tox
+      working-directory: wx_server/
       run: |
-        cd wx_server/
         tox -vvv
 
   radio-bridge-build:
@@ -36,7 +37,8 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6]
+        #python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v1
@@ -49,6 +51,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install tox tox-gh-actions
     - name: Test with tox
+      working-directory: radio_bridge/
       run: |
-        cd radio_bridge/
         tox -vvv

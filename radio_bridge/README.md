@@ -1,10 +1,27 @@
 ## System Level Dependencies
 
 ```bash
-sudo apt-get install libatlas-base-dev # scipy
+# Needed by pyaudio library
+sudo apt-get install -y libportaudio2 portaudio19-dev
+# Needed for scipy
+sudo apt-get install -y libatlas-base-dev # scipy
+# Needed if espeak tts implementation is used
+sudo apt-get install -y espeak
 ```
 
 ## Cron jobs
+
+### Delete old cached TTS audio files
+
+To speak up subsequent playing of the same text, TTS implementation will cache each synthesized
+audio in a file in ``/tmp/tts-audio-cache/`` directory.
+
+Over time, this directory may grow large so you are encouraged to run a periodic cron job which
+will delete old cached files.
+
+Keep in mind that cached files can only be re-used if exactly the same text which was already
+played before is requested again so long caching periods will be of little use when working with
+plugins such as weather and current time one which operate on highly dynamic and changing data.
 
 This cron job will automatically delete cached files older than 4 hours (240 minutes).
 

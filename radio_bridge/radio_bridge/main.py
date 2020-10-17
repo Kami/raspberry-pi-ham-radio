@@ -48,7 +48,7 @@ MAX_SEQUENCE_LENGTH = 6
 MAX_LOOP_ITERATIONS_RX_MODE = 15
 
 # select.select timeout when running in emulator mode and DTMF sequences are read from keyboard
-SELECT_TIMEOUT = 0.1
+SELECT_TIMEOUT = 0.5
 
 # In regular RX mode, each recording is 0.4 seconds long, which means, we use the same number of
 # iterations in emulator mode

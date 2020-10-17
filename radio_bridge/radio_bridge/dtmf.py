@@ -158,7 +158,6 @@ class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
 class DTMFDecoder(object):
 
     implementations = {
-        "fft_1": FFT1DTMFDecoderImplementation,
         "fft_2": FFT2DTMFDecoderImplementation,
     }
 

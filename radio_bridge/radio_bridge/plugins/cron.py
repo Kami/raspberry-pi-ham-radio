@@ -113,13 +113,17 @@ class CronSayPlugin(BaseRegularPlugin):
         if job_id not in self._job_id_to_config_map:
             raise ValueError("Unknown job: %s" % (job_id))
 
-        # play file if type is file
         job_config = self._job_id_to_config_map[job_id]
+        value = self._job_id_to_config_map[job_id].value
 
         if job_config.type == "text":
             context = self._get_text_format_context()
-            text_to_say = self._job_id_to_config_map[job_id].value.format(**context)
+            text_to_say = value.format(**context)
             self.say(text_to_say)
+        elif job_config.type == "text_to_morse":
+            self.say_text_morse(text=value)
+        elif job_config.type == "morse":
+            self.say_morse(text=value)
         elif job_config.type == "file":
             self._audio_player.play_file(file_path=job_config.value, delete_after_play=False)
 
@@ -138,11 +142,7 @@ class CronSayPlugin(BaseRegularPlugin):
             job_type = split[2]
             job_value = split[3]
 
-            if job_type == "text":
-                pass
-            elif job_type == "file":
-                pass
-            else:
+            if job_type not in ["text", "text_to_morse", "morse", "file"]:
                 raise ValueError('Unknown job type "%s" for job %s' % (job_type, job_id))
 
             trigger_instance = self._get_job_trigger_for_job_spec(

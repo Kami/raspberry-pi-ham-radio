@@ -35,7 +35,7 @@ class BaseTextToSpeechImplementation(object):
         """
         # TODO: Add cron job which auto purges old recording cached files
         file_hash = hashlib.md5(text.encode("utf-8") + self.implementation_id.encode("utf-8")).hexdigest()
-        file_name = "%s.%s" % (file_hash, self.file_extension)
+        file_name = "%s%s" % (file_hash, self.file_extension)
 
         if CACHE_GENERATED_AUDIO_FILES:
             file_path = os.path.join(CACHED_AUDO_FILES_PATH, file_name)

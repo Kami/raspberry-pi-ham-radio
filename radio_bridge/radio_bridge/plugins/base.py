@@ -37,6 +37,7 @@ class BasePlugin(object):
     DESCRIPTION: str
 
     def __init__(self):
+        self._callsign = get_config()["tx"]["callsign"]
         self._tx_mode = get_config()["tx"]["mode"]
         self._tts = TextToSpeech(implementation=get_config()["tts"]["implementation"])
         self._audio_player = AudioPlayer()
@@ -79,7 +80,7 @@ class BasePlugin(object):
 
         try:
             # 1. Play callsign / hello message
-            self._audio_player.play_file(file_path=CALLSIGN_AUDIO_PATH)
+            self._say_callsign()
 
             # 2. Play actual requested text
             LOG.trace('Playing text "%s"' % (text))
@@ -124,6 +125,15 @@ class BasePlugin(object):
             m.transmit()
         finally:
             self.disable_tx()
+
+    def _say_callsign(self) -> None:
+        if self._callsign.endswith(".mp3") or self._callsign.endswith(".wav"):
+            # Assume it's a path to a file
+            self._audio_player.play_file(file_path=self._callsign)
+        else:
+            # Synthesize it
+            file_path = self._tts.text_to_speech(text=self._callsign)
+            self._audio_player.play_file(file_path=file_path, delete_after_play=False)
 
 
 @pluginlib.Parent("DTMFPlugin")

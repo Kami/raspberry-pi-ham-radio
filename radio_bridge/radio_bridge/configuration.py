@@ -71,6 +71,16 @@ def validate_config(config):
             % (config["main"]["logging_config"])
         )
 
+    callsign = config["tx"]["callsign"]
+    callsign_ext = os.path.splitext(callsign)[1]
+
+    if callsign_ext:
+        if callsign_ext not in [".mp3", ".mp3"]:
+            raise ValueError("Supported audio file extensions are: .mp3,.wav")
+
+        if not os.path.isfile(callsign):
+            raise ValueError("File %s doesn't exist" % (callsign))
+
     if config["tx"]["mode"] not in ["vox", "gpio"]:
         raise ValueError(
             "Invalid tx.mode value: %s. Valid values: vox, gpio" % (config["tx"]["mode"])

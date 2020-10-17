@@ -21,9 +21,8 @@ class HelpPlugin(BaseDTMFPlugin):
             for char in plugin_class.DTMF_SEQUENCE:
                 sequence_text += char + " "
 
-            text_to_say += "\n%s. %s. Sequence %s. %s" % (
+            text_to_say += "\n%s. Sequence %s. %s" % (
                 index + 1,
-                plugin_class.NAME,
                 sequence_text,
                 plugin_class.DESCRIPTION,
             )

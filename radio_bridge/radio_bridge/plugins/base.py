@@ -65,6 +65,12 @@ class BasePlugin(object):
 
         LOG.trace("Disabling TX mode")
 
+    def say(self, text: str):
+        """
+        Alias for say_text().
+        """
+        return self.say_text(text=text)
+
     def say_text(self, text: str):
         """
         Run tts on the provided text and play it via the audio player.

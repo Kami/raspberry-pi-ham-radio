@@ -56,6 +56,8 @@ MAX_LOOP_ITERATIONS_EMULATOR_MODE = (MAX_LOOP_ITERATIONS_RX_MODE * 0.4) / SELECT
 
 VALID_DTMF_CHARACTERS = DTMF_TABLE_HIGH_LOW.keys()
 
+EMULATOR_MODE = get_config()["main"].getboolean("emulator_mode")
+
 
 class RadioBridgeServer(object):
     def __init__(self):
@@ -121,15 +123,26 @@ class RadioBridgeServer(object):
         read_sequence = ""
         iteration_counter = 0
 
-        old_settings = termios.tcgetattr(sys.stdin)
-
         # How many loop iterations before we reset the read_sequence array
-        if False:
-            max_loop_iterations = MAX_LOOP_ITERATIONS_RX_MODE
-        else:
+        if EMULATOR_MODE:
             # In regular RX mode, each recording is 0.4 seconds long, which means, we use the same
             # number of iterations in emulator mode
             max_loop_iterations = MAX_LOOP_ITERATIONS_EMULATOR_MODE
+        else:
+            max_loop_iterations = MAX_LOOP_ITERATIONS_RX_MODE
+
+        if EMULATOR_MODE:
+            old_settings = termios.tcgetattr(sys.stdin)
+
+            # Make sure we reset tty back to the original settigs on exit
+            def reset_tty():
+                LOG.debug("Resetting TTY")
+                termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+
+            atexit.register(reset_tty)
+
+            # Enable non blocking mode for stdin tty so we can read characters without enter
+            tty.setcbreak(sys.stdin.fileno())
 
         while self._started:
             self._run_scheduled_jobs()
@@ -142,18 +155,7 @@ class RadioBridgeServer(object):
                 read_sequence = ""
                 iteration_counter = 0
 
-            if False:
-                self._rx.record_audio()
-                char = self._dtmf_decoder.decode()
-            else:
-
-                def reset_tty():
-                    LOG.debug("Resetting TTY")
-                    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
-
-                atexit.register(reset_tty)
-                tty.setcbreak(sys.stdin.fileno())
-
+            if EMULATOR_MODE:
                 if sys.stdin in select.select([sys.stdin], [], [], SELECT_TIMEOUT)[0]:
                     char = sys.stdin.read(1)
                     if char not in VALID_DTMF_CHARACTERS:
@@ -165,6 +167,9 @@ class RadioBridgeServer(object):
                     LOG.info("Read DTMF character %s from the keyboard" % (char))
                 else:
                     char = ""
+            else:
+                self._rx.record_audio()
+                char = self._dtmf_decoder.decode()
 
             if char != last_char:
                 if not char:

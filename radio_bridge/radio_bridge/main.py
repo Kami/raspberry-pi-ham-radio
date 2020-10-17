@@ -157,7 +157,7 @@ class RadioBridgeServer(object):
 
             if EMULATOR_MODE:
                 if sys.stdin in select.select([sys.stdin], [], [], SELECT_TIMEOUT)[0]:
-                    char = sys.stdin.read(1)
+                    char = sys.stdin.read(1).upper()
                     if char not in VALID_DTMF_CHARACTERS:
                         LOG.error(
                             "Invalid DTMF character: %s. Valid characters are: %s"
@@ -181,7 +181,7 @@ class RadioBridgeServer(object):
 
                 LOG.info("Got char %s, current sequence: %s" % (char, read_sequence))
 
-                # If sequence is valid
+                # If sequence is valid, invoke plugin callback
                 plugin, callback = self._get_plugin_for_dtmf_sequence(sequence=read_sequence)
 
                 if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
@@ -211,6 +211,8 @@ class RadioBridgeServer(object):
                 if "?" in plugin_sequence:
                     data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
                     callback = functools.partial(plugin_instance.run, sequence=data_sequence)
+                elif "*" in plugin_sequence:
+                    callback = functools.partial(plugin_instance.run, sequence=plugin_sequence)
                 else:
                     callback = plugin_instance.run
 

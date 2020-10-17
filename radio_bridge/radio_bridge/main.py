@@ -2,9 +2,14 @@ from typing import Tuple
 from typing import Callable
 
 import os
+import tty
+import sys
 import fnmatch
 import functools
 import threading
+import atexit
+import select
+import termios
 
 import structlog
 
@@ -16,6 +21,7 @@ from radio_bridge.configuration import get_config
 from radio_bridge.log import configure_logging
 from radio_bridge.rx import RX
 from radio_bridge.dtmf import DTMFDecoder
+from radio_bridge.dtmf import DTMF_TABLE_HIGH_LOW
 from radio_bridge.plugins import get_available_plugins
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 from radio_bridge.plugins.base import BasePlugin
@@ -36,6 +42,18 @@ MAX_TRANSMIT_TIME = 120
 # Maximum length for DTMF sequences
 MAX_SEQUENCE_LENGTH = 6
 
+# Each loop iteration lasts around 0.4-0.5 seconds since we record 0.4 seconds long audio
+MAX_LOOP_ITERATIONS_RX_MODE = 15
+
+# select.select timeout when running in emulator mode and DTMF sequences are read from keyboard
+SELECT_TIMEOUT = 0.1
+
+# In regular RX mode, each recording is 0.4 seconds long, which means, we use the same number of
+# iterations in emulator mode
+MAX_LOOP_ITERATIONS_EMULATOR_MODE = (MAX_LOOP_ITERATIONS_RX_MODE * 0.4) / SELECT_TIMEOUT
+
+VALID_DTMF_CHARACTERS = DTMF_TABLE_HIGH_LOW.keys()
+
 
 class RadioBridgeServer(object):
     def __init__(self):
@@ -44,7 +62,6 @@ class RadioBridgeServer(object):
         self._all_plugins = get_available_plugins()
         self._dtmf_plugins = get_plugins_with_dtmf_sequence()
         self._sequence_to_plugin_map = self._dtmf_plugins
-        print(self._dtmf_plugins)
 
         config = get_config()
 
@@ -101,8 +118,16 @@ class RadioBridgeServer(object):
         read_sequence = ""
         iteration_counter = 0
 
+        old_settings = termios.tcgetattr(sys.stdin)
+
         # How many loop iterations before we reset the read_sequence array
-        max_loop_iterations = 15
+        if False:
+            max_loop_iterations = MAX_LOOP_ITERATIONS_RX_MODE
+        else:
+            # In regular RX mode, each recording is 0.4 seconds long, which means, we use the same
+            # number of iterations in emulator mode
+            select_timeout = 0.1
+            max_loop_iterations = MAX_LOOP_ITERATIONS_EMULATOR_MODE
 
         while self._started:
             self._run_scheduled_jobs()
@@ -115,8 +140,27 @@ class RadioBridgeServer(object):
                 read_sequence = ""
                 iteration_counter = 0
 
-            self._rx.record_audio()
-            char = self._dtmf_decoder.decode()
+            if False:
+                self._rx.record_audio()
+                char = self._dtmf_decoder.decode()
+            else:
+                def reset_tty():
+                    LOG.debug("Resetting TTY")
+                    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+
+                import atexit
+                atexit.register(reset_tty)
+                tty.setcbreak(sys.stdin.fileno())
+
+                if sys.stdin in select.select([sys.stdin], [], [], SELECT_TIMEOUT)[0]:
+                    char = sys.stdin.read(1)
+                    if char not in VALID_DTMF_CHARACTERS:
+                        LOG.error("Invalid DTMF character: %s. Valid characters are: %s" % (
+                        char, ", ".join(VALID_DTMF_CHARACTERS)))
+                        continue
+                    LOG.info("Read DTMF character %s from the keyboard" % (char))
+                else:
+                    char = ""
 
             if char != last_char:
                 if not char:
@@ -157,7 +201,7 @@ class RadioBridgeServer(object):
                     data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
                     callback = functools.partial(plugin_instance.run, sequence=data_sequence)
                 else:
-                    callback = plugin_instance_run
+                    callback = plugin_instance.run
 
                 return plugin_instance, callback
 

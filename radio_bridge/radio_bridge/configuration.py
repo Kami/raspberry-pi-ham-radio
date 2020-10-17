@@ -14,7 +14,12 @@ DEFAULT_VALUES = {
     "main": {
         "logging_config": "{rootdir}/conf/logging.conf",
         "dev_mode": False,
-        "tx_mode": "vox",
+        "emulator_mode": False,
+    },
+    "tx": {
+        "mode": "vox",
+        "max_tx_time": 120,
+        "gpio_pin": 10,
     },
     "audio": {
         "input_device_index": 0,
@@ -63,9 +68,9 @@ def validate_config(config):
         )
 
     # TODO validate dtms implementation, tts library
-    if config["main"]["tx_mode"] not in ["vox", "gpio"]:
+    if config["tx"]["mode"] not in ["vox", "gpio"]:
         raise ValueError(
-            "Invalid tx_mode value: %s. valid values: vox, gpio" % (config["main"]["tx_mode"])
+            "Invalid tx.mode value: %s. valid values: vox, gpio" % (config["tx"]["mode"])
         )
 
     return config

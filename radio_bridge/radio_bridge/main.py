@@ -1,5 +1,7 @@
 from typing import Tuple
 from typing import Callable
+from typing import Dict
+from typing import Any
 
 import os
 import tty
@@ -183,8 +185,8 @@ class RadioBridgeServer(object):
 
                 LOG.info("Got char %s, current sequence: %s" % (char, read_sequence))
 
-                # If sequence is valid, invoke plugin callback
-                plugin, callback = self._get_plugin_for_dtmf_sequence(sequence=read_sequence)
+                # If sequence is valid, invoke plugin run() method via the executor
+                plugin, args, kwargs = self._get_plugin_for_dtmf_sequence(sequence=read_sequence)
 
                 if plugin or len(read_sequence) > MAX_SEQUENCE_LENGTH:
                     if plugin:
@@ -192,7 +194,7 @@ class RadioBridgeServer(object):
                             'Found valid sequence "%s", invoking plugin "%s"'
                             % (read_sequence, plugin.NAME)
                         )
-                        self._plugin_executor.run(plugin_run=callback)
+                        self._plugin_executor.run(plugin=plugin, *args, **kwargs)
                     else:
                         LOG.info("Max sequence length limit reached, resetting sequence")
 
@@ -203,24 +205,27 @@ class RadioBridgeServer(object):
 
             last_char = char
 
-    def _get_plugin_for_dtmf_sequence(self, sequence: str) -> Tuple[BasePlugin, Callable]:
+    def _get_plugin_for_dtmf_sequence(
+        self, sequence: str
+    ) -> Tuple[BasePlugin, Tuple, Dict[str, Any]]:
         """
-        Retrieve reference to the Plugin class instance and pre-applied plugin.run() method for the
-        provided DTMF sequence (if any is found registered for that sequence).
+        Retrieve reference to the Plugin class instance and any args and kwargs which should be
+        passed to the plugin run() method.
         """
         for plugin_sequence, plugin_instance in self._sequence_to_plugin_map.items():
+            args = ()
+            kwargs = {}
+
             if fnmatch.fnmatch(sequence, plugin_sequence):
                 if "?" in plugin_sequence:
                     data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
-                    callback = functools.partial(plugin_instance.run, sequence=data_sequence)
+                    kwargs["sequence"] = data_sequence
                 elif "*" in plugin_sequence:
-                    callback = functools.partial(plugin_instance.run, sequence=plugin_sequence)
-                else:
-                    callback = plugin_instance.run
+                    kwargs["sequence"] = plugin_sequence
 
-                return plugin_instance, callback
+                return plugin_instance, args, kwargs
 
-        return None, None
+        return None, None, None
 
     def _run_scheduled_jobs(self) -> None:
         """

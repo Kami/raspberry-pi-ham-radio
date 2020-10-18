@@ -8,6 +8,7 @@ TEXT = "Current time is {hour_local} {minute_local} local. {hour_utc}, {minute_u
 
 
 class CurrentTimePlugin(BaseDTMFPlugin):
+    ID = "current_time"
     NAME = "Current time"
     DESCRIPTION = "Current date and time."
     DTMF_SEQUENCE = "23"

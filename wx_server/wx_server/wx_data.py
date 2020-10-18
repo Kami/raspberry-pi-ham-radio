@@ -13,7 +13,7 @@ from wx_server.io import persist_weather_observation
 
 __all__ = ["wx_data_app"]
 
-wx_data_app = Blueprint("wxz_data", __name__, url_prefix="/v1/wx/observation")
+wx_data_app = Blueprint("wx_data", __name__, url_prefix="/v1/wx/observation")
 
 LOG = structlog.get_logger(__name__)
 

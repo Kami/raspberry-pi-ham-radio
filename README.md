@@ -8,12 +8,12 @@ Raspberry Pi or a similar lower power device.
 
 It consists of two sub-projects:
 
-1. [Weather Observation Server](wx_server/README.md) - HTTP server which receives weather observations from a local
+1. [Weather Observation Server](wx_server/) - HTTP server which receives weather observations from a local
   Weather station and persists them on disk.
-2. [Radio Bridge][radio_bridge/README.md] - Software which exposes various functionality on a ham
+2. [Radio Bridge Server](radio_bridge/) - Software which exposes various functionality on a ham
   radio frequency.
 
-NOTE: This project is work in progress and under development. Do not use for anything critical.
+**NOTE: This project is work in progress and under development. Do not use for anything critical.**
 
 ## Supported Python versions:
 

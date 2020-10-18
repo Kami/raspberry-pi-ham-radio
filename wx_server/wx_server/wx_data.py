@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2023 Tomaz Muraus
+# Copyright 2020 Tomaz Muraus
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
     observation_format = request.args.get("format", "ecowitt")
 
     if observation_format not in ["ecowitt"]:
-        log.debug("Received unsupported format", observation_format=observation_format)
+        LOG.debug("Received unsupported format", observation_format=observation_format)
         return "Unsupported format: %s" % (observation_format), 400, {}
 
     log = LOG.bind(station_id=station_id)

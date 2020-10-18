@@ -17,10 +17,20 @@ Rasperry Pi GPIO pin.
 Keep in mind that in the GPIO case, you need additional hardware component which will correctly
 enable TX on your radio when voltage is present and disable it when voltage is removed.
 
+<insert demo video link>
+
 ## Features
 
 - Easy configuration via ``.ini`` style config file
-- Various abuse prevention and other safe guard built in
+- Various abuse prevention and other safe guards built in:
+  - Ability to set maximum audio duration for all the audio files and text which is played on the
+    frequency (to prevent potentially bad plugins or user actions from keeping the frequency open
+    for too long).
+  - Ability to set minimum run time for cron plugin jobs (to prevent potentially bad configuration
+    or similar for running jobs too often).
+  - Ability to set maximum transmission time. If plugin will run longer for a defined threshold,
+    it will be automatically killed and TX will be disabled.
+  - Minimum delay between DTMF commands invocations to prevent spam and abuse.
 - Support for multiple text to speech configuration (gtts - internet access needed, espeak ng - no internet
   access needed)
 - Easy extensibility by writing custom Python plugins
@@ -55,6 +65,19 @@ An example of such plugin is ``location_weather`` plugin which allows user to re
 for different pre-defined locations.
 
 ### Available Plugins
+
+## Note on VOX transmission mode
+
+When using VOX mode and VOX functionality of your radio it's important you set audio out levels on
+the Raspberry PI correctly to they will indeed trigger a TX when audio file is being played.
+
+Actual audio out volume level you need to set very much depends on your USB sound card and your
+radio.
+
+I was testing it with ``Baofeng GT-3TP III`` and ``Sabrent USB External Stereo Sound Adapter`` USB
+sound card and I needed to set audio out vole to around ``60%``.
+
+You can set audio volume levels for the USB sound card output and input using ``alsamixer``.
 
 ## Development
 
@@ -112,5 +135,6 @@ Main
 - [ ] Max TX time safe guard - if TX has been on more than X seconds, disable it.
 - [ ] Rate limiting / abuse prevention - each command can run x times per time period, depending
   on the command / plugin
-- [ ] Move common logging, config parsing code into common pacakge
+- [ ] Move common logging, config parsing code into common package
 - [ ] Ability to enable specific plugins
+- [ ] Minimum run time between commands to prevent abuse

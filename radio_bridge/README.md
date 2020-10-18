@@ -37,6 +37,9 @@ Special thanks to the authors and contributors of those other projects.
   - Minimum delay between DTMF commands invocations to prevent spam and abuse.
 - Support for multiple text to speech configuration (gtts - internet access needed, espeak ng - no internet
   access needed)
+- Extensive caching for fast performance - synthesized audio files are cached so they can be
+  re-used on subsequent plugin invocation if the text stays the same. This way we can avoid TTS
+  step in many cases.
 - Easy extensibility by writing custom Python plugins
 - Easy testing and development using built-in emulator mode where DTMF sequences are entered
   directly using a keyboard
@@ -69,6 +72,18 @@ An example of such plugin is ``location_weather`` plugin which allows user to re
 for different pre-defined locations.
 
 ### Available Plugins
+
+| Name | DTMF Sequence | Description |
+| --- | :---: | --- |
+| Help | ``12`` | Display all the available DTMF commands. |
+| Clean DTMF Sequence | ``*D*`` | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar.
+| Local Weather | ``34`` | Display weather information for a local weather station connected to this Raspberry PI |
+| Location Weather | ``35??`` | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si
+| Repeater Info | ``38??`` | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si
+| Cron Say | none | Plugin which allows various announcements and information defined in the config to be played at defined intervals. |
+
+NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
+overwritten / changed on per plugin basis inside the config.
 
 ## Note on VOX Transmission Mode
 
@@ -155,9 +170,6 @@ Main
 
 - [ ] Audit log for all the ran commands
 - [ ] Ability to enable and disable TX via GPIO pin when VOX mode is not used
-- [ ] Max TX time safe guard - if TX has been on more than X seconds, disable it.
-- [ ] Rate limiting / abuse prevention - each command can run x times per time period, depending
-  on the command / plugin
 - [ ] Move common logging, config parsing code into common package
 - [ ] Ability to enable specific plugins
 - [ ] Minimum run time between commands to prevent abuse

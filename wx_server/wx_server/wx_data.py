@@ -29,6 +29,11 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
         LOG.info("Received invalid or missing secret, aborting request")
         return "Invalid or missing secret", 403, {}
 
+    observation_format = request.args.get("format", "ecowitt")
+
+    if observation_format not in ["ecowitt"]:
+        return "Unsupported format: %s" % (observation_format), 400, {}
+
     log = LOG.bind(station_id=station_id)
 
     form_data = dict(request.form)

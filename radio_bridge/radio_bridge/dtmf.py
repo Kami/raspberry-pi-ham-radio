@@ -1,4 +1,3 @@
-from typing import List
 from typing import Any
 
 import abc

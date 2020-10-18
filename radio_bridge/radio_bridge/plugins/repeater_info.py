@@ -15,7 +15,10 @@ REPEATERS_URL_70CM = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=3"
 LOG = structlog.getLogger(__name__)
 
 # TODO: Support overriding in the config
-TEXT = "Repeater {name}. Location: {location}. Input frequency: {input_freq} MHz. Output frequency: {output_freq}. CTCSS: {ctcss} MHz"
+TEXT = """
+Repeater {name}. Location: {location}. Input frequency: {input_freq} MHz.
+Output frequency: {output_freq}. CTCSS: {ctcss} MHz
+""".strip()
 
 
 class RepeaterInfo(object):
@@ -68,7 +71,6 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
 
         context = self._get_render_context_for_text(repeater_info=repeater_info)
         text_to_say = TEXT.format(**context)
-        print(text_to_say)
         self.say(text_to_say)
 
     def _get_render_context_for_text(self, repeater_info: RepeaterInfo) -> dict:

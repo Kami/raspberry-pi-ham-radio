@@ -66,7 +66,7 @@ for different pre-defined locations.
 
 ### Available Plugins
 
-## Note on VOX transmission mode
+## Note on VOX Transmission Mode
 
 When using VOX mode and VOX functionality of your radio it's important you set audio out levels on
 the Raspberry PI correctly to they will indeed trigger a TX when audio file is being played.
@@ -78,6 +78,25 @@ I was testing it with ``Baofeng GT-3TP III`` and ``Sabrent USB External Stereo S
 sound card and I needed to set audio out vole to around ``60%``.
 
 You can set audio volume levels for the USB sound card output and input using ``alsamixer``.
+
+## Note on plugin DTMF codes
+
+When defining custom DTMF trigger codes for the plugins or developing custom plugins, you should
+follow those rules:
+
+* Make sure that plugins use the same number of DTMF characters (e.g. 2)
+* Make sure that you never use the same character multiple times. For example ``12`` is OK, but
+  ``11`` is not. The reason for that is that most of the DTMF detection / decoding algorithms don't
+  allow repeated sequences to increase decoding accuracy (aka it's hard to distinguish if user 
+  entered the same DTMF code twice or it simply help the key for a longer period or similar).
+
+Example of good DTMF sequences:
+
+* ``12``
+* ``13``
+* ``23``
+* ``34??``
+* ``35??``
 
 ## Development
 

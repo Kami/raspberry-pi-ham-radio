@@ -6,19 +6,27 @@ import re
 import structlog
 import requests
 from bs4 import BeautifulSoup
+from expiringdict import ExpiringDict
 
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
 
 REPEATERS_URL_2M = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=2"
 REPEATERS_URL_70CM = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=3"
 
-LOG = structlog.getLogger(__name__)
-
 # TODO: Support overriding in the config
 TEXT = """
-Repeater {name}. Location: {location}. Input frequency: {input_freq} MHz.
-Output frequency: {output_freq}. CTCSS: {ctcss} MHz
+Repeater {name}.
+Location: {location}.
+Input frequency: {input_freq} MHz.
+Output frequency: {output_freq}.
+CTCSS: {ctcss} MHz
 """.strip()
+
+LOG = structlog.getLogger(__name__)
+
+# Dictionary where we stored cached HTTP responses to avoid re-fetching the data when it's not
+# necessary. Since those pages rarely change, we use a relatively long TTL.
+URL_RESPONSE_CACHE = ExpiringDict(max_len=10, max_age_seconds=(6 * 60 * 60))
 
 
 class RepeaterInfo(object):
@@ -45,6 +53,7 @@ class RepeaterInfo(object):
 class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
     NAME = "Repeater info"
     DESCRIPTION = "Display information for a specific repeater."
+    # Usage: 38<1 digit for repeater type, 2 = vhf, 7 = 70cm><2 digits for repeater id, e.g. 01>
     # For example 3 8 2 0 1 - First 2m repeater
     # For example 3 8 7 0 1 - First 70cm repeater
     DTMF_SEQUENCE = "38???"
@@ -127,13 +136,22 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
             url = REPEATERS_URL_70CM
         else:
             raise ValueError("Unknown repeater type: %s" % (repeater_type))
-        # TODO: Cache retrieved repeater list for X hours
-        response = requests.get(url)
 
-        if response.status_code != 200:
-            return None
+        if url not in URL_RESPONSE_CACHE:
+            response = requests.get(url)
 
-        soup = BeautifulSoup(response.text, "html.parser")
+            if response.status_code != 200:
+                LOG.error(
+                    "URL %s returned non-200 code" % (url),
+                    code=response.status_code,
+                    response=response.text,
+                )
+                return None
+
+            URL_RESPONSE_CACHE[url] = response.text
+
+        response_body = URL_RESPONSE_CACHE[url]
+        soup = BeautifulSoup(response_body, "html.parser")
 
         id_tag = soup.find("b", string=repeater_id)
         if not id_tag:

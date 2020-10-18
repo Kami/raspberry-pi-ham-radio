@@ -12,11 +12,15 @@ is plugged into Raspberry Pi.
 
 It supports two transmit (TX) mode - first one relies called ``vox`` relies on VOX functionality of
 a radio and the second one called ``gpio`` triggers a TX by opening (supplying voltage) on a specific
-Rasperry Pi GPIO pin.
+Rasbperry Pi GPIO pin.
 
 Keep in mind that in the GPIO case, you need additional hardware component which will correctly
 enable TX on your radio when voltage is present and disable it when voltage is removed.
 
+The project itself took a lot of inspiration and ideas from other similar projects such as SVXLink,
+Hambone and others.
+
+Special thanks to the authors and contributors of those other projects.
 <insert demo video link>
 
 ## Features

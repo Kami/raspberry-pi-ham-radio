@@ -55,8 +55,7 @@ def get_bucket_name_for_date(date: datetime.datetime) -> str:
 
 
 def get_weather_observation_for_date(
-    station_id: str,
-    date: datetime.datetime, return_closest=True
+    station_id: str, date: datetime.datetime, return_closest=True
 ) -> Optional[messages_pb2.WeatherObservation]:
     """
     Return weather observation for the provided date.

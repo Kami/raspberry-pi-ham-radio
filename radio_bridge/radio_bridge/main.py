@@ -1,5 +1,4 @@
 from typing import Tuple
-from typing import Callable
 from typing import Dict
 from typing import Any
 
@@ -7,7 +6,6 @@ import os
 import tty
 import sys
 import fnmatch
-import functools
 import threading
 import atexit
 import select

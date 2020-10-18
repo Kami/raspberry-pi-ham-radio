@@ -1,6 +1,5 @@
 from typing import Any
 from typing import Type
-from typing import Callable
 
 import abc
 import time
@@ -44,7 +43,7 @@ class NativePluginExecutor(BasePluginExecutor):
         """
         Run the plugin and pass args kwargs to the plugin run method.
         """
-        return plugin, run(*args, **kwargs)
+        return plugin.run(*args, **kwargs)
 
 
 class ProccessPluginExecutor(BasePluginExecutor):
@@ -125,8 +124,8 @@ class PluginExecutor(object):
         if previous_run_time and previous_run_time + minimum_run_interval > now:
             grace_time_seconds = abs(now - (previous_run_time + minimum_run_interval))
             LOG.info(
-                "Plugin was executed less than %s seconds ago, refusing execution. Plugin can run again in %s seconds."
-                % (minimum_run_interval, grace_time_seconds)
+                "Plugin was executed less than %s seconds ago, refusing execution. Plugin can run "
+                "again in %s seconds." % (minimum_run_interval, grace_time_seconds)
             )
             return False
 

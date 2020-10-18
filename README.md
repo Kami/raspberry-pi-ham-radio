@@ -3,7 +3,17 @@
 ![CI](https://github.com/Kami/raspberry-pi-ham-radio/workflows/CI/badge.svg?branch=master)
 
 This repository contains source code and related information which allows users to expose various
-information over ham radio frequencies.
+information on a ham frequency and perform various DTMF code and other related automations using
+Raspberry Pi or a similar lower power device.
+
+It consists of two sub-projects:
+
+1. [Weather Observation Server](wx_server/README.md) - HTTP server which receives weather observations from a local
+  Weather station and persists them on disk.
+2. [Radio Bridge][radio_bridge/README.md] - Software which exposes various functionality on a ham
+  radio frequency.
+
+NOTE: This project is work in progress and under development. Do not use for anything critical.
 
 ## Supported Python versions:
 
@@ -56,4 +66,3 @@ This repository consists of 2 Python projects.
 1. ``wx_server`` - this project consists of a HTTP server to which weather station can send data in
   Ecowitt format and this data is then formatted and persisted on disk. Data is persisted as serialized
   Protobuf messages in files per disk - one file per observation.
-

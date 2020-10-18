@@ -1,0 +1,799 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width">
+<title>.: S5RPT Info Point</title>
+<link rel="shortcut icon" href="/images/icons/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+<link rel="stylesheet" type="text/css" href="css/seznami.css" />
+<link rel="stylesheet" type="text/css" href="css/toolTip.css" />
+<link rel="stylesheet" type="text/css" href="css/prva.css" />
+<link rel="stylesheet" type="text/css" href="cookies/eu_cookies.css" />
+<link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
+<script language="javascript" src="cookies/eu_cookies.min.js"></script>
+<script language="javascript" src="include/scripts.js"></script>
+<script language="javascript" src="include/toolTip.js"></script>
+<script language="javascript" src="include/popup.js"></script>
+<script type="text/javascript" src="include/prototype.js"></script>
+<script type="text/javascript" src="include/scriptaculous.js?load=effects,builder"></script>
+</head>
+
+<body class="body" id="bodyAdmin" onload="">
+<a name="top"></a>
+<!--
+<table border="0" width="100%" style="border-collapse: collapse" height="21" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="1%" style="border-bottom: 1px solid #272727">
+		<img border="0" src="images/dela1.gif" width="24" height="21"></td>
+		<td width="99%" background="images/dela2.gif" style="border-bottom: 1px solid #272727">&nbsp;<b><font face="Verdana" color="#272727" style="font-size: 9pt">Portal S5RPT je trenutno še v fazi izdelave. Kljub temu na njem najdete osvežene podatke o repetitorjih ter pomembna obvestila!</font></b></td>
+	</tr>
+</table>
+-->
+<table align="center" class="tableMain" cellpadding="0" cellspacing="0">
+	<tr>
+    	<td class="tdZgoraj" colspan="2">
+        	<table width="100%" cellpadding="0" cellspacing="0">
+            	<tr>
+                	<td width="50%" class="topLinks">
+			        	<a href="http://www.hamradio.si" target="_blank" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Zveza radioamaterjev Slovenije'); return false;">ZRS</a> |
+			            <a href="http://forum.hamradio.si" target="_blank" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Forumi slovenskih radioamaterjev'); return false;">LEA FORUMI</a> | 
+			            <a href="http://slovhf.net" target="_blank" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'S5 UKW portal'); return false;">SLOVHF</a> | 
+			            <a href="http://atv.hamradio.si" target="_blank" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'ATV, FM, RPT kontrolerji; S51KQ domača stran'); return false;">ATV TEAM</a> | 
+			            <a href="http://www.sos112.si" target="_blank" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Uprava RS za zaščito in reševanje'); return false;">URSZR</a> | 
+			            <a href="?modul=kontakt" class="linkNavZgoraj" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Sporoči težave ali druga vprašanja'); return false;">KONTAKT</a>
+
+                    	<?php// echo $lang["danes_je"] . " " . date("j") . ". " .  $lang[date("F")] . " " . date("Y"); ?>
+                    </td>
+                	<td width="50%" align="right">
+                		<table cellpadding="0" cellspacing="0" style="margin-top: 2px;">
+							<tr>
+								<td class="tdZavihek1" onclick="window.location = '?changeLang=si&url=/?modul=repetitorji&vrsta=3';">slovensko</td>
+								<td class="tdZavihek0">english</td>
+															</tr>
+						</table>
+                    </td>
+                </tr>
+            </table>
+       </td>
+    </tr>
+    <tr>
+    	<td class="tdHeader" onclick="window.location = 'index.php';">
+			
+       	</td>
+		<td class="userPanel" valign="top">
+                        <form method="post" action="login.php">
+				<input type="hidden" name="url" value="/?modul=repetitorji&vrsta=3" />
+				<h3>Prijava uporabnika</h3>
+				<label for="username">Uporabnik</label>
+				<input type="text" name="username" id="username" /><br />
+				<label for="password">Geslo</label>
+				<input type="password" name="user_pass"" id="password" /><br />
+				<input type="submit" name="prijava" value="Prijava" id="potrditev" />
+            </form>
+            		</td>
+    </tr>
+    <tr>
+    	<td colspan="2">
+        	<table class="tableVsebina" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="tdVsebinaLeft" valign="top">
+                    	    <table class="tableNavLeft" cellpadding="0" cellspacing="0">
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=prva_stran';">Prva stran</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=obvestila';">Obvestila</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=repetitorji&vrsta=1';">6m repetitorji</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=repetitorji&vrsta=2';">2m repetitorji</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=repetitorji&vrsta=3';">70cm repetitorji</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=repetitorji&vrsta=5';">DV RPT</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=repetitorji&vrsta=4';">Echolink prehodi</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=zemljevidi';">Zemljevidi</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=aprs';">APRS map</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=galerije&site=0&id=0-';">Galerije slik</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = '?modul=dokumenti';">Dokumenti</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeft" onmouseover="this.className += '1';" onmouseout="this.className = 'tdNavLeft';" onclick="window.location = 'http://forum.hamradio.si/viewforum.php?f=27';">Forum</td>
+        </tr>
+        <tr>
+        	<td class="tdNavLeftBottomMain"></td>
+        </tr>
+    </table>
+                                <form method="get" action="">
+    <input id="mailing_modul" type="hidden" name="modul" value="mailing_prijava" />
+    <table class="tableMailing" width="140" align="center" cellpadding="0" cellspacing="0">
+    	<tr>
+        	<td class="tdMailingHeader">Poštni seznam</td>
+        </tr>
+        <tr>
+        	<td class="tdMailingText"><input type="text" name="mailing_email" class="inputTextMailing" value="Vpišite vaš e-naslov" onClick="this.value = '';" /></td>
+        </tr>
+        <tr>
+        	<td class="tdMailingInput"><input type="submit" value="Prijava" class="inputSubmitMailing" onClick="document.getElementById('mailing_modul').value = 'mailing_prijava';" />&nbsp;<input type="submit" value="Odjava" class="inputSubmitMailing" onClick="document.getElementById('mailing_modul').value = 'mailing_odjava';" /></td>
+        </tr>
+        <tr>
+        	<td class="tdMailingBottom"></td>
+        </tr>
+    </table>    
+    </form>
+                            		<!-- prikaz oglasov na levi strani -->
+		
+  	  <table class="tableOglasi" width="140" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+        		<td class="tdOglasiHeader">Sponzorji</td>
+			</tr>
+					<tr>
+				<td class="tdOglasi"><a href="http://www.naglic.si/index.php?v=2" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Elektronika Naglič'); return false;"><img src="data/rpt_1260954407_oglas0.JPG" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.uscom.si/" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'USCOM'); return false;"><img src="data/rpt_1260954743_oglas0.JPG" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.it-100.si/eng-pages/eng-welcome.htm" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'IT100'); return false;"><img src="data/rpt_1260955387_oglas0.jpg" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.acv.si/" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'ACV Slovenija'); return false;"><img src="data/rpt_1260962151_oglas0.jpg" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.sos112.si/slo/index.php" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'URSZR'); return false;"><img src="data/rpt_1260962410_oglas0.gif" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.cestel.si/" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'CESTEL'); return false;"><img src="data/rpt_1260962479_oglas0.gif" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.hgem.si/" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'HGEM'); return false;"><img src="data/rpt_1260962578_oglas0.jpg" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasi"><a href="http://www.cip.si/" target="_blank" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'ČIP elektronika'); return false;"><img src="data/rpt_1297603355_oglas0.jpg" alt="" /></a></td>
+			</tr>
+						<tr>
+				<td class="tdOglasiBottom" align="center"></td>
+			</tr>
+		</table>
+		<br />
+		
+		<!-- konec prikaza oglasov na levi strani -->
+		
+		                    </td>
+                    <td class="tdVsebinaVmes"></td>
+					   									<td id="seznamRepetitorji" valign="top">
+					   					<a href="javascript:popUp('print.php?vrsta=3', 'Natisni_podatke', '750', '550', 'yes');"><img src="images/icons/print_icon.gif" alt="" /></a>
+		<h4>Seznam slovenskih 70cm govornih repetitorjev		</h4>
+		<table cellspacing="0" cellpadding="0" id="seznam">
+			<thead>
+				<td>&nbsp;</td>
+				<td>INPUT</td>
+				<td>OUTPUT</td>
+				<td>RPT/ID</td>
+				<td>QTH</td>
+				<td>LOC/ASL</td>
+				<td width="150">NOTE/ECHOLINK</td>
+				<td width="80">OWNER</td>
+				<td width="80">SYSOP</td>
+			</thead>
+			<tfoot>
+				<td colspan="9"><a href="#top">Na vrh</a></td>
+			</tfoot>
+			<tbody>
+					<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>1</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.000 
+145.500</td>
+				<td>438.600 
+145.500</td>
+				<td class="sredinsko">
+					RU688<br />
+					<b>S55UBK</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=25"><b>MIRNA GORA</b></a></td>
+				<td class="sredinsko">
+					JN75NP<br />
+					1014				</td>
+				<td width="150">
+				70cm -> 2m DTMF 88
+RRC-4,Voice Clock &nbsp;				</td>
+				<td width="80">S59ACA 
+S59DMJ
+S59DJR </td>
+				<td width="80">S52B</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>2</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.025
+145.1375</td>
+				<td>438.625
+145.6375</td>
+				<td class="sredinsko">
+					RU690<br />
+					<b>S55USC</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=47"><b>STARE SLEMENE</b></a></td>
+				<td class="sredinsko">
+					JN76QH<br />
+					630				</td>
+				<td width="150">
+				E-link ID: 646960<br />E-link shortcut: B17<br />CTCSS: 123.0 Hz<br />Linked with S55VSC on same location&nbsp;				</td>
+				<td width="80">S51HT</td>
+				<td width="80">S51HT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>3</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.075</td>
+				<td>438.675</td>
+				<td class="sredinsko">
+					RU694<br />
+					<b>S55UKV</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=38"><b>KRVAVEC</b></a></td>
+				<td class="sredinsko">
+					JN76GH<br />
+					1853				</td>
+				<td width="150">
+				E-link ID: 271336<br />E-link shortcut: B15<br />CTCSS: 123.0<br />Voice & CW ID
+permanently connected with Echolink conference SLOVENIA&nbsp;				</td>
+				<td width="80">S51KM
+S53SI   
+S56CT</td>
+				<td width="80">S56CT</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>4</b><img src="images/icons/rpt_online.gif" alt="" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Test'); return false;" /></td>
+				<td>431.100</td>
+				<td>438.700</td>
+				<td class="sredinsko">
+					RU696<br />
+					<b>S55UKP</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=8"><b>NANOS</b></a></td>
+				<td class="sredinsko">
+					JN75AS<br />
+					1240				</td>
+				<td width="150">
+				CTCSS: 123.0<br />Test&nbsp;				</td>
+				<td width="80">S59DGO</td>
+				<td width="80">S57DV</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>5</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.125</td>
+				<td>438.725</td>
+				<td class="sredinsko">
+					RU698<br />
+					<b>S55UBR</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=52"><b>BREŽICE</b></a></td>
+				<td class="sredinsko">
+					JN75TV<br />
+					162				</td>
+				<td width="150">
+				CTCSS: 123.0 Hz<br />Kenwood TKR 820&nbsp;				</td>
+				<td width="80">S56CT</td>
+				<td width="80">S56IPS & S52NR</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>6</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.125
+</td>
+				<td>438.725</td>
+				<td class="sredinsko">
+					RU698<br />
+					<b>S55UTB</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=39"><b>Zg. KOCJAN (Radenci)</b></a></td>
+				<td class="sredinsko">
+					JN86AO<br />
+					301				</td>
+				<td width="150">
+				CTCSS: 123.0<br />Yaesu DR1XE with MMDVM works FM/DMR/D-STAR/YSF&nbsp;				</td>
+				<td width="80">ZRS
+S59DTB</td>
+				<td width="80">S56ZM
+S55WT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>7</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.150</td>
+				<td>438.750</td>
+				<td class="sredinsko">
+					RU700<br />
+					<b>S55UGO</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=28"><b>TRSTELJ (NG)</b></a></td>
+				<td class="sredinsko">
+					JN65UU<br />
+					643				</td>
+				<td width="150">
+				CTCSS: 123.0 Hz RTX<br />MMDVM + Yaesu DR1X multimode FM/DMR/D-STAR/C4FM
+&nbsp;				</td>
+				<td width="80">S59DKS
+S51WND</td>
+				<td width="80">S52X</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>8</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.175</td>
+				<td>438.775</td>
+				<td class="sredinsko">
+					RU702<br />
+					<b>S55ULX</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=21"><b>KRIM</b></a></td>
+				<td class="sredinsko">
+					JN75FW<br />
+					1108				</td>
+				<td width="150">
+				CTCSS: 123.0&nbsp;				</td>
+				<td width="80">ZRS</td>
+				<td width="80">S56ZAB & S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>9</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.200</td>
+				<td>438.800</td>
+				<td class="sredinsko">
+					RU704<br />
+					<b>S55UPI</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=46"><b>Radio Club Piran</b></a></td>
+				<td class="sredinsko">
+					JN65TM<br />
+					150				</td>
+				<td width="150">
+				MMDVM repeater DMR/FM&nbsp;				</td>
+				<td width="80">S59HIJ</td>
+				<td width="80">S52ID</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>10</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.225
+144.537.5</td>
+				<td>438.825
+144.537.5</td>
+				<td class="sredinsko">
+					RU706<br />
+					<b>S55UBC</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=29"><b>BOČ</b></a></td>
+				<td class="sredinsko">
+					JN76TG<br />
+					980				</td>
+				<td width="150">
+				E-link ID: 271797<br />E-link shortcut: B11<br />CTCSS: 123.0<br />Echolink temp. OFF
+2m RTX OFF&nbsp;				</td>
+				<td width="80">S56CT</td>
+				<td width="80">S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>11</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.225 
+145.425
+</td>
+				<td>438.825
+145.425
+</td>
+				<td class="sredinsko">
+					RU706<br />
+					<b>S55UPO </b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=37"><b>PEČNA REBER (Postojna) </b></a></td>
+				<td class="sredinsko">
+					JN75CS<br />
+					660				</td>
+				<td width="150">
+				E-link ID: 609569<br />E-link shortcut: B25<br />CTCSS: 123.0 Hz&nbsp;				</td>
+				<td width="80">S56IUL
+S56JCH</td>
+				<td width="80">S56IUL
+S56JCH</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>12</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.275
+145.2875 </td>
+				<td>438.875
+145.2875</td>
+				<td class="sredinsko">
+					RU710<br />
+					<b>S55ULJ </b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=30"><b>JANČE (Ljubljana) </b></a></td>
+				<td class="sredinsko">
+					JN76IB<br />
+					794				</td>
+				<td width="150">
+				E-link ID: 654836<br />E-link shortcut: B20<br />CTCSS: 70cm 123.0 Hz
+2m 123.0 Hz<br />Echolink OFF&nbsp;				</td>
+				<td width="80">ZRS</td>
+				<td width="80">S56CT
+</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>13</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.275</td>
+				<td>438.875</td>
+				<td class="sredinsko">
+					RU710<br />
+					<b>S55USG</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=56"><b>KORADA</b></a></td>
+				<td class="sredinsko">
+					JN66SB<br />
+					812				</td>
+				<td width="150">
+				&nbsp;				</td>
+				<td width="80">S51DSG</td>
+				<td width="80">S51DSG
+S57WOM</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>14</b><img src="images/icons/rpt_online.gif" alt="" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'Voice ID, clock, WX station'); return false;" /></td>
+				<td>431.300</td>
+				<td>438.900</td>
+				<td class="sredinsko">
+					RU712<br />
+					<b>S55USX</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=53"><b>Sv. ROK</b></a></td>
+				<td class="sredinsko">
+					JN76PA<br />
+					374				</td>
+				<td width="150">
+				E-link ID: 952012<br />E-link shortcut: B1<br />CTCSS: 123.0<br />Motorola Quantro - local repeater&nbsp;				</td>
+				<td width="80">S56CT</td>
+				<td width="80">S55SM
+S56ITR
+S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>15</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.350 
+</td>
+				<td>438.950 </td>
+				<td class="sredinsko">
+					RU716<br />
+					<b>S55UCE</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=77"><b>Celje Trnovlje</b></a></td>
+				<td class="sredinsko">
+					JN76PG<br />
+					270				</td>
+				<td width="150">
+				CTCSS: 123.0 Hz&nbsp;				</td>
+				<td width="80">S56KZ</td>
+				<td width="80">S56KZ</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>16</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.400</td>
+				<td>439.000</td>
+				<td class="sredinsko">
+					RU720<br />
+					<b>S55USE</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=32"><b>LAZE (Sevnica)</b></a></td>
+				<td class="sredinsko">
+					JN75PX<br />
+					528				</td>
+				<td width="150">
+				E-link ID: 316250<br />E-link shortcut: B9<br />CTCSS: 123.0 Hz only TX from RPT to user<br />Radiosystem, Voiceclock
+permanently connected with Echolink conference SLOVENIA&nbsp;				</td>
+				<td width="80">S56CT</td>
+				<td width="80">S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>17</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.425</td>
+				<td>439.025</td>
+				<td class="sredinsko">
+					RU722<br />
+					<b>S55UBO</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=9"><b>KOBLA</b></a></td>
+				<td class="sredinsko">
+					JN66XF<br />
+					1560				</td>
+				<td width="150">
+				CTCSS: 123.0 Hz<br />Mixmode FM/DMR&nbsp;				</td>
+				<td width="80">S59DBO</td>
+				<td width="80">S53GA</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>18</b><img src="images/icons/rpt_online.gif" alt="" onmouseout="hideTooltip()" onmouseover="showTooltip(event, 'mixed mode FM/DMR RPT'); return false;" /></td>
+				<td>431.475</td>
+				<td>439.075</td>
+				<td class="sredinsko">
+					RU726<br />
+					<b>S55DMR</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=60"><b>Podgorica (pod Lisco)</b></a></td>
+				<td class="sredinsko">
+					JN76PA<br />
+					649				</td>
+				<td width="150">
+				CTCSS: 123.0<br />mixed mode FM/DMR RPT 
+CC:1&nbsp;				</td>
+				<td width="80">IT-100 d.o.o., S57VHF</td>
+				<td width="80">S57VHF, S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>19</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.525</td>
+				<td>439.125</td>
+				<td class="sredinsko">
+					RU730<br />
+					<b>S55UHF</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=58"><b>KUM</b></a></td>
+				<td class="sredinsko">
+					JN76MC<br />
+					1219				</td>
+				<td width="150">
+				E-link ID: 608521<br />CTCSS: 123.0<br />SVXLink&nbsp;				</td>
+				<td width="80">S56CT</td>
+				<td width="80">S56CT</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>20</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.550</td>
+				<td>439.150</td>
+				<td class="sredinsko">
+					RU732<br />
+					<b>S55UKO</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=59"><b>Mala Kopa</b></a></td>
+				<td class="sredinsko">
+					JN76OM<br />
+					1522				</td>
+				<td width="150">
+				CTCSS: 123.0 Hz<br />YSF & FM Yaesu DR1XE&nbsp;				</td>
+				<td width="80">S50VZZ</td>
+				<td width="80">S51UZ</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>21</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.575 
+</td>
+				<td>439.175
+</td>
+				<td class="sredinsko">
+					RU734<br />
+					<b>S55UTR/S55DTR</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=33"><b>Sv. PLANINA (Trbovlje)</b></a></td>
+				<td class="sredinsko">
+					JN76ME<br />
+					1011				</td>
+				<td width="150">
+				E-link ID: 47093<br />E-link shortcut: B3<br />CTCSS: 123.0 Hz, DMR CC:1<br />Mixed mode FM/DMR, connected to BrandMeister&nbsp;				</td>
+				<td width="80">ZRS</td>
+				<td width="80">S56CT</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>22</b><img src="images/icons/rpt_offline.gif" alt="" /></td>
+				<td>431.600</td>
+				<td>439.200</td>
+				<td class="sredinsko">
+					RU736<br />
+					<b>S55UKK</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=27"><b>ČRETEŽ (Krško)</b></a></td>
+				<td class="sredinsko">
+					JN75RX<br />
+					429				</td>
+				<td width="150">
+				E-link ID: 804765<br />E-link shortcut: B22<br />CTCSS: 123.0<br />Echolink permanently connected to conference *SLOVENIA*,
+WX station, Voiceclock, Echoproducer&nbsp;				</td>
+				<td width="80">S56CT
+</td>
+				<td width="80">S55DK & S56CT</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>23</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.600</td>
+				<td>439.200</td>
+				<td class="sredinsko">
+					RU736<br />
+					<b>S55UMX</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=34"><b>POHORJE - (Maribor)</b></a></td>
+				<td class="sredinsko">
+					JN76TM<br />
+					935				</td>
+				<td width="150">
+				E-link ID: 271749<br />E-link shortcut: B2<br />CTCSS: 88,5 Hz in case of interference. Most  of time OFF. 
+Voice WX station for MB, 
+RRC 4, voiceclock<br />Echolink OFF&nbsp;				</td>
+				<td width="80">S51UL, S52ME 
+S51IV, S52RX,  
+S51PW, S56WAN </td>
+				<td width="80">S56WAN 
+S51UL</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>24</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.625</td>
+				<td>439.225</td>
+				<td class="sredinsko">
+					RU738<br />
+					<b>S55UMB</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=17"><b>POHORJE - razgledni stolp</b></a></td>
+				<td class="sredinsko">
+					JN76TM<br />
+					1147				</td>
+				<td width="150">
+				DTMF link to S55VMB 2m & 6m
+
+&nbsp;				</td>
+				<td width="80">S59DXX</td>
+				<td width="80">S56WAN 
+S51UL</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>25</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.625</td>
+				<td>439.225</td>
+				<td class="sredinsko">
+					RU738<br />
+					<b>S55UID</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=16"><b>VOJSKO</b></a></td>
+				<td class="sredinsko">
+					JN66WA<br />
+					1129				</td>
+				<td width="150">
+				Nokia BSR 450&nbsp;				</td>
+				<td width="80">S59EYZ</td>
+				<td width="80">S51GF</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>26</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.675
+
+
+
+</td>
+				<td>439.275
+
+
+</td>
+				<td class="sredinsko">
+					RU742<br />
+					<b>S55UZA</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=15"><b>MRZLICA</b></a></td>
+				<td class="sredinsko">
+					JN76NE<br />
+					1122				</td>
+				<td width="150">
+				E-link ID: 785783<br />E-link shortcut: B19<br />CTCSS: 123.0 Hz<br />SVX Link permanently connected with Echolink conference *SLOVENIA* &nbsp;				</td>
+				<td width="80">S56CT
+</td>
+				<td width="80">S56CT
+</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>27</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.700</td>
+				<td>439.300</td>
+				<td class="sredinsko">
+					RU744<br />
+					<b>S55UCM</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=35"><b>MALIČ (Celje, Laško)</b></a></td>
+				<td class="sredinsko">
+					JN76OE<br />
+					936				</td>
+				<td width="150">
+				E-link ID: 561316<br />E-link shortcut: B7<br />CTCSS: 123.0 Hz<br />Echolink OFF
+
+&nbsp;				</td>
+				<td width="80">S56KZ</td>
+				<td width="80">S56KZ</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>28</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.725 
+144.5625</td>
+				<td>439.325</td>
+				<td class="sredinsko">
+					RU746<br />
+					<b>S55URS</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=36"><b>STRMEC (Rogaška Slatina)</b></a></td>
+				<td class="sredinsko">
+					JN76UG<br />
+					468				</td>
+				<td width="150">
+				CTCSS: 91,5 Hz 2m -> 70cm  <br />RRC-3 &nbsp;				</td>
+				<td width="80">S59DRO</td>
+				<td width="80">S51KQ</td>
+			</tr>
+						<tr class="vrstica0" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica0';">
+				<td align="center"><b>29</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.725</td>
+				<td>439.325</td>
+				<td class="sredinsko">
+					RU746<br />
+					<b>S55UJE</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=49"><b>STRUŠKA</b></a></td>
+				<td class="sredinsko">
+					JN76BL<br />
+					1944				</td>
+				<td width="150">
+				Solar powered 
+planned MMDVM+DR1XE&nbsp;				</td>
+				<td width="80">S59DNA</td>
+				<td width="80">S52VJ OE8KKK S57AJJ</td>
+			</tr>
+						<tr class="vrstica1" onmouseover="this.className='aktivna';" onmouseout="this.className='vrstica1';">
+				<td align="center"><b>30</b><img src="images/icons/rpt_online.gif" alt="" /></td>
+				<td>431.775</td>
+				<td>439.375</td>
+				<td class="sredinsko">
+					RU750<br />
+					<b>S55URK</b>
+				</td>
+							<td class="sredinsko"><a href="?modul=lokacija&site=12"><b>URŠLJA GORA</b></a></td>
+				<td class="sredinsko">
+					JN76LL<br />
+					1700				</td>
+				<td width="150">
+				Hytera RD985 BrandMeister
+&nbsp;				</td>
+				<td width="80">ZRS</td>
+				<td width="80">S52EI</td>
+			</tr>
+						</tbody>
+		</table>
+		<br />
+										</td>
+												</tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<td class="tdProstor1" colspan="2"></td>
+    </tr>
+    <tr>
+    	<td class="tdCopy" colspan="2">&copy; 2007 S59DOR &amp; <a href="http://www.gimteam.net" target="_blank" class="linkCopy">GimTeam</a></td>
+    </tr>
+</table>
+<script src="include/jquery-1.7.2.min.js"></script>
+<script src="include/jquery-ui-1.8.18.custom.min.js"></script>
+<script src="include/jquery.smooth-scroll.min.js"></script>
+<script src="include/lightbox.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-12083975-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

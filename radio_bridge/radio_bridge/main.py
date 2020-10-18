@@ -25,6 +25,7 @@ from radio_bridge.dtmf import DTMF_TABLE_HIGH_LOW
 from radio_bridge.plugins import get_available_plugins
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.executor import PluginExecutor
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/logging.conf"))
@@ -74,6 +75,7 @@ class RadioBridgeServer(object):
             input_device_index=int(config["audio"]["input_device_index"]),
             rate=int(config["audio"]["sample_rate"]),
         )
+        self._plugin_executor = PluginExecutor(implementation=config["plugins"]["executor"])
 
         self._scheduler = BackgroundScheduler()
 
@@ -190,7 +192,7 @@ class RadioBridgeServer(object):
                             'Found valid sequence "%s", invoking plugin "%s"'
                             % (read_sequence, plugin.NAME)
                         )
-                        callback()
+                        self._plugin_executor.run(plugin_run=callback)
                     else:
                         LOG.info("Max sequence length limit reached, resetting sequence")
 

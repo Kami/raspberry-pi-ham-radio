@@ -16,6 +16,8 @@ import structlog
 from mutagen.mp3 import MP3
 from mutagen.wave import WAVE
 
+from radio_bridge.utils.subprocess import on_parent_exit
+
 LOG = structlog.getLogger(__name__)
 
 __all__ = ["AudioPlayer", "get_audio_file_duration"]
@@ -49,8 +51,9 @@ class AudioPlayer(object):
         LOG.trace('Playing audio file "%s"' % (file_path), duration=duration)
 
         args = "mpg123 -q %s" % (shlex.quote(file_path))
-        p = subprocess.run(args, shell=True, check=True)
-        print(p)
+        # NOTE: We set preexec_fn since we want child process to also be killed if the parent is
+        # killed
+        p = subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
 
     def _play_wav(self, file_path: str) -> None:
         if not shutil.which("aplay"):
@@ -64,7 +67,9 @@ class AudioPlayer(object):
         LOG.trace('Playing audio file "%s"' % (file_path), duration=duration)
 
         args = "aplay -q %s" % (shlex.quote(file_path))
-        subprocess.run(args, shell=True, check=True)
+        # NOTE: We set preexec_fn since we want child process to also be killed if the parent is
+        # killed
+        p = subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
 
 
 def get_audio_file_duration(file_path: str) -> float:

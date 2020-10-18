@@ -37,6 +37,10 @@ DEFAULT_VALUES = {
     "dtmf": {
         "implementation": "fft_2",
     },
+    "plugins": {
+        "executor": "native",
+        "max_tx_time": 120,
+    },
 }
 
 CONFIG = None
@@ -96,6 +100,12 @@ def validate_config(config):
         raise ValueError(
             "Invalid tts.library value: %s. Valid values: gtts, espeak"
             % (config["tts"]["implementation"])
+        )
+
+    if config["plugins"]["executor"] not in ["native", "process"]:
+        raise ValueError(
+            "Invalid plugins.executor value: %s. Valid values: native, processs"
+            % (config["plugins"]["exeecution_model"])
         )
 
     return config

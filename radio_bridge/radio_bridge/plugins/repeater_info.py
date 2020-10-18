@@ -51,6 +51,12 @@ class RepeaterInfo(object):
 
 
 class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
+    """
+    Plugin which retrieves information for a specific VHF / UHF repeater from rpt.hamradio.si and
+    displays it.
+    """
+
+    ID = "repeater_info"
     NAME = "Repeater info"
     DESCRIPTION = "Display information for a specific repeater."
     # Usage: 38<1 digit for repeater type, 2 = vhf, 7 = 70cm><2 digits for repeater id, e.g. 01>

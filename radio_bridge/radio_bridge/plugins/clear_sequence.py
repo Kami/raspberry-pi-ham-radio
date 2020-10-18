@@ -13,6 +13,7 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     to be cleared (this comes handy in case of a typo or similar).
     """
 
+    ID = "clear_sequence"
     NAME = "Clear sequence"
     DESCRIPTION = "Clear currently accumulated DTMF sequence."
     DTMF_SEQUENCE = "*D*"

@@ -4,10 +4,16 @@ from radio_bridge.plugins.base import BaseDTMFPlugin
 
 __all__ = ["CurrentTimePlugin"]
 
-TEXT = "Current time is {hour_local} {minute_local} local. {hour_utc}, {minute_utc} U T C."
+TEXT = """
+Current time is {hour_local} {minute_local} local. {hour_utc}, {minute_utc} U T C.
+""".strip()
 
 
 class CurrentTimePlugin(BaseDTMFPlugin):
+    """
+    Plugin which says current time.
+    """
+
     ID = "current_time"
     NAME = "Current time"
     DESCRIPTION = "Current date and time."

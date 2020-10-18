@@ -30,10 +30,15 @@ CITY_TO_XML_LOCATION_MAP = {
 
 LOG = structlog.getLogger(__name__)
 
-__all__ = ["WeatherForLocationPlugin"]
+__all__ = ["LocationWeatherPlugin"]
 
 
-class WeatherForLocationPlugin(BaseDTMFWithDataPlugin):
+class LocationWeatherPlugin(BaseDTMFWithDataPlugin):
+    """
+    Plugin which says weather for a specific location denoted by DTMF sequence.
+    """
+
+    ID = "location_weather"
     NAME = "Location weather info"
     DESCRIPTION = "Current weather for location"
     # Second two characters and city code - e.g. 01 - Ljubljana, 02 - Maribor, etc.

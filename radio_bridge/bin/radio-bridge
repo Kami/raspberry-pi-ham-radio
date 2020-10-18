@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+# Add local libs to PYTHONPATH
+
+import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../"))
+
+sys.path.append(os.path.join(ROOT_DIR, "radio_bridge/"))
+sys.path.append(os.path.join(ROOT_DIR, "wx_server/"))
+sys.path.append(os.path.join(ROOT_DIR))
+
+
+from radio_bridge.main import RadioBridgeServer
+
+
+if __name__ == "__main__":
+    server = RadioBridgeServer()
+    server.start()

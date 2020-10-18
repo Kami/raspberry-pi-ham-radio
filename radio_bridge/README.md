@@ -154,7 +154,7 @@ This cron job will automatically delete cached files older than 4 hours (240 min
 
 ```bash
 0 */4 * * * find /tmp/tts-audio-cache/ -mmin +240 -print0 | xargs -0 rm
-``
+```
 
 ## Usage
 

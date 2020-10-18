@@ -8,6 +8,8 @@ A list of the used code pieces / libraries and their corresponding licenses is a
 
 * ``radio_bridge/radio_bridge/dtmf.py:FFT2DTMFDecoderImplementation`` - Based on the code available
   at https://github.com/ribt/dtmf-decoder.
+* ``radio_bridge/radio_bridge/utils/subprocess.py:on_parent_exit`` - Taken from StackStorm/st2
+  (Apache 2.0).
 
 ## Bundles Libraries
 

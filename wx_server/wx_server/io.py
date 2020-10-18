@@ -12,7 +12,7 @@ from wx_server.configuration import get_config
 LOG = structlog.get_logger(__name__)
 
 
-def persist_weather_observation(observation_pb: messages_pb2.WeatherObservation):
+def persist_weather_observation(station_id: str, observation_pb: messages_pb2.WeatherObservation):
     """
     Persistent weather observation as Protobuf serialized by string on file on disk.
 
@@ -22,13 +22,13 @@ def persist_weather_observation(observation_pb: messages_pb2.WeatherObservation)
 
     For example:
 
-    station_1/2020/10/01/observation_2015.pb
+    home/2020/10/01/observation_2015.pb
 
     Observations are organized into 1 minute buckets and we simply assume we will receive a single
     observation per minute.
     """
     date = datetime.datetime.fromtimestamp(observation_pb.timestamp)
-    target_directory = get_directory_path_for_date(date=date)
+    target_directory = get_directory_path_for_date(station_id=station_id, date=date)
 
     os.makedirs(target_directory, exist_ok=True)
 
@@ -55,10 +55,11 @@ def get_bucket_name_for_date(date: datetime.datetime) -> str:
 
 
 def get_weather_observation_for_date(
+    station_id: str,
     date: datetime.datetime, return_closest=True
 ) -> Optional[messages_pb2.WeatherObservation]:
     """
-    Return wethaer observation for the provided date.
+    Return weather observation for the provided date.
 
     If value for the provided timestamp doesn't exist, we try to find one for the last 5 minutes. If
     no matching observation is found, None is returned.
@@ -95,12 +96,12 @@ def get_weather_observation_for_date(
     return observation_pb
 
 
-def get_directory_path_for_date(date: datetime.datetime) -> str:
+def get_directory_path_for_date(station_id: str, date: datetime.datetime) -> str:
     year = zero_pad_value(date.year)
     month = zero_pad_value(date.month)
     day = zero_pad_value(date.day)
 
-    target_directory = os.path.join(get_config()["main"]["data_dir"], year, month, day)
+    target_directory = os.path.join(get_config()["main"]["data_dir"], station_id, year, month, day)
     return target_directory
 
 

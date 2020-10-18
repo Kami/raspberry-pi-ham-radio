@@ -13,7 +13,7 @@ from wx_server.io import persist_weather_observation
 
 __all__ = ["wx_data_app"]
 
-wx_data_app = Blueprint("wxz_data", __name__, url_prefix="/v1/wx/data")
+wx_data_app = Blueprint("wxz_data", __name__, url_prefix="/v1/wx/observation")
 
 LOG = structlog.get_logger(__name__)
 
@@ -32,6 +32,7 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
     observation_format = request.args.get("format", "ecowitt")
 
     if observation_format not in ["ecowitt"]:
+        log.debug("Received unsupported format", observation_format=observation_format)
         return "Unsupported format: %s" % (observation_format), 400, {}
 
     log = LOG.bind(station_id=station_id)
@@ -44,7 +45,7 @@ def handle_wx_data(station_id: str, secret: str) -> Response:
     res = format_ecowitt_weather_data(form_data)
     observation_pb = dict_to_protobuf(res)
 
-    persist_weather_observation(observation_pb)
+    persist_weather_observation(station_id=station_id, observation_pb=observation_pb)
     log.debug("Weather observation persisted", observation_pb=observation_pb)
 
     return "", 200, {}

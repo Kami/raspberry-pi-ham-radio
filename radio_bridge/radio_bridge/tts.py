@@ -13,6 +13,7 @@ LOG = structlog.getLogger(__name__)
 CACHE_GENERATED_AUDIO_FILES = get_config()["tts"]["enable_cache"]
 CACHED_AUDO_FILES_PATH = get_config()["tts"]["cache_directory"]
 
+
 class BaseTextToSpeechImplementation(object):
     """
     Base class for all the TTS implementations.
@@ -34,7 +35,9 @@ class BaseTextToSpeechImplementation(object):
         enabled, otherwise return random file path.
         """
         # TODO: Add cron job which auto purges old recording cached files
-        file_hash = hashlib.md5(text.encode("utf-8") + self.implementation_id.encode("utf-8")).hexdigest()
+        file_hash = hashlib.md5(
+            text.encode("utf-8") + self.implementation_id.encode("utf-8")
+        ).hexdigest()
         file_name = "%s%s" % (file_hash, self.file_extension)
 
         if CACHE_GENERATED_AUDIO_FILES:
@@ -113,10 +116,7 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
 
 
 class TextToSpeech(object):
-    implementations = {
-        "gtts": GoogleTextToSpeech,
-        "espeak": ESpeakTextToSpeech
-    }
+    implementations = {"gtts": GoogleTextToSpeech, "espeak": ESpeakTextToSpeech}
 
     def __init__(
         self,
@@ -134,9 +134,7 @@ class TextToSpeech(object):
                 % (implementation, ",".join(self.implementations))
             )
 
-        self._tts = self.implementations[implementation](
-            **self._implementation_kwargs
-        )
+        self._tts = self.implementations[implementation](**self._implementation_kwargs)
 
     def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
         return self._tts.text_to_speech(text=text, slow=slow, use_cache=use_cache)

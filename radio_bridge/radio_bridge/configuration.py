@@ -29,8 +29,14 @@ DEFAULT_VALUES = {
         "input_device_index": 0,
         "sample_rate": 48000,
     },
-    "tts": {"implementation": "gtts", "enable_cache": True, "cache_directory": "/tmp/tts-audio-cache",},
-    "dtmf": {"implementation": "fft_2",},
+    "tts": {
+        "implementation": "gtts",
+        "enable_cache": True,
+        "cache_directory": "/tmp/tts-audio-cache",
+    },
+    "dtmf": {
+        "implementation": "fft_2",
+    },
 }
 
 CONFIG = None
@@ -88,9 +94,9 @@ def validate_config(config):
 
     if config["tts"]["implementation"] not in ["gtts", "espeak"]:
         raise ValueError(
-            "Invalid tts.library value: %s. Valid values: gtts, espeak" % (config["tts"]["implementation"])
+            "Invalid tts.library value: %s. Valid values: gtts, espeak"
+            % (config["tts"]["implementation"])
         )
-
 
     return config
 

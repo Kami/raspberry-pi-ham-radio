@@ -12,6 +12,7 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     Special plugin which can be triggered any time and causes currently accumulated DTMF sequence
     to be cleared (this comes handy in case of a typo or similar).
     """
+
     NAME = "Clear sequence"
     DESCRIPTION = "Clear currently accumulated DTMF sequence."
     DTMF_SEQUENCE = "*D*"

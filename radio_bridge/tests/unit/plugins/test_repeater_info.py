@@ -62,6 +62,11 @@ class RepeaterInfoPluginTestCase(unittest.TestCase):
             self.assertEqual(repeater.ctcss, "123.0")
             self.assertEqual(repeater.location, "LJUBLJANA CENTER")
 
+        with requests_mock.Mocker() as m:
+            m.get(REPEATERS_URL_2M, text=MOCK_DATA_2M)
+            repeater = plugin._get_repeater_info(100, "vhf")
+            self.assertIsNone(repeater)
+
     def test_get_70m_repeater_info(self):
         plugin = RepeaterInfoPlugin()
 
@@ -75,3 +80,8 @@ class RepeaterInfoPluginTestCase(unittest.TestCase):
             self.assertEqual(repeater.output_freq, "438.600")
             self.assertEqual(repeater.ctcss, None)
             self.assertEqual(repeater.location, "MIRNA GORA")
+
+        with requests_mock.Mocker() as m:
+            m.get(REPEATERS_URL_70CM, text=MOCK_DATA_70CM)
+            repeater = plugin._get_repeater_info(100, "uhf")
+            self.assertIsNone(repeater)

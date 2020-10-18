@@ -53,7 +53,7 @@ class AudioPlayer(object):
         args = "mpg123 -q %s" % (shlex.quote(file_path))
         # NOTE: We set preexec_fn since we want child process to also be killed if the parent is
         # killed
-        p = subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
+        subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
 
     def _play_wav(self, file_path: str) -> None:
         if not shutil.which("aplay"):
@@ -69,7 +69,7 @@ class AudioPlayer(object):
         args = "aplay -q %s" % (shlex.quote(file_path))
         # NOTE: We set preexec_fn since we want child process to also be killed if the parent is
         # killed
-        p = subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
+        subprocess.run(args, shell=True, check=True, preexec_fn=on_parent_exit("SIGTERM"))
 
 
 def get_audio_file_duration(file_path: str) -> float:

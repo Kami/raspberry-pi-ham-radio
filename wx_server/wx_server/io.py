@@ -70,7 +70,10 @@ def get_bucket_name_for_date(date: datetime.datetime) -> str:
 
 
 def get_weather_observation_for_date(
-    station_id: str, date: datetime.datetime, return_closest=True
+    station_id: str,
+    date: datetime.datetime,
+    return_closest: bool = True,
+    return_closest_count: int = 5,
 ) -> Optional[messages_pb2.WeatherObservation]:
     """
     Return weather observation for the provided date.
@@ -86,7 +89,7 @@ def get_weather_observation_for_date(
     ]
 
     if return_closest:
-        for index in range(1, 5):
+        for index in range(1, return_closest_count + 1):
             date_prev = date - datetime.timedelta(minutes=index)
             dates.append(date_prev)
 

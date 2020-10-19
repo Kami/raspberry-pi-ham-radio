@@ -27,6 +27,7 @@ class HelpPlugin(BaseDTMFPlugin):
     ID = "help"
     NAME = "Help Plugin"
     DESCRIPTION = "List available commands."
+    REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = "12"
 
     def run(self):

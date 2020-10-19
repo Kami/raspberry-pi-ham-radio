@@ -31,6 +31,7 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     ID = "clear_sequence"
     NAME = "Clear sequence"
     DESCRIPTION = "Clear currently accumulated DTMF sequence."
+    REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = "*D*"
 
     def run(self, sequence: str):

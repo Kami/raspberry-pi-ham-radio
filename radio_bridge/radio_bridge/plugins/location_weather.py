@@ -56,6 +56,7 @@ class LocationWeatherPlugin(BaseDTMFWithDataPlugin):
     ID = "location_weather"
     NAME = "Location weather info"
     DESCRIPTION = "Current weather for location"
+    REQUIRES_INTERNET_CONNECTION = True
     # Second two characters and city code - e.g. 01 - Ljubljana, 02 - Maribor, etc.
     DTMF_SEQUENCE = "35??"
 

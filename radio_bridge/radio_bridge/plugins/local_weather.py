@@ -32,6 +32,7 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
     ID = "local_weather"
     NAME = "Current weather"
     DESCRIPTION = "Current weather information for local weather station."
+    REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = "34"
 
     def run(self):

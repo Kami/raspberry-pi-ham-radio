@@ -32,6 +32,7 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     ID = "current_time"
     NAME = "Current time"
     DESCRIPTION = "Current date and time."
+    REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = "23"
 
     def run(self):

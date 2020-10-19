@@ -50,6 +50,7 @@ INITIALIZED = False
 class BasePlugin(object):
     NAME: str
     DESCRIPTION: str
+    REQUIRES_INTERNET_CONNECTION: bool
 
     def __init__(self):
         self._callsign = get_config()["tx"]["callsign"]

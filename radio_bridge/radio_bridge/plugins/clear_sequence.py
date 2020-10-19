@@ -14,6 +14,7 @@
 # limitations under the License.
 
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
+from radio_bridge.configuration import get_config
 
 """
 Plugin which resets / clears currently accumulated sequence.
@@ -32,7 +33,7 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     NAME = "Clear sequence"
     DESCRIPTION = "Clear currently accumulated DTMF sequence."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = "*D*"
+    DTMF_SEQUENCE = get_config().get("plugin:clear_sequence", "dtmf_sequence", fallback="*D*")
 
     def run(self, sequence: str):
         pass

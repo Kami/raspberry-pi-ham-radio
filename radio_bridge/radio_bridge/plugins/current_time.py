@@ -16,6 +16,7 @@
 import datetime
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
+from radio_bridge.configuration import get_config
 
 __all__ = ["CurrentTimePlugin"]
 
@@ -33,7 +34,7 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     NAME = "Current time"
     DESCRIPTION = "Current date and time."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = "23"
+    DTMF_SEQUENCE = get_config().get("plugin:current_time", "dtmf_sequence", fallback="21")
 
     def run(self):
         now_local = datetime.datetime.now()

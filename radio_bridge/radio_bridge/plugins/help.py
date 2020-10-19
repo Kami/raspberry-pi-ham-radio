@@ -15,6 +15,7 @@
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
+from radio_bridge.configuration import get_config
 
 __all__ = ["HelpPlugin"]
 
@@ -28,7 +29,7 @@ class HelpPlugin(BaseDTMFPlugin):
     NAME = "Help Plugin"
     DESCRIPTION = "List available commands."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = "12"
+    DTMF_SEQUENCE = get_config().get("plugin:help", "dtmf_sequence", fallback="12")
 
     def run(self):
         plugins = get_plugins_with_dtmf_sequence()

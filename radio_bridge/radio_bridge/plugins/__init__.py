@@ -57,7 +57,8 @@ def _load_and_register_plugins() -> None:
 
         if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
             raise ValueError(
-                "DTMF sequence #%s is already registered for another plugin" % (dtmf_sequence)
+                "DTMF sequence #%s is already registered for another plugin (%s)"
+                % (dtmf_sequence, DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence])
             )
 
         DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()

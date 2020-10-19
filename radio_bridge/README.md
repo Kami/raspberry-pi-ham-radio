@@ -99,6 +99,40 @@ for different pre-defined locations.
 NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
 overwritten / changed on per plugin basis inside the config.
 
+## Note On DTMF Admin Commands and Security
+
+For convenience, this software currently exposes a couple of admin DTMF commands with limited
+functionality - one for disabling all the DTMF triggered plugins (minutes the admin commands)
+and one for re-enabling them.
+
+The primary goal of the implementation and those commands is ease of use. This means we should
+only require the operator to enter a short DTMF sequence to activate those admin commands /
+plugins.
+
+This of course represents a challenge since we can't perform any kind of more complicated
+encryption and key exchange scheme over an insecure channel (radio waves).
+
+Any kind of more complex scheme would require more interaction, potentially a dedicated
+Android application (or similar) which performs the key exchange and encryption using DTMF
+tons and / or possible also an internet connection (on both sides - e.g. challenge response + OTP
+mechanism, time limited OTP code over SMS or similar).
+
+On the other hand, we can't use static codes either (a lot of other echolink based software does
+that), since they offer almost no protection and can easily be sniffed and replayed by other
+listeners on the frequency.
+
+As a slightly more secure alternative, this software implements an approach where the server
+generates a small set of unique and randomly generated single use codes for each admin command
+on server startup.
+
+Those codes can then be saved locally by the operator and used to execute admin commands. To
+prevent replay attacks, each code is only valid for single use.
+
+Keep in mind that this approach is not a proper encryption and security mechanism and should not be
+treated as such - it has many possible attack vectors and weaknesses (brute force attacks, etc.).
+
+That's also the reason why only non-destructive functionality is exposed via admin commands.
+
 ## Note on VOX Transmission Mode
 
 When using VOX mode and VOX functionality of your radio it's important you set audio out levels on

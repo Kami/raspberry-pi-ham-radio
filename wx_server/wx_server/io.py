@@ -90,7 +90,7 @@ def get_weather_observation_for_date(
             date_prev = date - datetime.timedelta(minutes=index)
             dates.append(date_prev)
 
-    target_directory = get_directory_path_for_date(date=date)
+    target_directory = get_directory_path_for_date(station_id=station_id, date=date)
 
     for date in dates:
         file_path = get_file_path_for_date(date=date, target_directory=target_directory)

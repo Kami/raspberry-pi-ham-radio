@@ -30,7 +30,9 @@ def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:
     result = {}
 
     result["date"] = data["dateutc"]
-    result["datetime"] = datetime.datetime.strptime(data["dateutc"], "%Y-%m-%d %H:%M:%S")
+    result["datetime"] = datetime.datetime.strptime(data["dateutc"], "%Y-%m-%d %H:%M:%S").replace(
+        tzinfo=datetime.timezone.utc
+    )
     result["timestamp"] = int(result["datetime"].timestamp())
 
     # Temperature, dewpoint and humidity

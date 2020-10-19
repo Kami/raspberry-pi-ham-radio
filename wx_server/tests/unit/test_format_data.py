@@ -38,8 +38,8 @@ class FormatDataTestCase(unittest.TestCase):
     def test_format_ecowitt_weather_data(self):
         expected_result = {
             "date": "2020-10-18 20:23:31",
-            "datetime": datetime.datetime(2020, 10, 18, 20, 23, 31),
-            "timestamp": 1603045411,
+            "datetime": datetime.datetime(2020, 10, 18, 20, 23, 31, tzinfo=datetime.timezone.utc),
+            "timestamp": 1603052611,
             "temperature": 6.61,
             "humidity": 96,
             "dewpoint": 5.81,

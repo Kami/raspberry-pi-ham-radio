@@ -73,14 +73,14 @@ for different pre-defined locations.
 
 ### Available Plugins
 
-| Name | DTMF Sequence | Description |
-| --- | :---: | --- |
-| Help | ``12`` | Display all the available DTMF commands. |
-| Clean DTMF Sequence | ``*D*`` | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar.
-| Local Weather | ``34`` | Display weather information for a local weather station connected to this Raspberry PI |
-| Location Weather | ``35??`` | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si
-| Repeater Info | ``38??`` | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si
-| Cron Say | none | Plugin which allows various announcements and information defined in the config to be played at defined intervals. |
+| Name | DTMF Sequence | Requires Internet Connection | Description |
+| --- | :---: | :---: | --- |
+| Help | ``12`` | No | Display all the available DTMF commands. |
+| Clean DTMF Sequence | ``*D*`` | No | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar.
+| Local Weather | ``34`` | No | Display weather information for a local weather station connected to this Raspberry PI |
+| Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si
+| Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si
+| Cron Say | none | No | Plugin which allows various announcements and information defined in the config to be played at defined intervals. |
 
 NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
 overwritten / changed on per plugin basis inside the config.
@@ -176,3 +176,4 @@ Main
 - [ ] Special admin DTMF commands. NOTE: Due to the nature and limitations of DTMF codes and values
   which can easily be entered manually by a human, this approach will utilize obfuscation and not
   real encryption.
+- [ ] Multi language supports

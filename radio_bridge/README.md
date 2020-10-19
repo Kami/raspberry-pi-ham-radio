@@ -172,6 +172,7 @@ Main
 - [ ] Ability to enable and disable TX via GPIO pin when VOX mode is not used
 - [ ] Move common logging, config parsing code into common package
 - [ ] Ability to enable specific plugins
+- [ ] Implement Goertzel algorithm based DTMF decoding
 - [ ] Minimum run time between commands to prevent abuse
 - [ ] Special admin DTMF commands. NOTE: Due to the nature and limitations of DTMF codes and values
   which can easily be entered manually by a human, this approach will utilize obfuscation and not

@@ -59,7 +59,7 @@ class LocationWeatherPlugin(BaseDTMFWithDataPlugin):
     DESCRIPTION = "Current weather for location"
     REQUIRES_INTERNET_CONNECTION = True
     # Second two characters and city code - e.g. 01 - Ljubljana, 02 - Maribor, etc.
-    DTMF_SEQUENCE = get_config().get("plugin:local_weather", "dtmf_sequence", fallback="35??")
+    DTMF_SEQUENCE = get_config().get("plugin:location_weather", "dtmf_sequence", fallback="35??")
 
     def run(self, sequence: str):
         if sequence not in LOCATION_CODE_TO_CITY_MAP:

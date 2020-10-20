@@ -34,6 +34,7 @@ from wx_server.configuration import load_and_parse_config as wx_server_load_and_
 
 from radio_bridge.configuration import get_config
 from radio_bridge.log import configure_logging
+from radio_bridge.otp import generate_and_write_otps
 from radio_bridge.rx import RX
 from radio_bridge.dtmf import DTMFDecoder
 from radio_bridge.dtmf import DTMF_TABLE_HIGH_LOW
@@ -105,6 +106,9 @@ class RadioBridgeServer(object):
         config = get_config()
         configure_logging(config["main"]["logging_config"])
         wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)
+
+        all_otps, _ = generate_and_write_otps()
+        LOG.info("Generated and unused OTPs for admin commands", otps=all_otps)
 
         LOG.info("Active plugins: %s" % (self._all_plugins))
 

@@ -17,10 +17,12 @@ Rasbperry Pi GPIO pin.
 Keep in mind that in the GPIO case, you need additional hardware component which will correctly
 enable TX on your radio when voltage is present and disable it when voltage is removed.
 
-The project itself took a lot of inspiration and ideas from other similar projects such as SVXLink,
-Hambone and others.
+The project itself took a lot of inspiration and ideas from other similar projects such as
+[SVXLink](https://www.svxlink.org/), [Hambone](https://github.com/notpike/Hambone/) and
+others.
 
 Special thanks to the authors and contributors of those other projects.
+
 <insert demo video link>
 
 ## Features
@@ -116,6 +118,8 @@ Any kind of more complex scheme would require more interaction, potentially a de
 Android application (or similar) which performs the key exchange and encryption using DTMF
 tons and / or possible also an internet connection (on both sides - e.g. challenge response + OTP
 mechanism, time limited OTP code over SMS or similar).
+
+In addition to that, using encryption on ham bands is forbidden in most countries.
 
 On the other hand, we can't use static codes either (a lot of other echolink based software does
 that), since they offer almost no protection and can easily be sniffed and replayed by other

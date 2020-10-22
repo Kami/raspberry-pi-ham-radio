@@ -17,9 +17,11 @@ import time
 import configparser
 import unittest
 
-import radio_bridge.configuration
 from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins.executor import PluginExecutor
+
+from tests.unit.utils import use_mock_config
+from tests.unit.utils import reset_config
 
 
 class MockDTMFPlugin(BaseDTMFPlugin):
@@ -46,6 +48,10 @@ class NativePluginExecutorTestCase(unittest.TestCase):
         super(NativePluginExecutorTestCase, self).setUp()
         self._executor = PluginExecutor(implementation="native")
 
+    def tearDown(self):
+        super(NativePluginExecutorTestCase, self).tearDown()
+        reset_config()
+
     def test_run_success(self):
         self.assertEqual(self._executor._plugin_execution_stats["mock"]["success"], 0)
 
@@ -62,11 +68,7 @@ class NativePluginExecutorTestCase(unittest.TestCase):
                 "minimum_run_interval": 10,
             },
         }
-        config = configparser.ConfigParser()
-        config.read_dict(radio_bridge.configuration.DEFAULT_VALUES)
-        config.read_dict(mock_config)
-
-        radio_bridge.configuration.CONFIG = config
+        use_mock_config(mock_config)
 
         executor = PluginExecutor(implementation="native")
         self.assertEqual(executor._plugin_execution_stats["mock"]["success"], 0)
@@ -102,13 +104,13 @@ class ProcessPluginExecutorTestCase(unittest.TestCase):
                 "max_run_time": 1,
             },
         }
-        config = configparser.ConfigParser()
-        config.read_dict(radio_bridge.configuration.DEFAULT_VALUES)
-        config.read_dict(mock_config)
-
-        radio_bridge.configuration.CONFIG = config
+        use_mock_config(mock_config)
 
         self._executor = PluginExecutor(implementation="process")
+
+    def tearDown(self):
+        super(ProcessPluginExecutorTestCase, self).tearDown()
+        reset_config()
 
     def test_run_success(self):
         self.assertEqual(self._executor._plugin_execution_stats["mock"]["success"], 0)

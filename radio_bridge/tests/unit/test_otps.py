@@ -17,13 +17,14 @@ import os
 import unittest
 import tempfile
 
-import radio_bridge.configuration
-
 from radio_bridge.otp import get_valid_otps
 from radio_bridge.otp import write_otps_to_disk
 from radio_bridge.otp import validate_otp
 from radio_bridge.otp import generate_and_write_otps
 from radio_bridge.otp import NUMBER_OF_UNUSED_OTPS
+
+from tests.unit.utils import use_mock_config
+from tests.unit.utils import reset_config
 
 __all__ = ["OTPsTestCase"]
 
@@ -40,9 +41,15 @@ class OTPsTestCase(unittest.TestCase):
         # Use unique file for admin_otps_file_path config option for each test case
         _, temp_path = tempfile.mkstemp()
 
-        radio_bridge.configuration.CONFIG = {"plugins": {"admin_otps_file_path": temp_path}}
+        mock_config = {"plugins": {"admin_otps_file_path": temp_path}}
+        use_mock_config(mock_config)
 
         self._db_path = temp_path
+
+    def teardown(self):
+        super(OTPsTestCase, self).tearDown()
+        os.unlink(self._db_path)
+        reset_config()
 
     def test_get_valid_otps(self):
         # File doesn't exist

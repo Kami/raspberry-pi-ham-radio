@@ -39,6 +39,7 @@ DEFAULT_VALUES = {
         "mode": "vox",
         "max_tx_time": 120,
         "gpio_pin": 10,
+        "callsign": "TEST",
     },
     "audio": {
         "input_device_index": 0,

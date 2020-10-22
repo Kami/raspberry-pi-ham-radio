@@ -43,6 +43,9 @@ Special thanks to the authors and contributors of those other projects.
   re-used on subsequent plugin invocation if the text stays the same. This way we can avoid TTS
   step in many cases.
 - Easy extensibility by writing custom Python plugins
+- Ability to enable / disable specific plugins
+- Support for admin plugins / commands which are protected using special OTP mechanism which is
+  more secure than static code approach used by most other similar software
 - Easy testing and development using built-in emulator mode where DTMF sequences are entered
   directly using a keyboard
 - Support for converting text to morse code and playing it

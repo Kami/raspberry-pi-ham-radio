@@ -36,6 +36,8 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = get_config().get("plugin:current_time", "dtmf_sequence", fallback="21")
 
+    _skipload_ = get_config().getboolean("plugin:current_time", "enable", fallback=True) == False
+
     def run(self):
         now_local = datetime.datetime.now()
         now_utc = datetime.datetime.utcnow()

@@ -80,6 +80,8 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
     # For example 3 8 7 0 1 - First 70cm repeater
     DTMF_SEQUENCE = "38???"
 
+    _skipload_ = get_config().getboolean("plugin:repeater_info", "enable", fallback=True) == False
+
     def run(self, sequence: str):
         repeater_id, repeater_type = self._parse_repeater_id_url_from_sequence(sequence=sequence)
 

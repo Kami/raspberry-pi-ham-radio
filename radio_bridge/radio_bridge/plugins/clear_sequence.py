@@ -35,5 +35,7 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = get_config().get("plugin:clear_sequence", "dtmf_sequence", fallback="*D*")
 
+    _skipload_ = get_config().getboolean("plugin:clear_sequence", "enable", fallback=True) == False
+
     def run(self, sequence: str):
         pass

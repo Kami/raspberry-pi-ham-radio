@@ -15,10 +15,13 @@
 
 from typing import Any
 from typing import Type
+from typing import Dict
 
 import abc
 import time
+import functools
 import multiprocessing
+from collections import defaultdict
 
 import structlog
 
@@ -30,16 +33,17 @@ __all__ = ["PluginExecutor"]
 LOG = structlog.getLogger(__name__)
 
 
+class PluginExecutionTimeoutException(Exception):
+    pass
+
+
 class BasePluginExecutor(object):
     """
     Class responsible for execution / running a plugin.
     """
 
     def __init__(self):
-        self._max_run_time = get_config()["plugins"].getint("max_run_time")
-
-        self._start_time = None
-        self._end_time = None
+        self._max_run_time = get_config().getint("plugins", "max_run_time", fallback=None)
 
     @abc.abstractmethod
     def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
@@ -74,19 +78,30 @@ class ProccessPluginExecutor(BasePluginExecutor):
         """
         Run the plugin and pass args kwargs to the plugin run method.
         """
-        process = multiprocessing.Process(target=plugin.run, args=args, kwargs=kwargs)
+        queue = multiprocessing.Queue()
+        args = (queue,) + args
+
+        process = multiprocessing.Process(target=plugin.run_in_subprocess, args=args, kwargs=kwargs)
         process.daemon = True
         process.start()
         process.join(self._max_run_time)
 
+        timed_out = False
+
         if process.is_alive():
+            timed_out = True
             LOG.info(
                 "Plugin execution didn't finish in %s seconds, killing it..." % (self._max_run_time)
             )
             process.terminate()
             # TODO: if tx mode is gpio, disable TX
 
-        return None
+        if timed_out:
+            raise PluginExecutionTimeoutException("Plugin execution timed out")
+        else:
+            result = queue.get()
+
+        return result
 
 
 class PluginExecutor(object):
@@ -98,9 +113,16 @@ class PluginExecutor(object):
 
         # Maps plugin name to the last run timestamp. This allows us to implement various
         # safe-guards and abuse prevention
-        self._plugin_run_times = {}
+        self._plugin_run_times: Dict[str, int] = {}
+
+        # Maps plugin name to execution stats
+        self._plugin_execution_stats = defaultdict(
+            functools.partial(defaultdict, success=0, failure=0, timeout=0, refuse_to_run=0)
+        )
 
     def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
+        plugin_id = plugin.ID
+
         self._logger.debug("Running plugin %s" % (str(plugin)))
 
         start_time = int(time.time())
@@ -108,15 +130,29 @@ class PluginExecutor(object):
         can_run = self._can_run(plugin=plugin)
 
         if not can_run:
-            return
+            self._plugin_execution_stats[plugin_id]["refuse_to_run"] += 1
+            return None
 
         self._plugin_run_times[plugin.ID] = start_time
 
-        result = self._executor.run(plugin=plugin, *args, **kwargs)
+        try:
+            result = self._executor.run(plugin=plugin, *args, **kwargs)
+        except PluginExecutionTimeoutException:
+            self._plugin_execution_stats[plugin_id]["timeout"] += 1
+            status = "timeout"
+            result = None
+        except Exception:
+            self._plugin_execution_stats[plugin_id]["failure"] += 1
+            status = "failure"
+            result = None
+        else:
+            status = "success"
+            self._plugin_execution_stats[plugin_id]["success"] += 1
+
         end_time = int(time.time())
         duration = end_time - start_time
 
-        self._logger.debug("Plugin run() execution finished", duration=duration)
+        self._logger.debug("Plugin run() execution finished", duration=duration, status=status)
 
         return result
 
@@ -126,8 +162,8 @@ class PluginExecutor(object):
         current time.
         """
         now = int(time.time())
-        minimum_run_interval = get_config()["plugin:%s" % (plugin.ID)].getint(
-            "minimum_run_interval", None
+        minimum_run_interval = get_config().getint(
+            "plugin:%s" % (plugin.ID), "minimum_run_interval", fallback=None
         )
 
         if not minimum_run_interval:

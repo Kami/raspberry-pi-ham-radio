@@ -14,11 +14,14 @@
 # limitations under the License.
 
 from typing import Dict
+from typing import Any
 from typing import Callable
 from typing import Optional
+from typing import Union
 
 import os
 import sys
+import multiprocessing
 
 import structlog
 import pluginlib
@@ -166,6 +169,16 @@ class BaseDTMFPlugin(BasePlugin):
     def run(self):
         pass
 
+    def run_in_subprocess(self, queue: multiprocessing.Queue):
+        """
+        Method which is called when using process executor.
+
+        It takes in queue argument which is used to pass the result back to the main process.
+        """
+        result = self.run()
+        queue.put(result)
+        return result
+
 
 @pluginlib.Parent("DTMFWithDataPlugin")
 class BaseDTMFWithDataPlugin(BasePlugin):
@@ -181,6 +194,16 @@ class BaseDTMFWithDataPlugin(BasePlugin):
     @pluginlib.abstractmethod
     def run(self, sequence: str):
         pass
+
+    def run_in_subprocess(self, queue, sequence: str):
+        """
+        Method which is called when using process executor.
+
+        It takes in queue argument which is used to pass the result back to the main process.
+        """
+        result = self.run(sequence=sequence)
+        queue.put(result)
+        return result
 
 
 @pluginlib.Parent("RegularPlugin")

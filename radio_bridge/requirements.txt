@@ -2,6 +2,8 @@ structlog==20.1.0
 colorama==0.4.3
 protobuf==3.13.0
 pluginlib==0.8.0
+# Needed when tx.mode=gpio
+#RPi.GPIO==0.7.0
 # Needed when tts.library = "gtts"
 gTTS==2.1.1
 # Needed when tts.library = "espeak"

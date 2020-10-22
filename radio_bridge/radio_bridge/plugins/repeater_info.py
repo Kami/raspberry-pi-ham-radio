@@ -24,6 +24,7 @@ from bs4 import BeautifulSoup
 from expiringdict import ExpiringDict
 
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
+from radio_bridge.configuration import get_config
 
 REPEATERS_URL_2M = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=2"
 REPEATERS_URL_70CM = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=3"

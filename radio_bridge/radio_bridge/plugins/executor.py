@@ -94,7 +94,7 @@ class ProccessPluginExecutor(BasePluginExecutor):
                 "Plugin execution didn't finish in %s seconds, killing it..." % (self._max_run_time)
             )
             process.terminate()
-            # TODO: if tx mode is gpio, disable TX
+            plugin.disable_tx()
 
         if timed_out:
             raise PluginExecutionTimeoutException("Plugin execution timed out")

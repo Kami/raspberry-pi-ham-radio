@@ -58,6 +58,7 @@ class BasePlugin(object):
     def __init__(self):
         self._callsign = get_config()["tx"]["callsign"]
         self._tx_mode = get_config()["tx"]["mode"]
+        self._gpio_pin = get_config().get("tx", "gpio_pin", fallback=None)
         self._tts = TextToSpeech(implementation=get_config()["tts"]["implementation"])
         self._audio_player = AudioPlayer()
 
@@ -74,7 +75,14 @@ class BasePlugin(object):
         if self._tx_mode == "vox":
             return
 
-        LOG.trace("Enabling TX mode")
+        import RPi.GPIO as GPIO
+
+        LOG.trace("Enabling TX mode", gpio_pin=self._gpio_pin)
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self._gpio_pin, GPIO.OUT)
+
+        GPIO.output(self._gpio_pin, GPIO.HIGH)
 
     def disable_tx(self):
         """
@@ -83,7 +91,11 @@ class BasePlugin(object):
         if self._tx_mode == "vox":
             return
 
-        LOG.trace("Disabling TX mode")
+        import RPi.GPIO as GPIO
+
+        LOG.trace("Disabling TX mode", gpio_pin=self._gpio_pin)
+
+        GPIO.output(self._gpio_pin, GPIO.LOW)
 
     def say(self, text: str):
         """

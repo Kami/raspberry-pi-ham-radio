@@ -43,7 +43,7 @@ LOG = structlog.getLogger(__name__)
 NUMBER_OF_UNUSED_OTPS = 100
 
 # How long should each OTP be
-OTP_LENGTH = 5
+OTP_LENGTH = 4
 
 
 def get_valid_otps() -> List[str]:
@@ -80,7 +80,7 @@ def write_otps_to_disk(otps: List[str]) -> bool:
 
 def generate_and_write_otps() -> Tuple[List[str], List[str]]:
     """
-    Generate random 6 digit numbers which can be used as one time password when executing admin
+    Generate random 4 digit numbers which can be used as one time password when executing admin
     commands and write them to a file on disk.
 
     Keep in mind that each of those numbers is only valid for a single use.
@@ -102,7 +102,8 @@ def generate_and_write_otps() -> Tuple[List[str], List[str]]:
     new_otps = []
 
     for index in range(0, number_of_new_otps_to_generate):
-        value = generate_random_number(length=OTP_LENGTH)
+        # TODO: Ensure first digit matches second digit in the admin DTMF plugin
+        value = generate_random_number(length=OTP_LENGTH, forbidden_first_digit=[0])
         new_otps.append(str(value))
 
     new_otps = sorted(new_otps)

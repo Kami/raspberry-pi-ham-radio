@@ -141,18 +141,23 @@ class PluginExecutor(object):
             self._plugin_execution_stats[plugin_id]["timeout"] += 1
             status = "timeout"
             result = None
-        except Exception:
+            error = None
+        except Exception as e:
             self._plugin_execution_stats[plugin_id]["failure"] += 1
             status = "failure"
             result = None
+            error = str(e)
         else:
             status = "success"
+            error = None
             self._plugin_execution_stats[plugin_id]["success"] += 1
 
         end_time = int(time.time())
         duration = end_time - start_time
 
-        self._logger.debug("Plugin run() execution finished", duration=duration, status=status)
+        self._logger.debug(
+            "Plugin run() execution finished", duration=duration, status=status, error=error
+        )
 
         return result
 

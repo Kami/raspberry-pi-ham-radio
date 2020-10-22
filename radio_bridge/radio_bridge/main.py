@@ -229,17 +229,10 @@ class RadioBridgeServer(object):
         Retrieve reference to the Plugin class instance and any args and kwargs which should be
         passed to the plugin run() method.
         """
-        for plugin_sequence, plugin_instance in self._sequence_to_plugin_map.items():
-            args = ()
-            kwargs = {}
+        for plugin_instance in self._dtmf_plugins.values():
+            matches, args, kwargs = plugin_instance.matches_dtmf_sequence(sequence=sequence)
 
-            if fnmatch.fnmatch(sequence, plugin_sequence):
-                if "?" in plugin_sequence:
-                    data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
-                    kwargs["sequence"] = data_sequence
-                elif "*" in plugin_sequence:
-                    kwargs["sequence"] = plugin_sequence
-
+            if matches:
                 return plugin_instance, args, kwargs
 
         return None, None, None

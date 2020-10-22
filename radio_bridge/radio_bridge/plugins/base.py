@@ -17,10 +17,12 @@ from typing import Dict
 from typing import Any
 from typing import Callable
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
 import os
 import sys
+import fnmatch
 import multiprocessing
 
 import structlog
@@ -29,6 +31,7 @@ import pluginlib
 from radio_bridge.configuration import get_config
 from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
+from radio_bridge.otp import validate_otp
 
 __all__ = ["BaseDTMFPlugin", "BaseRegularPlugin"]
 
@@ -191,6 +194,13 @@ class BaseDTMFPlugin(BasePlugin):
         queue.put(result)
         return result
 
+    def matches_dtmf_sequence(self, sequence: str) -> Tuple[bool, Tuple, Dict]:
+        """
+        Return true if this plugin matches the provided sequence and return any additional args and
+        kwargs which should be passed to the plugin run method.
+        """
+        return (sequence == self.DTMF_SEQUENCE, (), {})
+
 
 @pluginlib.Parent("DTMFWithDataPlugin")
 class BaseDTMFWithDataPlugin(BasePlugin):
@@ -216,6 +226,61 @@ class BaseDTMFWithDataPlugin(BasePlugin):
         result = self.run(sequence=sequence)
         queue.put(result)
         return result
+
+    def matches_dtmf_sequence(self, sequence: str) -> Tuple[bool, Tuple, Dict]:
+        """
+        Return true if this plugin matches the provided sequence and return any additional args and
+        kwargs which should be passed to the plugin run method.
+        """
+        plugin_sequence = self.DTMF_SEQUENCE
+
+        if fnmatch.fnmatch(sequence, plugin_sequence):
+            args = ()
+            kwargs = {}
+
+            if "?" in plugin_sequence:
+                data_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
+                kwargs["sequence"] = data_sequence
+                return (True, args, kwargs)
+            elif "*" in plugin_sequence:
+                kwargs["sequence"] = plugin_sequence
+                return (True, args, kwargs)
+
+        return (False, (), {})
+
+
+@pluginlib.Parent("AdminDTMFPlugin")
+class BaseAdminDTMFPlugin(BaseDTMFPlugin):
+    """
+    Base class for all the admin plugins.
+
+    Admin plugins are special because in addition to the plugin code, they take 4 characters long
+    OTP sequence
+    """
+
+    NAME: str
+    DESCRIPTION: str
+    DTMF_SEQUENCE: Optional[str] = None
+
+    @pluginlib.abstractmethod
+    def run(self):
+        pass
+
+    def matches_dtmf_sequence(self, sequence: str) -> Tuple[bool, Tuple, Dict]:
+        """
+        Return true if this plugin matches the provided sequence and return any additional args and
+        kwargs which should be passed to the plugin run method.
+        """
+        # OTP is 4 digits long, hence the ????
+        plugin_sequence = self.DTMF_SEQUENCE + "????"
+
+        if fnmatch.fnmatch(sequence, plugin_sequence):
+            otp_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
+
+            if validate_otp(otp_sequence):
+                return True, (), {}
+
+        return (False, (), {})
 
 
 @pluginlib.Parent("RegularPlugin")

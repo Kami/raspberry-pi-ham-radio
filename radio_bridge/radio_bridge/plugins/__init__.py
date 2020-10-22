@@ -47,7 +47,9 @@ def _load_and_register_plugins() -> None:
     plugins = loader.plugins
 
     for plugin_name, plugin_class in itertools.chain(
-        plugins["DTMFPlugin"].items(), plugins["DTMFWithDataPlugin"].items()
+        plugins["DTMFPlugin"].items(),
+        plugins["DTMFWithDataPlugin"].items(),
+        plugins["AdminDTMFPlugin"].items(),
     ):
         LOG.debug("Found plugin: %s" % (plugin_name))
 

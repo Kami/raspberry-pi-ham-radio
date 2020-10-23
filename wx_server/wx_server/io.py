@@ -102,7 +102,11 @@ def get_weather_observation_for_date(
             break
 
     if not os.path.isfile(file_path):
-        LOG.debug("Unable to find observation for %s" % (date))
+        LOG.debug(
+            'Unable to find observation for station "%s" and date "%s"' % (station_id, date),
+            date=date,
+            dates=dates,
+        )
         return None
 
     with open(file_path, "rb") as fp:

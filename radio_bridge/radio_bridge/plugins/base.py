@@ -74,7 +74,6 @@ class BasePlugin(object):
     def _tts(self):
         # NOTE: We instantiate this object lazily on demand so any changes to the config state made
         # during the program life cycle are reflected here.
-        print(get_config()["tts"]["implementation"])
         return TextToSpeech(implementation=get_config()["tts"]["implementation"])
 
     def initialize(self, config: dict) -> None:

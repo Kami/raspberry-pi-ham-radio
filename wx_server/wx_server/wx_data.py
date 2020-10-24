@@ -63,10 +63,10 @@ def handle_observation_ecowitt_format(station_id: str, secret: str):
 
 @wx_data_app.route("/wu/<string:data>", methods=["GET"])
 def handle_observation_wunderground_format(data: str):
-    data = dict(urllib.parse.parse_qsl(data))
+    parsed_data = dict(urllib.parse.parse_qsl(data))
 
-    station_id = data["ID"]
-    secret = data["PASSWORD"]
+    station_id = parsed_data["ID"]
+    secret = parsed_data["PASSWORD"]
 
     config_secret = get_config()["secrets"].get(station_id, "")
     secret_hash = hashlib.sha256(
@@ -80,9 +80,9 @@ def handle_observation_wunderground_format(data: str):
     log = LOG.bind(station_id=station_id)
 
     log.debug("Received request", path="/".join(request.path.split("/")[:-1]))
-    log.debug("Raw request data", data=data)
+    log.debug("Raw request data", data=parsed_data)
 
-    res = format_wu_weather_data(data)
+    res = format_wu_weather_data(parsed_data)
     observation_pb = dict_to_protobuf(res)
 
     persist_weather_observation(station_id=station_id, observation_pb=observation_pb)

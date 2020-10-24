@@ -14,6 +14,7 @@
 # limitations under the License.
 
 from typing import Dict
+from typing import Any
 
 import copy
 import datetime
@@ -27,7 +28,7 @@ def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:
     """
     Format and normalize weather data in Ecowitt format.
     """
-    result = {}
+    result: Dict[str, Any] = {}
 
     result["date"] = data["dateutc"]
     result["datetime"] = datetime.datetime.strptime(data["dateutc"], "%Y-%m-%d %H:%M:%S").replace(
@@ -72,7 +73,7 @@ def format_wu_weather_data(data: Dict[str, str]) -> dict:
     """
     Format and normalize weather data in WeatherUnderground format.
     """
-    result = {}
+    result: Dict[str, Any] = {}
 
     result["date"] = data["dateutc"]
     result["datetime"] = datetime.datetime.strptime(data["dateutc"], "%Y-%m-%d %H:%M:%S").replace(
@@ -110,7 +111,7 @@ def format_wu_weather_data(data: Dict[str, str]) -> dict:
 
 def dict_to_protobuf(data: dict) -> messages_pb2.WeatherObservation:
     """
-    Convert dictionary as returned by format_ecowitt_weather_data() method to Protobuf object.
+    Convert dictionary as returned by format_*_weather_data() function to Protobuf object.
     """
     values = copy.copy(data)
 

@@ -19,7 +19,7 @@ import structlog
 
 
 def configure_logging(logging_config: str):
-    logging.config.fileConfig(logging_config, disable_existing_loggers=False)
+    logging.config.fileConfig(logging_config, disable_existing_loggers=False)  # type: ignore
 
     structlog.configure(
         processors=[

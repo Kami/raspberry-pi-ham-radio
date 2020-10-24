@@ -19,6 +19,8 @@ from typing import Dict
 
 import abc
 import time
+import sys
+import traceback
 import functools
 import multiprocessing
 from collections import defaultdict
@@ -144,7 +146,8 @@ class PluginExecutor(object):
             self._plugin_execution_stats[plugin_id]["failure"] += 1
             status = "failure"
             result = None
-            error = str(e)
+            _, _, exc_traceback = sys.exc_info()
+            error = str(e) + "\n" + str("\n".join(traceback.format_tb(exc_traceback)))
         else:
             status = "success"
             error = None

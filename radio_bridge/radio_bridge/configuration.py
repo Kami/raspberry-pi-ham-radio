@@ -13,11 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any
+
 import os
 
 import configparser
 
 import structlog
+
+__all__ = ["get_config", "get_plugin_config"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
@@ -140,3 +144,13 @@ def get_config() -> configparser.ConfigParser:
 
     assert CONFIG is not None
     return CONFIG
+
+
+def get_plugin_config(plugin_id: str, option: str, fallback: Any = None, get_method: str = "get") -> Any:
+    """
+    Return configuration option for the provided plugin and option name.
+    """
+    config = get_config()
+    result = getattr(config, get_method)("plugin:%s" % (plugin_id), option, fallback=fallback)
+    return result
+    return value

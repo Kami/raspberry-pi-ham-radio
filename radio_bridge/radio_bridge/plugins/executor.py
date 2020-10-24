@@ -26,15 +26,13 @@ from collections import defaultdict
 import structlog
 
 from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.errors import PluginExecutionTimeoutException
 
 __all__ = ["PluginExecutor"]
 
 LOG = structlog.getLogger(__name__)
-
-
-class PluginExecutionTimeoutException(Exception):
-    pass
 
 
 class BasePluginExecutor(object):
@@ -167,9 +165,8 @@ class PluginExecutor(object):
         current time.
         """
         now = int(time.time())
-        minimum_run_interval = get_config().getint(
-            "plugin:%s" % (plugin.ID), "minimum_run_interval", fallback=None
-        )
+        minimum_run_interval = get_plugin_config(plugin.ID, "minimum_run_interval", fallback=None,
+                                                 get_method="getint")
 
         if not minimum_run_interval:
             # Minimum run interval not specified for this plugin

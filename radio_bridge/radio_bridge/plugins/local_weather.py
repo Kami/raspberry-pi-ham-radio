@@ -42,9 +42,7 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
         # 1. Retrieve local weather data from disk
         date = datetime.datetime.utcnow()
 
-        station_id = get_config().get(
-            "plugin:local_weather", "weather_station_id", fallback="default"
-        )
+        station_id = self._config.get("weather_station_id", "default")
 
         observation_pb = get_weather_observation_for_date(station_id=station_id, date=date)
         if not observation_pb:

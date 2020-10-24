@@ -1,3 +1,18 @@
+# -*- coding: utf-8 -*-
+# Copyright 2020 Tomaz Muraus
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from typing import Dict
 from typing import Type
 from typing import Optional
@@ -5,6 +20,7 @@ from typing import Optional
 import itertools
 
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.configuration import get_config
 
 import structlog
 import pluginlib
@@ -53,7 +69,18 @@ def _load_and_register_plugins() -> None:
     ):
         LOG.debug("Found plugin: %s" % (plugin_name))
 
-        REGISTERED_PLUGINS[plugin_name] = plugin_class()
+        plugin_instance = plugin_class()
+
+        try:
+            plugin_config = dict(get_config()["plugin:%s" % (plugin_class.ID)])
+            LOG.debug("Found config for plugin %s" % (plugin_name), config=plugin_config)
+        except KeyError:
+            plugin_config = {}
+
+        # Initialize and validate plugin config
+        plugin_instance.initialize(config=plugin_config)
+
+        REGISTERED_PLUGINS[plugin_name] = plugin_instance
 
         dtmf_sequence = plugin_class.DTMF_SEQUENCE
 
@@ -63,7 +90,7 @@ def _load_and_register_plugins() -> None:
                 % (dtmf_sequence, DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence])
             )
 
-        DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_class()
+        DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_instance
         LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
 
     for plugin_name, plugin_class in plugins["RegularPlugin"].items():

@@ -65,11 +65,13 @@ class BasePlugin(object):
         self._tts = TextToSpeech(implementation=get_config()["tts"]["implementation"])
         self._audio_player = AudioPlayer()
 
-    def initialize(self, config) -> None:
+        self._config = {}
+
+    def initialize(self, config: dict) -> None:
         """
-        Initialize plugin with plugin specific configuration (if any exists).
+        Initialize plugin with plugin specific configuration and validate it (if any exists).
         """
-        pass
+        self._config = config
 
     def enable_tx(self):
         """

@@ -15,7 +15,10 @@
 
 import datetime
 
+import pytz
+
 from radio_bridge.plugins.base import BaseDTMFPlugin
+from radio_bridge.plugins.errors import InvalidPluginConfigurationValue
 from radio_bridge.configuration import get_config
 
 __all__ = ["CurrentTimePlugin"]
@@ -38,9 +41,31 @@ class CurrentTimePlugin(BaseDTMFPlugin):
 
     _skipload_ = get_config().getboolean("plugin:current_time", "enable", fallback=True) == False
 
+    def __init__(self):
+        super(CurrentTimePlugin, self).__init__()
+
+    def initialize(self, config: dict) -> None:
+        """
+        Validate plugin specific configuration.
+        """
+        super(CurrentTimePlugin, self).initialize(config=config)
+
+        # Validate that the specified timezone is correct
+        local_timezone = config.get("local_timezone")
+
+        if not local_timezone:
+            msg = "local_timezone config option is mandatory"
+            raise InvalidPluginConfigurationValue(self.ID, "local_timezone", local_timezone, msg)
+
+        try:
+            pytz.timezone(local_timezone)
+        except Exception as e:
+            raise InvalidPluginConfigurationValue(self.ID, "local_timezone", local_timezone, str(e))
+
     def run(self):
-        now_local = datetime.datetime.now()
-        now_utc = datetime.datetime.utcnow()
+        local_tz = pytz.timezone(self._config["local_timezone"])
+        now_utc = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
+        now_local = now_utc.astimezone(local_tz)
 
         text = TEXT.format(
             hour_local=now_local.hour,

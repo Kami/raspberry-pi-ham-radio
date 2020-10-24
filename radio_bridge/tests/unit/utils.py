@@ -17,6 +17,9 @@ import configparser
 
 import radio_bridge.configuration
 
+from radio_bridge.configuration import ConfigParserConfigObj
+from radio_bridge.configuration import DEFAULT_VALUES_CONFIG_PATH
+
 __all__ = ["use_mock_config", "reset_config"]
 
 
@@ -24,9 +27,11 @@ def use_mock_config(mock_config: dict) -> configparser.ConfigParser:
     """
     Use mock configuration values from the provided dictionary.
     """
-    config = configparser.ConfigParser()
-    config.read_dict(radio_bridge.configuration.DEFAULT_VALUES)
-    config.read_dict(mock_config)
+    config = ConfigParserConfigObj(
+        DEFAULT_VALUES_CONFIG_PATH, default_encoding="utf-8", write_empty_values=True
+    )
+
+    config.merge(mock_config)
 
     radio_bridge.configuration.CONFIG = config
 
@@ -37,8 +42,9 @@ def reset_config() -> configparser.ConfigParser:
     """
     Reset config to the default values.
     """
-    config = configparser.ConfigParser()
-    config.read_dict(radio_bridge.configuration.DEFAULT_VALUES)
+    config = ConfigParserConfigObj(
+        DEFAULT_VALUES_CONFIG_PATH, default_encoding="utf-8", write_empty_values=True
+    )
 
     radio_bridge.configuration.CONFIG = config
 

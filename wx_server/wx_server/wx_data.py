@@ -19,7 +19,6 @@ import hashlib
 import structlog
 
 from flask import Blueprint
-from flask import Response
 from flask import request
 
 from wx_server.formatters import format_ecowitt_weather_data

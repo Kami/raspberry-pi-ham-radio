@@ -20,7 +20,7 @@ import datetime
 
 from generated.protobuf import messages_pb2
 
-__all__ = ["format_ecowitt_weather_data", "format_wu_data"]
+__all__ = ["format_ecowitt_weather_data", "format_wu_weather_data"]
 
 
 def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:

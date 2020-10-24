@@ -168,4 +168,3 @@ def get_plugin_config_option(
     config = get_config()
     result = getattr(config, get_method)("plugin:%s" % (plugin_id), option, fallback=fallback)
     return result
-    return value

@@ -20,7 +20,6 @@ from typing import Any
 import os
 import tty
 import sys
-import fnmatch
 import threading
 import atexit
 import select

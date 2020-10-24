@@ -31,7 +31,7 @@ class HelpPlugin(BaseDTMFPlugin):
     REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = get_config().get("plugin:help", "dtmf_sequence", fallback="12")
 
-    _skipload_ = get_config().getboolean("plugin:help", "enable", fallback=True) == False
+    _skipload_ = get_config().getboolean("plugin:help", "enable", fallback=True) is False
 
     def run(self):
         plugins = get_plugins_with_dtmf_sequence()

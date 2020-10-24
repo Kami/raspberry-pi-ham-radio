@@ -15,7 +15,6 @@
 
 import os
 import datetime
-import threading
 
 import wave
 import pyaudio
@@ -35,7 +34,7 @@ class RecordAudioPlugin(BaseRegularPlugin):
     NAME = "Record Audio"
     DESCRIPTION = "Record audio and write it to a file on disk."
 
-    _skipload_ = get_config().getboolean("plugin:record_audio", "enable", fallback=True) == False
+    _skipload_ = get_config().getboolean("plugin:record_audio", "enable", fallback=True) is False
 
     def initialize(self, config: dict) -> None:
         super(RecordAudioPlugin, self).initialize(config=config)
@@ -48,14 +47,15 @@ class RecordAudioPlugin(BaseRegularPlugin):
         self._input_device_index = int(self._config["input_device_index"])
         self._rate = int(self._config["sample_rate"])
 
+        self._audio = pyaudio.PyAudio()
+
     def run(self):
         # TODO: Refactor plugin to use a single pyaudio instance for this plugin + main loop and
         # share data via queue.
         # This is more efficient and only requires us to run a single record audio function.
         chunk_size = 2 ** 12
 
-        audio = pyaudio.PyAudio()
-        stream = audio.open(
+        stream = self._audio.open(
             format=pyaudio.paInt16,
             input_device_index=self._input_device_index,
             channels=self._channels,
@@ -81,6 +81,6 @@ class RecordAudioPlugin(BaseRegularPlugin):
     def _write_frame_buffer_to_file(self, frames_buffer: list, file_path: str) -> None:
         with wave.open(file_path, "wb") as wf:
             wf.setnchannels(self._channels)
-            wf.setsampwidth(audio.get_sample_size(pyaudio.paInt16))
+            wf.setsampwidth(self._audio.get_sample_size(pyaudio.paInt16))
             wf.setframerate(self._rate)
             wf.writeframes(b"".join(frames_buffer))

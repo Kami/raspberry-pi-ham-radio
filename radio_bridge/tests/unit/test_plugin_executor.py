@@ -14,7 +14,6 @@
 # limitations under the License.
 
 import time
-import configparser
 import unittest
 
 from radio_bridge.plugins.base import BaseDTMFPlugin

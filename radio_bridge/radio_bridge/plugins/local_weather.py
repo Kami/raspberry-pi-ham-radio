@@ -36,7 +36,7 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
     REQUIRES_INTERNET_CONNECTION = False
     DTMF_SEQUENCE = get_config().get("plugin:local_weather", "dtmf_sequence", fallback="31")
 
-    _skipload_ = get_config().getboolean("plugin:local_weather", "enable", fallback=True) == False
+    _skipload_ = get_config().getboolean("plugin:local_weather", "enable", fallback=True) is False
 
     def run(self):
         # 1. Retrieve local weather data from disk

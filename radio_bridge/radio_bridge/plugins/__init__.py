@@ -20,7 +20,6 @@ from typing import Optional
 import itertools
 
 from radio_bridge.plugins.base import BasePlugin
-from radio_bridge.configuration import get_config
 from radio_bridge.configuration import get_plugin_config
 
 import structlog

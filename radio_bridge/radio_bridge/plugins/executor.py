@@ -171,7 +171,7 @@ class PluginExecutor(object):
         current time.
         """
         now = int(time.time())
-        minimum_run_interval = get_plugin_config(
+        minimum_run_interval = get_plugin_config_option(
             plugin.ID, "minimum_run_interval", fallback=None, get_method="getint"
         )
 

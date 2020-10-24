@@ -121,7 +121,7 @@ class CronSayPlugin(BaseRegularPlugin):
     DESCRIPTION = "Say text on play an audio file on defined time interval(s)."
     REQUIRES_INTERNET_CONNECTION = False
 
-    _skipload_ = get_config().getboolean("plugin:cron", "enable", fallback=True) == False
+    _skipload_ = get_config().getboolean("plugin:cron", "enable", fallback=True) is False
 
     def __init__(self):
         super(CronSayPlugin, self).__init__()

@@ -14,11 +14,9 @@
 # limitations under the License.
 
 from typing import Dict
-from typing import Any
 from typing import Callable
 from typing import Optional
 from typing import Tuple
-from typing import Union
 
 import os
 import sys

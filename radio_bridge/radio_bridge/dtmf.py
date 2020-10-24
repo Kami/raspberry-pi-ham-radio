@@ -83,7 +83,7 @@ class BaseDTMFDecoderImplementation(object):
         return sample_rate
 
 
-class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
+class FFTDTMFDecoderImplementation(BaseDTMFDecoderImplementation):
     # Based on https://github.com/ribt/dtmf-decoder
 
     def __init__(
@@ -96,7 +96,7 @@ class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
         :param acceptable_error. Acceptable frequency error in hertz.
         :param process_intervals: Process in <x> second intervals.
         """
-        super(FFT2DTMFDecoderImplementation, self).__init__(file_path=file_path)
+        super(FFTDTMFDecoderImplementation, self).__init__(file_path=file_path)
 
         self._acceptable_error = acceptable_error
         self._process_intervals = process_intervals
@@ -172,13 +172,13 @@ class FFT2DTMFDecoderImplementation(BaseDTMFDecoderImplementation):
 class DTMFDecoder(object):
 
     implementations = {
-        "fft_2": FFT2DTMFDecoderImplementation,
+        "fft": FFTDTMFDecoderImplementation,
     }
 
     def __init__(
         self,
         file_path: str = "/tmp/recording.wav",
-        implementation: str = "fft_2",
+        implementation: str = "fft",
         **implementation_kwargs: Any,
     ):
         self._file_path = file_path

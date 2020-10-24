@@ -55,7 +55,7 @@ DEFAULT_VALUES = {
         "cache_directory": "/tmp/tts-audio-cache",
     },
     "dtmf": {
-        "implementation": "fft_2",
+        "implementation": "fft",
     },
     "plugins": {
         "executor": "native",

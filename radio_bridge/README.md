@@ -57,7 +57,7 @@ Special thanks to the authors and contributors of those other projects.
 Radio bridge can be configured via ``.ini`` style configuration file.
 
 Default configuration which describes available options and includes some examples can be found at
-[radio_bridge/conf/radio_bridge.conf](radio_bridge/conf/radio_bridge.conf).
+[radio_bridge/conf/radio_bridge.example.conf](radio_bridge/conf/radio_bridge.example.conf).
 
 You can specify path to a configuration value to use by setting ``RADIO_BRIDGE_CONFIG_PATH``
 environment variable as shown below.
@@ -65,6 +65,11 @@ environment variable as shown below.
 ```bash
 RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf radio_bridge/bin/radio-bridge
 ```
+
+For production deployments, you are encouraged to user supervisord or a similar service manager.
+
+You can find an example supervisord config at
+[radio_bridge/conf/radio_bridge.supervisord.example.conf](radio_bridge/conf/radio_bridge.supervisord.example.conf)
 
 ## Plugins
 

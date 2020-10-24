@@ -53,6 +53,9 @@ WX_SERVER_CONFIG_PATH=/etc/wx_server/wx_server.conf ./wx_server/bin/wx_server
 
 For production deployments, you are encouraged to user supervisord or a similar service manager.
 
+You can find an example supervisord config at
+[wx_bridge/conf/wx_bridge.supervisord.example.conf](wx_bridge/conf/wx_bridge.supervisord.example.conf)
+
 ## Development
 
 ### Running the WSGI Server

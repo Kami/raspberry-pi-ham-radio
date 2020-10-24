@@ -23,7 +23,7 @@ __all__ = ["generate_random_number"]
 
 def generate_random_number(
     length: int = 6, forbidden_first_digit: Optional[List[int]] = None
-) -> int:
+) -> str:
     """
     Generate random number with the provided length (number of digits) ensuring that two neighboring
     digits are always different and with each digit having a value between 1 - 9.
@@ -46,4 +46,4 @@ def generate_random_number(
 
             result += str(random_value)
 
-    return int(result)
+    return result

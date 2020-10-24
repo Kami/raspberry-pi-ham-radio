@@ -66,10 +66,16 @@ class BasePlugin(object):
         self._callsign = get_config()["tx"]["callsign"]
         self._tx_mode = get_config()["tx"]["mode"]
         self._gpio_pin = get_config().get("tx", "gpio_pin", fallback=None)
-        self._tts = TextToSpeech(implementation=get_config()["tts"]["implementation"])
         self._audio_player = AudioPlayer()
 
         self._config = {}
+
+    @property
+    def _tts(self):
+        # NOTE: We instantiate this object lazily on demand so any changes to the config state made
+        # during the program life cycle are reflected here.
+        print(get_config()["tts"]["implementation"])
+        return TextToSpeech(implementation=get_config()["tts"]["implementation"])
 
     def initialize(self, config: dict) -> None:
         """

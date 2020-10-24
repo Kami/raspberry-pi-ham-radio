@@ -21,7 +21,7 @@ import configparser
 
 import structlog
 
-__all__ = ["get_config", "get_plugin_config", "get_plugin_config_option"]
+__all__ = ["get_config", "get_plugin_config", "get_plugin_config_option", "set_config_option"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
@@ -168,3 +168,16 @@ def get_plugin_config_option(
     config = get_config()
     result = getattr(config, get_method)("plugin:%s" % (plugin_id), option, fallback=fallback)
     return result
+
+
+def set_config_option(section: str, option: str, value: Any) -> bool:
+    """
+    Function which updates configuration option value in memory.
+
+    Keep in mind that this will only update the value in memory and any changes will be lost on
+    main process restart.
+    """
+    # TODO: Add support to write_to_disk argument
+    config = get_config()
+    config.set(section, option, value)
+    return True

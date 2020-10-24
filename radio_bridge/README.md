@@ -109,6 +109,24 @@ overwritten / changed on per plugin basis inside the config.
 
 ### Admin Plugins
 
+| Name | DTMF Sequence | Requires Internet Connection | Description |
+| --- | :---: | :---: | --- |
+| Change TTS Mode | ``92xxxx?`` | No | Temporary change TTS mode to online (gtts) / offline (espeak). For example 92xxxx1 for online and 92xxxx2 for offline. |
+| Disable non-admin DTMF commands | 93 | No | Temporary disable all the non-admin DTMF commands. |
+| Enable non-admin DTMF commands | 93 | No | Temporary enable all the non-admin DTMF commands (if they have been previously disabled via admin command). |
+
+In all the admin plugins ``xxxx`` should be replaced with actual valid and unused OTP pin code. For
+example, if plugin DTMF sequence is ``92``, ``data`` value is ``1`` and OTP value is ``9876``, you
+would enter the following DTMF code to active this plugin: ``9298761``.
+
+Keep in mind that the plugin which modify state such as "Change TTS mode" one only update state in
+memory.
+
+This means those values will only be active until next restart - on next restart, values which are
+read from the config value will be used.
+
+If you want to make a permanent change, you should do so in the config file.
+
 ## Note on Timezone
 
 Te software has been designed to work with UTC. This means you are strongly encouraged to set

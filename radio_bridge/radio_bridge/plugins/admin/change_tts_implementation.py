@@ -14,24 +14,29 @@
 # limitations under the License.
 
 from radio_bridge.plugins.base import BaseAdminDTMFWithDataPlugin
+from radio_bridge.configuration import get_config
+from radio_bridge.configuration import set_config_option
 
-__all__ = ["ChangeTTSImplementationPlugin"]
+__all__ = ["ChangeTTSImplementationAdminPlugin"]
 
 
-class ChangeTTSImplementationPlugin(BaseAdminDTMFWithDataPlugin):
-    ID = "change_tts_implementation"
-    NAME = "Change TTS implementation"
-    DESCRIPTION = "Change TTS implementation to online / offline"
+class ChangeTTSImplementationAdminPlugin(BaseAdminDTMFWithDataPlugin):
+    ID = "change_tts_mode"
+    NAME = "Change TTS mode"
+    DESCRIPTION = "Change TTS mode to online / offline"
 
     # 92???1 - To change it to online one (gtts)
     # 92???2 - To change it to offline one (espeak)
     DTMF_SEQUENCE = "92?"
 
+    _skipload_ = get_config().getboolean("plugin:change_tts_mode", "enable", fallback=True) is False
+
     def run(self, sequence: str):
-        # TODO: Actually change TTS mode
         if sequence == "1":
+            set_config_option("tts", "implementation", "gtts")
             self.say("TTS mode changed to online")
         elif sequence == "2":
+            set_config_option("tts", "implementation", "espeak")
             self.say("TTS mode changes to offline")
         else:
             self.say("Invalid TTS mode value")

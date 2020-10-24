@@ -130,6 +130,14 @@ class PluginExecutor(object):
 
         start_time = int(time.time())
 
+        is_enabled = get_plugin_config_option(
+            plugin.ID, "enable", fallback=True, get_method="getboolean"
+        )
+
+        if not is_enabled:
+            self._logger.info("Plugin %s is disabled, refusing execution." % (plugin.ID))
+            return None
+
         can_run = self._can_run(plugin=plugin)
 
         if not can_run:

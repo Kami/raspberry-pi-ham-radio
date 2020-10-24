@@ -14,8 +14,8 @@
 # limitations under the License.
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
-from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 from radio_bridge.configuration import get_config
+from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 
 __all__ = ["HelpPlugin"]
 
@@ -34,11 +34,12 @@ class HelpPlugin(BaseDTMFPlugin):
     _skipload_ = get_config().getboolean("plugin:help", "enable", fallback=True) is False
 
     def run(self):
-        plugins = get_plugins_with_dtmf_sequence()
+        plugins = get_plugins_with_dtmf_sequence(include_admin=False)
 
         text_to_say = "Available commands:"
 
         for index, plugin_class in enumerate(plugins.values()):
+            # Skip admin plugins
             sequence_text = ""
             for char in plugin_class.DTMF_SEQUENCE:
                 sequence_text += char + " "

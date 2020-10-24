@@ -20,6 +20,8 @@ from typing import Optional
 import itertools
 
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseAdminDTMFPlugin
+from radio_bridge.plugins.base import BaseAdminDTMFWithDataPlugin
 from radio_bridge.configuration import get_plugin_config
 
 import structlog
@@ -46,11 +48,22 @@ def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
     return REGISTERED_PLUGINS
 
 
-def get_plugins_with_dtmf_sequence() -> Dict[str, Type[BasePlugin]]:
+def get_plugins_with_dtmf_sequence(include_admin: bool = True) -> Dict[str, Type[BasePlugin]]:
     """
     Return a list of all the available plugins which are triggered via DTMF sequence.
     """
-    return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP
+    if include_admin:
+        return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP
+
+    result = {}
+
+    for key, plugin_instance in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP.items():
+        if not isinstance(plugin_instance, BaseAdminDTMFPlugin) and not isinstance(
+            plugin_instance, BaseAdminDTMFWithDataPlugin
+        ):
+            result[key] = plugin_instance
+
+    return result
 
 
 def _load_and_register_plugins() -> None:

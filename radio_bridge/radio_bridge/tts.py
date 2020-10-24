@@ -131,7 +131,10 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
 
 
 class TextToSpeech(object):
-    implementations = {"gtts": GoogleTextToSpeech, "espeak": ESpeakTextToSpeech}
+    implementations = {
+        "gtts": GoogleTextToSpeech,
+        "espeak": ESpeakTextToSpeech,
+    }
 
     def __init__(
         self,

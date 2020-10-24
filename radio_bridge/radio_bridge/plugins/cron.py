@@ -17,6 +17,7 @@ from typing import Dict
 from typing import Any
 from typing import Tuple
 from typing import Type
+from typing import List
 
 import os
 import re
@@ -215,12 +216,12 @@ class CronSayPlugin(BaseNonDTMFPlugin):
         """
         words = re.split(r"\s+", text)
 
-        duration = len(words) * AVERAGE_AUDIO_DURATION_PER_WORD
+        duration = float(len(words) * AVERAGE_AUDIO_DURATION_PER_WORD)
 
         if slow:
             duration *= 1.3
 
-        return duration
+        return int(duration)
 
     def _get_text_format_context(self) -> Dict[str, str]:
         """
@@ -236,7 +237,7 @@ class CronSayPlugin(BaseNonDTMFPlugin):
 
         return context
 
-    def get_scheduler_jobs(self) -> Tuple[str, Type[BaseTrigger]]:
+    def get_scheduler_jobs(self) -> List[Tuple[str, Type[BaseTrigger]]]:
         """
         Return a list of jobs to add to the scheduler based on the specifications defined in the
         config.

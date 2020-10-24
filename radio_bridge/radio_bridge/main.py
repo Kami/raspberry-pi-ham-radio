@@ -16,6 +16,7 @@
 from typing import Tuple
 from typing import Dict
 from typing import Any
+from typing import Optional
 
 import os
 import tty
@@ -222,7 +223,7 @@ class RadioBridgeServer(object):
 
     def _get_plugin_for_dtmf_sequence(
         self, sequence: str
-    ) -> Tuple[BasePlugin, Tuple, Dict[str, Any]]:
+    ) -> Tuple[Optional[BasePlugin], Optional[Tuple], Optional[Dict[str, Any]]]:
         """
         Retrieve reference to the Plugin class instance and any args and kwargs which should be
         passed to the plugin run() method.

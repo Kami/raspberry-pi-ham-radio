@@ -25,6 +25,7 @@ text format in a file on disk.
 """
 
 from typing import List
+from typing import Set
 from typing import Tuple
 
 import os
@@ -70,10 +71,8 @@ def write_otps_to_disk(otps: List[str]) -> bool:
     """
     otps_file_path = get_config_option("plugins", "admin_otps_file_path")
 
-    otps = set(otps)
-
     with open(otps_file_path, "w") as fp:
-        fp.write("\n".join(sorted(list(otps))))
+        fp.write("\n".join(sorted(list(set(otps)))))
 
     return True
 
@@ -99,23 +98,23 @@ def generate_and_write_otps() -> Tuple[List[str], List[str]]:
 
     LOG.debug("Generating %s new OTPs" % (number_of_new_otps_to_generate))
 
-    new_otps = set([])
+    new_otps_set: Set[str] = set([])
 
-    while len(new_otps) < number_of_new_otps_to_generate:
+    while len(new_otps_set) < number_of_new_otps_to_generate:
         value = generate_random_number(length=OTP_LENGTH, forbidden_first_digit=[0])
-        new_otps.add(str(value))
+        new_otps_set.add(str(value))
 
-    new_otps = sorted(new_otps)
+    new_otps_list = sorted(new_otps_set)
 
     # Update the file / write all the active OTPs to disk
-    all_otps = set()
-    all_otps.update(existing_otps)
-    all_otps.update(new_otps)
-    all_otps = sorted(all_otps)
+    all_otps_set = set()
+    all_otps_set.update(existing_otps)
+    all_otps_set.update(new_otps_list)
+    all_otps_list = sorted(all_otps_set)
 
-    write_otps_to_disk(all_otps)
+    write_otps_to_disk(all_otps_list)
 
-    return list(all_otps), list(new_otps)
+    return all_otps_list, new_otps_list
 
 
 def validate_otp(otp: str) -> bool:

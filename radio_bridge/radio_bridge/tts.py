@@ -152,7 +152,7 @@ class TextToSpeech(object):
                 % (implementation, ",".join(self.implementations))
             )
 
-        self._tts = self.implementations[implementation](**self._implementation_kwargs)
+        self._tts = self.implementations[implementation]()
 
     def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
         return self._tts.text_to_speech(text=text, slow=slow, use_cache=use_cache)

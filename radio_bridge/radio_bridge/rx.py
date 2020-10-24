@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List
+
 import atexit
 
 import wave
@@ -33,7 +35,7 @@ class RX(object):
         channels: int = 1,
         rate: int = 48000,
         chunk_size: int = 2 ** 12,  # frames per buffer
-        time: int = 0.2,
+        time: float = 0.2,
     ):
         self._device_index = input_device_index
         self._file_path = file_path
@@ -46,7 +48,7 @@ class RX(object):
         self.audio = pyaudio.PyAudio()
         self.stream = None
 
-        self.frames_buffer = []
+        self.frames_buffer: List[bytes] = []
 
         device_info = self._get_device_info(self._device_index)
         LOG.debug(

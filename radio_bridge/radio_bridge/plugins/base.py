@@ -15,8 +15,8 @@
 
 from typing import Dict
 from typing import Callable
-from typing import Optional
 from typing import Tuple
+from typing import Any
 
 import os
 import sys
@@ -58,6 +58,7 @@ INITIALIZED = False
 
 
 class BasePlugin(object):
+    ID: str
     NAME: str
     DESCRIPTION: str
     REQUIRES_INTERNET_CONNECTION: bool
@@ -189,13 +190,13 @@ class BaseDTMFPlugin(BasePlugin):
 
     NAME: str
     DESCRIPTION: str
-    DTMF_SEQUENCE: Optional[str] = None
+    DTMF_SEQUENCE: str
 
     @pluginlib.abstractmethod
     def run(self):
         pass
 
-    def run_in_subprocess(self, queue: multiprocessing.Queue):
+    def run_in_subprocess(self, queue: multiprocessing.Queue) -> Any:
         """
         Method which is called when using process executor.
 
@@ -222,13 +223,13 @@ class BaseDTMFWithDataPlugin(BasePlugin):
 
     NAME: str
     DESCRIPTION: str
-    DTMF_SEQUENCE: Optional[str] = None
+    DTMF_SEQUENCE: str
 
     @pluginlib.abstractmethod
     def run(self, sequence: str):
         pass
 
-    def run_in_subprocess(self, queue, sequence: str):
+    def run_in_subprocess(self, queue, sequence: str) -> Any:
         """
         Method which is called when using process executor.
 
@@ -271,7 +272,7 @@ class BaseAdminDTMFPlugin(BaseDTMFPlugin):
 
     NAME: str
     DESCRIPTION: str
-    DTMF_SEQUENCE: Optional[str] = None
+    DTMF_SEQUENCE: str
 
     @pluginlib.abstractmethod
     def run(self):
@@ -295,7 +296,7 @@ class BaseAdminDTMFPlugin(BaseDTMFPlugin):
 
 
 @pluginlib.Parent("AdminDTMFWithDataPlugin")
-class BaseAdminDTMFWithDataPlugin(BaseDTMFPlugin):
+class BaseAdminDTMFWithDataPlugin(BaseDTMFWithDataPlugin):
     """
     Base class for all the admin which take data plugins.
 
@@ -305,13 +306,13 @@ class BaseAdminDTMFWithDataPlugin(BaseDTMFPlugin):
 
     NAME: str
     DESCRIPTION: str
-    DTMF_SEQUENCE: Optional[str] = None
+    DTMF_SEQUENCE: str
 
     @pluginlib.abstractmethod
     def run(self, sequence: str):
         pass
 
-    def run_in_subprocess(self, queue, sequence: str):
+    def run_in_subprocess(self, queue, sequence: str) -> Any:
         """
         Method which is called when using process executor.
 

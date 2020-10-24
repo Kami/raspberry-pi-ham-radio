@@ -14,8 +14,8 @@
 # limitations under the License.
 
 from typing import Any
-from typing import Type
 from typing import Dict
+from typing import Union
 
 import abc
 import time
@@ -29,12 +29,15 @@ import structlog
 
 from radio_bridge.configuration import get_config_option
 from radio_bridge.configuration import get_plugin_config_option
-from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
+from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
 from radio_bridge.plugins.errors import PluginExecutionTimeoutException
 
 __all__ = ["PluginExecutor"]
 
 LOG = structlog.getLogger(__name__)
+
+T_Plugin = Union[BaseDTMFPlugin, BaseDTMFWithDataPlugin]
 
 
 class BasePluginExecutor(object):
@@ -46,7 +49,7 @@ class BasePluginExecutor(object):
         self._max_run_time = get_config_option("plugins", "max_run_time", "int", fallback=None)
 
     @abc.abstractmethod
-    def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
+    def run(self, plugin: T_Plugin, *args: Any, **kwargs: Any) -> None:
         """
         Run the plugin and pass args kwargs to the plugin run method.
         """
@@ -58,7 +61,7 @@ class NativePluginExecutor(BasePluginExecutor):
     Plugin executor which runs the plugin directly in the current / main server thread.
     """
 
-    def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
+    def run(self, plugin: T_Plugin, *args: Any, **kwargs: Any) -> None:
         """
         Run the plugin and pass args kwargs to the plugin run method.
         """
@@ -74,11 +77,11 @@ class ProccessPluginExecutor(BasePluginExecutor):
     config.
     """
 
-    def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
+    def run(self, plugin: T_Plugin, *args: Any, **kwargs: Any) -> None:
         """
         Run the plugin and pass args kwargs to the plugin run method.
         """
-        queue = multiprocessing.Queue()
+        queue: multiprocessing.Queue = multiprocessing.Queue()
         args = (queue,) + args
 
         # Plguin max run time (if set) has precedence over global max run time
@@ -119,11 +122,13 @@ class PluginExecutor(object):
         self._plugin_run_times: Dict[str, int] = {}
 
         # Maps plugin name to execution stats
-        self._plugin_execution_stats = defaultdict(
-            functools.partial(defaultdict, success=0, failure=0, timeout=0, refuse_to_run=0)
+        self._plugin_execution_stats: Dict[str, Dict[str, int]] = defaultdict(
+            functools.partial(  # type: ignore
+                defaultdict, success=0, failure=0, timeout=0, refuse_to_run=0
+            )
         )
 
-    def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
+    def run(self, plugin: T_Plugin, *args: Any, **kwargs: Any) -> None:
         plugin_id = plugin.ID
 
         self._logger.debug("Running plugin %s" % (str(plugin)))
@@ -150,7 +155,7 @@ class PluginExecutor(object):
         self._plugin_run_times[plugin.ID] = start_time
 
         try:
-            result = self._executor.run(plugin=plugin, *args, **kwargs)
+            result = self._executor.run(plugin=plugin, *args, **kwargs)  # type: ignore
         except PluginExecutionTimeoutException:
             self._plugin_execution_stats[plugin_id]["timeout"] += 1
             status = "timeout"
@@ -176,7 +181,7 @@ class PluginExecutor(object):
 
         return result
 
-    def _can_run(self, plugin: Type[BasePlugin]) -> bool:
+    def _can_run(self, plugin: T_Plugin) -> bool:
         """
         Check if currect plugin meets varios abuse prevention and other criteria and can run at the
         current time.

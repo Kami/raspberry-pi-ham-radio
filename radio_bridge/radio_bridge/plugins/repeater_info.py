@@ -93,6 +93,7 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
 
         LOG.debug('Retrieving information for "%s" repeater "%s"' % (repeater_type, repeater_id))
 
+        assert repeater_id is not None
         repeater_info = self._get_repeater_info(
             repeater_id=repeater_id, repeater_type=repeater_type
         )
@@ -127,7 +128,9 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
 
         return context
 
-    def _parse_repeater_id_url_from_sequence(self, sequence: str) -> Tuple[str, str]:
+    def _parse_repeater_id_url_from_sequence(
+        self, sequence: str
+    ) -> Tuple[Optional[str], Optional[str]]:
         """
         Parse repeater id repeater type (VHF, UHF) from a sequence which is passed to the plugin.
         """
@@ -185,7 +188,7 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
         repeater_row = id_tag.find_parent("tr")
 
         if not repeater_row:
-            return
+            return None
 
         children = list(repeater_row.children)
 
@@ -208,7 +211,7 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
         match = re.match(r".*CTCSS:\s+((\d+)(\.)(\d+)).*", repeater.notes)
 
         if match:
-            ctcss = match.groups()[0]
+            ctcss: Optional[str] = match.groups()[0]
         else:
             ctcss = None
 

@@ -15,6 +15,7 @@
 
 from typing import Any
 from typing import Optional
+from typing import List
 
 import os
 import time
@@ -35,14 +36,14 @@ DEFAULT_VALUES_CONFIG_PATH = os.path.abspath(
     os.path.join(BASE_DIR, "../conf/radio_bridge.defaults.conf")
 )
 
-VALID_TTS_IMPLEMENTATIONS = []
-VALID_DTMF_DECODER_IMPLEMENTATION = []
+VALID_TTS_IMPLEMENTATIONS: List[str] = []
+VALID_DTMF_DECODER_IMPLEMENTATION: List[str] = []
 
 # Stores parsed config file reference
 CONFIG = None
 
 # Stores unix timestamp of when the config has been loaded and parsed
-CONFIG_LOAD_TIME = None
+CONFIG_LOAD_TIME: int = 0
 
 LOG = structlog.get_logger()
 
@@ -235,6 +236,6 @@ def set_config_option(section: str, option: str, value: Any, write_to_disk: bool
     if write_to_disk and CONFIG_PATH:
         LOG.debug("Writing updates config file to disk", file_path=CONFIG_PATH)
         with open(CONFIG_PATH, "wb") as fp:
-            config.write(fp)
+            config.write(fp)  # type: ignore
 
     return True

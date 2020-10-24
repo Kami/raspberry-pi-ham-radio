@@ -13,11 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Any
+
 __all__ = ["InvalidPluginConfigurationValue", "PluginExecutionTimeoutException"]
 
 
 class InvalidPluginConfigurationValue(ValueError):
-    def __init__(self, plugin_id: str, option_name: str, option_value: str, error: str):
+    def __init__(self, plugin_id: str, option_name: str, option_value: Any, error: str):
         message = 'Invalid value "%s" for plugin "%s" and config option "%s": %s' % (
             option_value,
             plugin_id,

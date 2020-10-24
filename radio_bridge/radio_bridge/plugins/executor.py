@@ -28,7 +28,7 @@ from collections import defaultdict
 import structlog
 
 from radio_bridge.configuration import get_config
-from radio_bridge.configuration import get_plugin_config
+from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.plugins.base import BasePlugin
 from radio_bridge.plugins.errors import PluginExecutionTimeoutException
 
@@ -82,7 +82,7 @@ class ProccessPluginExecutor(BasePluginExecutor):
         args = (queue,) + args
 
         # Plguin max run time (if set) has precedence over global max run time
-        max_run_time = get_plugin_config(
+        max_run_time = get_plugin_config_option(
             plugin.ID, "max_run_time", fallback=self._max_run_time, get_method="getint"
         )
 

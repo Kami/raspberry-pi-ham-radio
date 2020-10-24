@@ -21,7 +21,7 @@ import configparser
 
 import structlog
 
-__all__ = ["get_config", "get_plugin_config"]
+__all__ = ["get_config", "get_plugin_config", "get_plugin_config_option"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
@@ -146,7 +146,22 @@ def get_config() -> configparser.ConfigParser:
     return CONFIG
 
 
-def get_plugin_config(plugin_id: str, option: str, fallback: Any = None, get_method: str = "get") -> Any:
+def get_plugin_config(plugin_id: str) -> dict:
+    """
+    Return plugin config for the provided plugin.
+    """
+    try:
+        plugin_config = dict(get_config()["plugin:%s" % (plugin_id)])
+        LOG.debug("Found config for plugin %s" % (plugin_id), config=plugin_config)
+    except KeyError:
+        plugin_config = {}
+
+    return plugin_config
+
+
+def get_plugin_config_option(
+    plugin_id: str, option: str, fallback: Any = None, get_method: str = "get"
+) -> Any:
     """
     Return configuration option for the provided plugin and option name.
     """

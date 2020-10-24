@@ -13,15 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__all__ = [
-    "InvalidPluginConfigurationValue",
-    "PluginExecutionTimeoutException"
-]
+__all__ = ["InvalidPluginConfigurationValue", "PluginExecutionTimeoutException"]
+
 
 class InvalidPluginConfigurationValue(ValueError):
     def __init__(self, plugin_id: str, option_name: str, option_value: str, error: str):
-        message = ("Invalid value \"%s\" for plugin \"%s\" and config option \"%s\": %s" %
-                        (option_value, plugin_id, option_name, error))
+        message = 'Invalid value "%s" for plugin "%s" and config option "%s": %s' % (
+            option_value,
+            plugin_id,
+            option_name,
+            error,
+        )
         super(InvalidPluginConfigurationValue, self).__init__(message)
 
         self.plugin_id = plugin_id

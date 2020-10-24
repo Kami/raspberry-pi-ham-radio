@@ -90,7 +90,7 @@ class RX(object):
         if not self.frames_buffer:
             return None
 
-        LOG.trace("Writting frame buffer to %s" % (self._file_path))
+        LOG.trace("Writing frame buffer to %s" % (self._file_path))
 
         with wave.open(self._file_path, "wb") as wf:
             wf.setnchannels(self._channels)

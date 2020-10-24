@@ -116,6 +116,7 @@ class CronSayItemConfig(object):
 
 
 class CronSayPlugin(BaseRegularPlugin):
+    ID = "cron_say"
     NAME = "Cron Plugin"
     DESCRIPTION = "Say text on play an audio file on defined time interval(s)."
     REQUIRES_INTERNET_CONNECTION = False

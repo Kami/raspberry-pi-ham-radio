@@ -21,6 +21,7 @@ import itertools
 
 from radio_bridge.plugins.base import BasePlugin
 from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config
 
 import structlog
 import pluginlib
@@ -69,15 +70,9 @@ def _load_and_register_plugins() -> None:
     ):
         LOG.debug("Found plugin: %s" % (plugin_name))
 
-        plugin_instance = plugin_class()
-
-        try:
-            plugin_config = dict(get_config()["plugin:%s" % (plugin_class.ID)])
-            LOG.debug("Found config for plugin %s" % (plugin_name), config=plugin_config)
-        except KeyError:
-            plugin_config = {}
-
         # Initialize and validate plugin config
+        plugin_config = get_plugin_config(plugin_class.ID)
+        plugin_instance = plugin_class()
         plugin_instance.initialize(config=plugin_config)
 
         REGISTERED_PLUGINS[plugin_name] = plugin_instance
@@ -96,7 +91,12 @@ def _load_and_register_plugins() -> None:
     for plugin_name, plugin_class in plugins["RegularPlugin"].items():
         LOG.debug("Found plugin: %s" % (plugin_name))
 
-        REGISTERED_PLUGINS[plugin_name] = plugin_class()
+        # Initialize and validate plugin config
+        plugin_config = get_plugin_config(plugin_class.ID)
+        plugin_instance = plugin_class()
+        plugin_instance.initialize(config=plugin_config)
+
+        REGISTERED_PLUGINS[plugin_name] = plugin_instance
         LOG.debug("Registered plugin %s" % (plugin_name))
 
     INITIALIZED = True

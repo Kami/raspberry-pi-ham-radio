@@ -92,6 +92,8 @@ for different pre-defined locations.
 
 ### Available Plugins
 
+### Regular Plugins
+
 | Name | DTMF Sequence | Requires Internet Connection | Description |
 | --- | :---: | :---: | --- |
 | Help | ``12`` | No | Display all the available DTMF commands. |
@@ -100,9 +102,21 @@ for different pre-defined locations.
 | Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si
 | Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si
 | Cron Say | none | No | Plugin which allows various announcements and information defined in the config to be played at defined intervals. |
+| Record Audio | none | None | Plugin which records audio from the audio in and stores it in a file. This can be useful when troubleshooting things, etc. |
 
 NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
 overwritten / changed on per plugin basis inside the config.
+
+### Admin Plugins
+
+## Note on Timezone
+
+Te software has been designed to work with UTC. This means you are strongly encouraged to set
+timezone on your server / Raspberry Pi to UTC to avoid timezone related issues.
+
+Only exception to that is "current time" plugin which plays both, the local and UTC time. To
+be able to play local time correctly, you need to set ``plugin:current_time.local_time``
+configuration option so it matches your local timezone (e.g. ``Europe/Ljubljana``).
 
 ## Note On DTMF Admin Commands and Security
 

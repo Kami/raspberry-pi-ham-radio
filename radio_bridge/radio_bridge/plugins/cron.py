@@ -28,7 +28,7 @@ from apscheduler.triggers.base import BaseTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 
-from radio_bridge.plugins.base import BaseRegularPlugin
+from radio_bridge.plugins.base import BaseNonDTMFPlugin
 from radio_bridge.configuration import get_config
 from radio_bridge.audio_player import get_audio_file_duration
 
@@ -115,7 +115,7 @@ class CronSayItemConfig(object):
         )
 
 
-class CronSayPlugin(BaseRegularPlugin):
+class CronSayPlugin(BaseNonDTMFPlugin):
     ID = "cron_say"
     NAME = "Cron Plugin"
     DESCRIPTION = "Say text on play an audio file on defined time interval(s)."

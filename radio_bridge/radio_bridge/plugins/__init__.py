@@ -87,7 +87,7 @@ def _load_and_register_plugins() -> None:
         DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_instance
         LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
 
-    for plugin_name, plugin_class in plugins["RegularPlugin"].items():
+    for plugin_name, plugin_class in plugins["NonDTMFPlugin"].items():
         LOG.debug("Found plugin: %s" % (plugin_name))
 
         # Initialize and validate plugin config

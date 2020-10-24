@@ -31,7 +31,7 @@ from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
 from radio_bridge.otp import validate_otp
 
-__all__ = ["BaseDTMFPlugin", "BaseRegularPlugin"]
+__all__ = ["BaseDTMFPlugin", "BaseDTMFWithDataPlugin", "BaseNonDTMFPlugin", "BaseAdminDTMFPlugin"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 VENDOR_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../vendor"))
@@ -283,8 +283,8 @@ class BaseAdminDTMFPlugin(BaseDTMFPlugin):
         return (False, (), {})
 
 
-@pluginlib.Parent("RegularPlugin")
-class BaseRegularPlugin(BasePlugin):
+@pluginlib.Parent("NonDTMFPlugin")
+class BaseNonDTMFPlugin(BasePlugin):
     """
     Base class for plugins which are not tied to a specific DTMF sequence (think timer plugins,
     etc.).

@@ -20,7 +20,7 @@ import wave
 import pyaudio
 import structlog
 
-from radio_bridge.plugins.base import BaseRegularPlugin
+from radio_bridge.plugins.base import BaseNonDTMFPlugin
 from radio_bridge.configuration import get_config
 
 
@@ -29,7 +29,7 @@ LOG = structlog.getLogger(__name__)
 __all__ = ["RecordAudioPlugin"]
 
 
-class RecordAudioPlugin(BaseRegularPlugin):
+class RecordAudioPlugin(BaseNonDTMFPlugin):
     ID = "record_audio"
     NAME = "Record Audio"
     DESCRIPTION = "Record audio and write it to a file on disk."

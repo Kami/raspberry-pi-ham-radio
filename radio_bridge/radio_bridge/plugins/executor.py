@@ -81,18 +81,21 @@ class ProccessPluginExecutor(BasePluginExecutor):
         queue = multiprocessing.Queue()
         args = (queue,) + args
 
+        # Plguin max run time (if set) has precedence over global max run time
+        max_run_time = get_plugin_config(
+            plugin.ID, "max_run_time", fallback=self._max_run_time, get_method="getint"
+        )
+
         process = multiprocessing.Process(target=plugin.run_in_subprocess, args=args, kwargs=kwargs)
         process.daemon = True
         process.start()
-        process.join(self._max_run_time)
+        process.join(max_run_time)
 
         timed_out = False
 
         if process.is_alive():
             timed_out = True
-            LOG.info(
-                "Plugin execution didn't finish in %s seconds, killing it..." % (self._max_run_time)
-            )
+            LOG.info("Plugin execution didn't finish in %s seconds, killing it..." % (max_run_time))
             process.terminate()
             plugin.disable_tx()
 
@@ -168,8 +171,9 @@ class PluginExecutor(object):
         current time.
         """
         now = int(time.time())
-        minimum_run_interval = get_plugin_config(plugin.ID, "minimum_run_interval", fallback=None,
-                                                 get_method="getint")
+        minimum_run_interval = get_plugin_config(
+            plugin.ID, "minimum_run_interval", fallback=None, get_method="getint"
+        )
 
         if not minimum_run_interval:
             # Minimum run interval not specified for this plugin

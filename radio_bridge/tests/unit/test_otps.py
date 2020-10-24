@@ -38,6 +38,8 @@ MOCK_OTPS = [
 
 class OTPsTestCase(unittest.TestCase):
     def setUp(self):
+        super(OTPsTestCase, self).setUp()
+
         # Use unique file for admin_otps_file_path config option for each test case
         _, temp_path = tempfile.mkstemp()
 

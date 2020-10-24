@@ -99,12 +99,11 @@ def generate_and_write_otps() -> Tuple[List[str], List[str]]:
 
     LOG.debug("Generating %s new OTPs" % (number_of_new_otps_to_generate))
 
-    new_otps = []
+    new_otps = set([])
 
-    for index in range(0, number_of_new_otps_to_generate):
-        # TODO: Ensure first digit matches second digit in the admin DTMF plugin
+    while len(new_otps) < number_of_new_otps_to_generate:
         value = generate_random_number(length=OTP_LENGTH, forbidden_first_digit=[0])
-        new_otps.append(str(value))
+        new_otps.add(str(value))
 
     new_otps = sorted(new_otps)
 

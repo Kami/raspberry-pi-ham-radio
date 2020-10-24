@@ -20,6 +20,7 @@ import datetime
 import urllib.parse
 
 from wx_server.formatters import format_ecowitt_weather_data
+from wx_server.formatters import format_wu_weather_data
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FIXTURES_DIR = os.path.abspath(os.path.join(BASE_DIR, "../fixtures"))
@@ -30,6 +31,14 @@ with open(ECOWITT_FORM_DATA_FIXTURE_PATH, "r") as fp:
     ECOWITT_FORM_DATA = fp.read()
 
 ECOWITT_FORM_DATA_DICT = dict(urllib.parse.parse_qsl(ECOWITT_FORM_DATA))
+
+
+WU_PATH_DATA_FIXTURE_PATH = os.path.join(FIXTURES_DIR, "example_requests/wunderground")
+
+with open(WU_PATH_DATA_FIXTURE_PATH, "r") as fp:
+    WU_PATH_DATA = fp.read()
+
+WU_PATH_DATA_DICT = dict(urllib.parse.parse_qsl(WU_PATH_DATA))
 
 
 class FormatDataTestCase(unittest.TestCase):
@@ -63,5 +72,25 @@ class FormatDataTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_format_weatherunderground_weather_data(self):
-        # TODO
-        pass
+        expected_result = {
+            "date": "2020-10-24 11:10:12",
+            "datetime": datetime.datetime(2020, 10, 24, 11, 10, 12, tzinfo=datetime.timezone.utc),
+            "timestamp": 1603537812,
+            "temperature": 14.5,
+            "humidity": 98,
+            "dewpoint": 14.44,
+            "pressure_abs": 989.13,
+            "pressure_rel": 1015.51,
+            "wind_direction": 267,
+            "wind_speed": 0.0,
+            "wind_gust": 0.0,
+            "rain_event": 1.8,
+            "rain_rate": 1.8,
+            "rain_daily": 3.91,
+            "rain_weekly": 3.91,
+            "rain_monthly": 171.5,
+            "uv": 0,
+            "solar_radiation": 36.33,
+        }
+        result = format_wu_weather_data(WU_PATH_DATA_DICT)
+        self.assertEqual(result, expected_result)

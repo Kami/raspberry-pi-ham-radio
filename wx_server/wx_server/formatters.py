@@ -20,7 +20,7 @@ import datetime
 
 from generated.protobuf import messages_pb2
 
-__all__ = ["format_ecowitt_weather_data"]
+__all__ = ["format_ecowitt_weather_data", "format_wu_data"]
 
 
 def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:
@@ -63,6 +63,46 @@ def format_ecowitt_weather_data(data: Dict[str, str]) -> dict:
 
     # Light data
     result["uv"] = int(data["uv"])
+    result["solar_radiation"] = round(float(data["solarradiation"]), 2)
+
+    return result
+
+
+def format_wu_weather_data(data: Dict[str, str]) -> dict:
+    """
+    Format and normalize weather data in WeatherUnderground format.
+    """
+    result = {}
+
+    result["date"] = data["dateutc"]
+    result["datetime"] = datetime.datetime.strptime(data["dateutc"], "%Y-%m-%d %H:%M:%S").replace(
+        tzinfo=datetime.timezone.utc
+    )
+    result["timestamp"] = int(result["datetime"].timestamp())
+
+    # Temperature, dewpoint and humidity
+    result["temperature"] = fahrenheit_to_celsius(round(float(data["tempf"]), 2))  # celsius
+    result["humidity"] = int(data["humidity"])  # %
+    result["dewpoint"] = fahrenheit_to_celsius(round(float(data["dewptf"])))  # celsius
+
+    # Pressure data
+    result["pressure_abs"] = inches_of_mercury_to_hpa(float(data["absbaromin"]))  # hpa
+    result["pressure_rel"] = inches_of_mercury_to_hpa(float(data["baromin"]))  # hpa
+
+    # Wind data
+    result["wind_direction"] = int(data["winddir"])  # degrees, 0-360
+    result["wind_speed"] = mph_to_kmph(float(data["windspeedmph"]))  # km/h
+    result["wind_gust"] = mph_to_kmph(float(data["windgustmph"]))  # km/h
+
+    # Rain data
+    result["rain_event"] = inches_to_mm(float(data["rainin"]))  # mm
+    result["rain_rate"] = inches_to_mm(float(data["rainin"]))  # mm/hr
+    result["rain_daily"] = inches_to_mm(float(data["dailyrainin"]))  # mm
+    result["rain_weekly"] = inches_to_mm(float(data["weeklyrainin"]))  # mm
+    result["rain_monthly"] = inches_to_mm(float(data["monthlyrainin"]))  # mm
+
+    # Light data
+    result["uv"] = int(data["UV"])
     result["solar_radiation"] = round(float(data["solarradiation"]), 2)
 
     return result

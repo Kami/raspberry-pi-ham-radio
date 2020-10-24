@@ -16,8 +16,10 @@ By default, observations are stored in the following directory
 Server supports receiving and persisting observations from multiple data stations (data for each
 station is persisted in a separate directory).
 
-Weather stations should send observations using HTTP POST method to the following URL
-``http(s)://<listen ip>:<listen port>/v1/wx/observation/<station id>/<station secret>?format=ecowitt``.
+Weather stations should send observations using HTTP POST method to the following URL:
+
+1. For data in Ecowitt format: ``http(s)://<listen ip>:<listen port>/v1/wx/observation/ew/<station id>/<station secret>``.
+2. For data in WeatherUnderground format: ``http(s)://<listen ip>:<listen port>/v1/wx/observation/wu/``
 
 ## Configuration
 

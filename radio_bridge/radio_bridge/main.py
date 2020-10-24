@@ -58,7 +58,7 @@ LOG = structlog.getLogger(__name__)
 MAX_TRANSMIT_TIME = 120
 
 # Maximum length for DTMF sequences
-MAX_SEQUENCE_LENGTH = 6
+MAX_SEQUENCE_LENGTH = 7
 
 # Each loop iteration lasts around 0.4-0.5 seconds since we record 0.4 seconds long audio
 MAX_LOOP_ITERATIONS_RX_MODE = 15

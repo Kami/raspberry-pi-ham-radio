@@ -31,7 +31,13 @@ from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
 from radio_bridge.otp import validate_otp
 
-__all__ = ["BaseDTMFPlugin", "BaseDTMFWithDataPlugin", "BaseNonDTMFPlugin", "BaseAdminDTMFPlugin"]
+__all__ = [
+    "BaseDTMFPlugin",
+    "BaseDTMFWithDataPlugin",
+    "BaseNonDTMFPlugin",
+    "BaseAdminDTMFPlugin",
+    "BaseAdminDTMFWithDataPlugin",
+]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 VENDOR_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../vendor"))
@@ -279,6 +285,63 @@ class BaseAdminDTMFPlugin(BaseDTMFPlugin):
 
             if validate_otp(otp_sequence):
                 return True, (), {}
+
+        return (False, (), {})
+
+
+@pluginlib.Parent("AdminDTMFWithDataPlugin")
+class BaseAdminDTMFWithDataPlugin(BaseDTMFPlugin):
+    """
+    Base class for all the admin which take data plugins.
+
+    Admin plugins are special because in addition to the plugin code, they take 4 characters long
+    OTP sequence
+    """
+
+    NAME: str
+    DESCRIPTION: str
+    DTMF_SEQUENCE: Optional[str] = None
+
+    @pluginlib.abstractmethod
+    def run(self, sequence: str):
+        pass
+
+    def run_in_subprocess(self, queue, sequence: str):
+        """
+        Method which is called when using process executor.
+
+        It takes in queue argument which is used to pass the result back to the main process.
+        """
+        result = self.run(sequence=sequence)
+        queue.put(result)
+        return result
+
+    def matches_dtmf_sequence(self, sequence: str) -> Tuple[bool, Tuple, Dict]:
+        """
+        Return true if this plugin matches the provided sequence and return any additional args and
+        kwargs which should be passed to the plugin run method.
+        """
+        # OTP is 4 digits long, hence the ????
+        # We also support admin plugin taking any additional data which comes after the OTP
+        plugin_sequence = self.DTMF_SEQUENCE
+
+        split = plugin_sequence.split("?")
+
+        plugin_sequence_static = split[0]
+        plugin_sequence_data = "".join(["?" for char in split[1:]])
+
+        plugin_sequence = plugin_sequence_static + "????" + plugin_sequence_data
+        plugin_sequence_data_len = len(plugin_sequence_data)
+
+        if fnmatch.fnmatch(sequence, plugin_sequence):
+            partial_sequence = sequence.replace(plugin_sequence.split("?", 1)[0], "")
+
+            otp_sequence = partial_sequence[:-plugin_sequence_data_len]
+            data_sequence = partial_sequence[4:]
+            kwargs = {"sequence": data_sequence}
+
+            if validate_otp(otp_sequence):
+                return True, (), kwargs
 
         return (False, (), {})
 

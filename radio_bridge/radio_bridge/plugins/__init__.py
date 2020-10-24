@@ -59,13 +59,14 @@ def _load_and_register_plugins() -> None:
     if INITIALIZED:
         return
 
-    loader = pluginlib.PluginLoader(modules=["radio_bridge.plugins"])
+    loader = pluginlib.PluginLoader(modules=["radio_bridge.plugins", "radio_bridge.plugins.admin"])
     plugins = loader.plugins
 
     for plugin_name, plugin_class in itertools.chain(
         plugins["DTMFPlugin"].items(),
         plugins["DTMFWithDataPlugin"].items(),
         plugins["AdminDTMFPlugin"].items(),
+        plugins["AdminDTMFWithDataPlugin"].items(),
     ):
         LOG.debug("Found plugin: %s" % (plugin_name))
 

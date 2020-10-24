@@ -14,83 +14,90 @@
 # limitations under the License.
 
 from typing import Any
+from typing import Optional
 
 import os
+import time
 
 import configparser
-
+from configobj import ConfigObj
 import structlog
 
-__all__ = ["get_config", "get_plugin_config", "get_plugin_config_option", "set_config_option"]
+__all__ = ["get_plugin_config", "get_plugin_config_option", "set_config_option"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
 DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/radio_bridge.conf"))
-CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", DEFAULT_CONFIG_PATH)
+CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", None)
+
+DEFAULT_VALUES_CONFIG_PATH = os.path.abspath(
+    os.path.join(BASE_DIR, "../conf/radio_bridge.defaults.conf")
+)
 
 VALID_TTS_IMPLEMENTATIONS = []
-
 VALID_DTMF_DECODER_IMPLEMENTATION = []
 
-DEFAULT_VALUES = {
-    "main": {
-        "logging_config": "{rootdir}/conf/logging.conf",
-        "dev_mode": False,
-        "emulator_mode": False,
-    },
-    "tx": {
-        "mode": "vox",
-        "max_tx_time": 120,
-        "gpio_pin": 10,
-        "callsign": "TEST",
-    },
-    "audio": {
-        "input_device_index": 0,
-        "sample_rate": 48000,
-    },
-    "tts": {
-        "implementation": "gtts",
-        "enable_cache": True,
-        "cache_directory": "/tmp/tts-audio-cache",
-    },
-    "dtmf": {
-        "implementation": "fft",
-    },
-    "plugins": {
-        "executor": "native",
-        "max_tx_time": 120,
-    },
-}
-
+# Stores parsed config file reference
 CONFIG = None
+
+# Stores unix timestamp of when the config has been loaded and parsed
+CONFIG_LOAD_TIME = None
 
 LOG = structlog.get_logger()
 
 
-def load_and_parse_config(config_path: str, validate: bool = True):
-    global CONFIG
+class ConfigParserConfigObj(ConfigObj):
+    """
+    Wrapper class around ConfigObj which provides "getboolean" and other methods as provided by the
+    upstream ConfigParser class.
+    """
+
+    _original_get = ConfigObj.get
+
+    def get(self, section, option=None, fallback=None):
+        return get_config_option(section, option, "str", fallback=fallback)
+
+    def getint(self, section: str, option: str, fallback: Any = None):
+        return get_config_option(section, option, "int", fallback=fallback)
+
+    def getfloat(self, section: str, option: str, fallback: Any = None):
+        return get_config_option(section, option, "float", fallback=fallback)
+
+    def getboolean(self, section: str, option: str, fallback: Any = None):
+        return get_config_option(section, option, "bool", fallback=fallback)
+
+
+def _load_and_parse_config(config_path: Optional[str] = None, validate: bool = True):
+    global CONFIG, CONFIG_LOAD_TIME
 
     log = LOG.bind(config_path=config_path)
 
     LOG.debug("Loading config from %s" % (config_path))
 
-    if not os.path.isfile(config_path):
+    if config_path and not os.path.isfile(config_path):
         raise ValueError("Config file %s doesn't exist" % (config_path))
 
-    config = configparser.ConfigParser()
-    config.read_dict(DEFAULT_VALUES)
-    config.read(config_path)
+    config = ConfigParserConfigObj(
+        DEFAULT_VALUES_CONFIG_PATH, default_encoding="utf-8", write_empty_values=True
+    )
+
+    if config_path:
+        user_config = ConfigParserConfigObj(
+            config_path, default_encoding="utf-8", write_empty_values=True
+        )
+        config.merge(user_config)
 
     if validate:
         log.debug("Validating config")
-        config = validate_config(config)
+        config = _validate_config(config)
         log.debug("Config validated")
 
     CONFIG = config
+    CONFIG_LOAD_TIME = int(time.time())
 
 
-def validate_config(config):
+def _validate_config(config):
     config["main"]["logging_config"] = config["main"]["logging_config"].replace(
         "{rootdir}", ROOT_DIR
     )
@@ -131,7 +138,7 @@ def validate_config(config):
     return config
 
 
-def get_config() -> configparser.ConfigParser:
+def _get_config() -> configparser.ConfigParser:
     """
     Retrieved loaded and parsed config instance.
 
@@ -140,10 +147,49 @@ def get_config() -> configparser.ConfigParser:
     global CONFIG
 
     if not CONFIG:
-        load_and_parse_config(CONFIG_PATH)
+        _load_and_parse_config(CONFIG_PATH)
+
+    if CONFIG_PATH and CONFIG_LOAD_TIME < int(os.path.getmtime(CONFIG_PATH)):
+        LOG.debug("Config file on disk has been updated since we parsed it, re-loading...")
+        _load_and_parse_config(CONFIG_PATH)
 
     assert CONFIG is not None
     return CONFIG
+
+
+def get_config_option(
+    section: str, option: str, option_type: str = "str", fallback: Any = None
+) -> Any:
+    """
+    Return value for the provided config section and option.
+    """
+    config = _get_config()
+
+    if option_type == "str":
+        get_method = "get"
+    elif option_type == "int":
+        get_method = "as_int"
+    elif option_type == "float":
+        get_method = "as_loat"
+    elif option_type == "bool":
+        get_method = "as_bool"
+    else:
+        raise ValueError("Unsupported option_type: %s" % (option_type))
+
+    section = ConfigParserConfigObj._original_get(config, section)
+
+    if section is None:
+        return fallback
+
+    try:
+        value = getattr(section, get_method)(option)
+    except KeyError as e:
+        if fallback:
+            return fallback
+
+        raise e
+
+    return value
 
 
 def get_plugin_config(plugin_id: str) -> dict:
@@ -151,7 +197,7 @@ def get_plugin_config(plugin_id: str) -> dict:
     Return plugin config for the provided plugin.
     """
     try:
-        plugin_config = dict(get_config()["plugin:%s" % (plugin_id)])
+        plugin_config = dict(_get_config()["plugin:%s" % (plugin_id)])
         LOG.debug("Found config for plugin %s" % (plugin_id), config=plugin_config)
     except KeyError:
         plugin_config = {}
@@ -160,24 +206,35 @@ def get_plugin_config(plugin_id: str) -> dict:
 
 
 def get_plugin_config_option(
-    plugin_id: str, option: str, fallback: Any = None, get_method: str = "get"
+    plugin_id: str, option: str, option_type: str = "str", fallback: Any = None
 ) -> Any:
     """
     Return configuration option for the provided plugin and option name.
     """
-    config = get_config()
-    result = getattr(config, get_method)("plugin:%s" % (plugin_id), option, fallback=fallback)
+    section = "plugin:%s" % (plugin_id)
+    result = get_config_option(section, option, option_type=option_type, fallback=fallback)
     return result
 
 
-def set_config_option(section: str, option: str, value: Any) -> bool:
+def set_config_option(section: str, option: str, value: Any, write_to_disk: bool = False) -> bool:
     """
-    Function which updates configuration option value in memory.
+    Function which updates configuration option value.
 
-    Keep in mind that this will only update the value in memory and any changes will be lost on
-    main process restart.
+    By default if "write_to_disk" is False, value will only be updated in memory and not on disk.
+
+    This means it won't be reflected in Plugin processes when using process plugin execution where
+    each plugin is executed in a new sub process.
     """
-    # TODO: Add support to write_to_disk argument
-    config = get_config()
-    config.set(section, option, value)
+    config = _get_config()
+
+    try:
+        config[section][option] = value
+    except KeyError:
+        LOG.debug("Skipping updating %s.%s config value since it's not set" % (section, option))
+
+    if write_to_disk and CONFIG_PATH:
+        LOG.debug("Writing updates config file to disk", file_path=CONFIG_PATH)
+        with open(CONFIG_PATH, "wb") as fp:
+            config.write(fp)
+
     return True

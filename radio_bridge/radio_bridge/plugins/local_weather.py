@@ -18,7 +18,7 @@ import datetime
 from wx_server.io import get_weather_observation_for_date
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.utils import weather as weather_utils
 
 __all__ = ["LocalWeatherPlugin"]
@@ -34,9 +34,9 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
     NAME = "Current weather"
     DESCRIPTION = "Current weather information for local weather station."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = get_config().get("plugin:local_weather", "dtmf_sequence", fallback="31")
+    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="31")
 
-    _skipload_ = get_config().getboolean("plugin:local_weather", "enable", fallback=True) is False
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def run(self):
         # 1. Retrieve local weather data from disk

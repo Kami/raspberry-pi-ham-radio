@@ -29,11 +29,13 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 
 from radio_bridge.plugins.base import BaseNonDTMFPlugin
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
+from radio_bridge.configuration import get_plugin_config
+from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.audio_player import get_audio_file_duration
 
 """
-Plugin which allows schedueling of say task to run at specific intervals.
+Plugin which allows scheduling of say task to run at specific intervals.
 """
 
 LOG = structlog.getLogger(__name__)
@@ -64,7 +66,7 @@ AVERAGE_AUDIO_DURATION_PER_WORD = 1
 # Minimum interval for trigger in seconds. Jobs can't run more often than this specified einterval.
 MINIMUM_TRIGGER_INTERVAL = 120
 
-DEV_MODE = get_config()["main"].getboolean("dev_mode")
+DEV_MODE = get_config_option("main", "dev_mode", "bool", fallback=False)
 
 
 class CronSayItemConfig(object):
@@ -102,7 +104,6 @@ class CronSayItemConfig(object):
 
         return self._duration
 
-    # TODO: Add __repr__
     def __repr__(self):
         value = self.value
 
@@ -121,12 +122,12 @@ class CronSayPlugin(BaseNonDTMFPlugin):
     DESCRIPTION = "Say text on play an audio file on defined time interval(s)."
     REQUIRES_INTERNET_CONNECTION = False
 
-    _skipload_ = get_config().getboolean("plugin:cron", "enable", fallback=True) is False
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def __init__(self):
         super(CronSayPlugin, self).__init__()
 
-        plugin_config = get_config()["plugin:cron"]
+        plugin_config = get_plugin_config(self.ID)
         self._job_id_to_config_map = self._parse_and_validate_config(plugin_config)
 
     def run(self, job_id: str) -> None:
@@ -148,7 +149,7 @@ class CronSayPlugin(BaseNonDTMFPlugin):
             self._audio_player.play_file(file_path=job_config.value, delete_after_play=False)
 
     def _parse_and_validate_config(self, config) -> Dict[str, CronSayItemConfig]:
-        plugin_config = get_config()["plugin:cron"]
+        plugin_config = get_plugin_config(self.ID)
 
         result = {}
         for job_id, job_specs in plugin_config.items():
@@ -244,7 +245,7 @@ class CronSayPlugin(BaseNonDTMFPlugin):
         # etc.
         jobs = []
 
-        plugin_config = get_config()["plugin:cron"]
+        plugin_config = get_plugin_config(self.ID)
 
         for job_id, job_specs in plugin_config.items():
             split = job_specs.split(JOB_SPEC_DELIMITER)
@@ -260,7 +261,7 @@ class CronSayPlugin(BaseNonDTMFPlugin):
         return jobs
 
     def _parse_job_specs(self) -> Dict[str, str]:
-        plugin_config = get_config()["plugin:cron"]
+        plugin_config = get_plugin_config(self.ID)
 
         result = {}
         for job_id, job_specs in plugin_config.items():

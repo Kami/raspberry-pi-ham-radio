@@ -27,7 +27,7 @@ from collections import defaultdict
 
 import structlog
 
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
 from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.plugins.base import BasePlugin
 from radio_bridge.plugins.errors import PluginExecutionTimeoutException
@@ -43,7 +43,7 @@ class BasePluginExecutor(object):
     """
 
     def __init__(self):
-        self._max_run_time = get_config().getint("plugins", "max_run_time", fallback=None)
+        self._max_run_time = get_config_option("plugins", "max_run_time", "int", fallback=None)
 
     @abc.abstractmethod
     def run(self, plugin: Type[BasePlugin], *args: Any, **kwargs: Any) -> None:
@@ -83,7 +83,7 @@ class ProccessPluginExecutor(BasePluginExecutor):
 
         # Plguin max run time (if set) has precedence over global max run time
         max_run_time = get_plugin_config_option(
-            plugin.ID, "max_run_time", fallback=self._max_run_time, get_method="getint"
+            plugin.ID, "max_run_time", "int", fallback=self._max_run_time
         )
 
         process = multiprocessing.Process(target=plugin.run_in_subprocess, args=args, kwargs=kwargs)
@@ -131,7 +131,10 @@ class PluginExecutor(object):
         start_time = int(time.time())
 
         is_enabled = get_plugin_config_option(
-            plugin.ID, "enable", fallback=True, get_method="getboolean"
+            plugin.ID,
+            "enable",
+            "bool",
+            fallback=True,
         )
 
         if not is_enabled:
@@ -180,7 +183,7 @@ class PluginExecutor(object):
         """
         now = int(time.time())
         minimum_run_interval = get_plugin_config_option(
-            plugin.ID, "minimum_run_interval", fallback=None, get_method="getint"
+            plugin.ID, "minimum_run_interval", "int", fallback=None
         )
 
         if not minimum_run_interval:

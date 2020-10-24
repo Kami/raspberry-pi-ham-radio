@@ -22,7 +22,7 @@ import xmltodict
 from generated.protobuf import messages_pb2
 
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.utils import weather as weather_utils
 
 LOCATION_CODE_TO_CITY_MAP = {
@@ -59,11 +59,9 @@ class LocationWeatherPlugin(BaseDTMFWithDataPlugin):
     DESCRIPTION = "Current weather for location"
     REQUIRES_INTERNET_CONNECTION = True
     # Second two characters and city code - e.g. 01 - Ljubljana, 02 - Maribor, etc.
-    DTMF_SEQUENCE = get_config().get("plugin:location_weather", "dtmf_sequence", fallback="35??")
+    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="35??")
 
-    _skipload_ = (
-        get_config().getboolean("plugin:location_weather", "enable", fallback=True) is False
-    )
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def run(self, sequence: str):
         if sequence not in LOCATION_CODE_TO_CITY_MAP:

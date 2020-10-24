@@ -31,7 +31,7 @@ import os
 
 import structlog
 
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
 from radio_bridge.utils.random import generate_random_number
 
 __all__ = ["generate_and_write_otps", "validate_otp", "get_valid_otps"]
@@ -50,7 +50,7 @@ def get_valid_otps() -> List[str]:
     """
     Return a list of all the OTPs which are still valid (unused) from a local db file on disk.
     """
-    otps_file_path = get_config()["plugins"]["admin_otps_file_path"]
+    otps_file_path = get_config_option("plugins", "admin_otps_file_path")
 
     valid_otps = []
 
@@ -68,7 +68,7 @@ def write_otps_to_disk(otps: List[str]) -> bool:
     """
     Write provided OTPs to a local db file on disk, overwriting any existing content.
     """
-    otps_file_path = get_config()["plugins"]["admin_otps_file_path"]
+    otps_file_path = get_config_option("plugins", "admin_otps_file_path")
 
     otps = set(otps)
 

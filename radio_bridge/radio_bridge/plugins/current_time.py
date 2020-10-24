@@ -19,7 +19,7 @@ import pytz
 
 from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins.errors import InvalidPluginConfigurationValue
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config_option
 
 __all__ = ["CurrentTimePlugin"]
 
@@ -37,9 +37,9 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     NAME = "Current time"
     DESCRIPTION = "Current date and time."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = get_config().get("plugin:current_time", "dtmf_sequence", fallback="21")
+    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="21")
 
-    _skipload_ = get_config().getboolean("plugin:current_time", "enable", fallback=True) is False
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def __init__(self):
         super(CurrentTimePlugin, self).__init__()

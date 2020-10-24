@@ -21,12 +21,12 @@ import hashlib
 
 import structlog
 
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
 
 LOG = structlog.getLogger(__name__)
 
-CACHE_GENERATED_AUDIO_FILES = get_config()["tts"]["enable_cache"]
-CACHED_AUDO_FILES_PATH = get_config()["tts"]["cache_directory"]
+CACHE_GENERATED_AUDIO_FILES = get_config_option("tts", "enable_cache", "bool", fallback=False)
+CACHED_AUDO_FILES_PATH = get_config_option("tts", "cache_directory")
 
 
 class BaseTextToSpeechImplementation(object):

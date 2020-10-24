@@ -31,7 +31,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from wx_server.configuration import load_and_parse_config as wx_server_load_and_parse_config
 
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
 from radio_bridge.log import configure_logging
 from radio_bridge.otp import generate_and_write_otps
 from radio_bridge.rx import RX
@@ -72,7 +72,7 @@ MAX_LOOP_ITERATIONS_EMULATOR_MODE = (MAX_LOOP_ITERATIONS_RX_MODE * 0.4) / SELECT
 
 VALID_DTMF_CHARACTERS = DTMF_TABLE_HIGH_LOW.keys()
 
-EMULATOR_MODE = get_config()["main"].getboolean("emulator_mode")
+EMULATOR_MODE = get_config_option("main", "emulator_mode", "bool", fallback=False)
 
 
 class RadioBridgeServer(object):
@@ -83,14 +83,14 @@ class RadioBridgeServer(object):
         self._dtmf_plugins = get_plugins_with_dtmf_sequence()
         self._sequence_to_plugin_map = self._dtmf_plugins
 
-        config = get_config()
-
         self._dtmf_decoder = DTMFDecoder()
         self._rx = RX(
-            input_device_index=int(config["audio"]["input_device_index"]),
-            rate=int(config["audio"]["sample_rate"]),
+            input_device_index=get_config_option("audio", "input_device_index", "int"),
+            rate=get_config_option("audio", "sample_rate", "int"),
         )
-        self._plugin_executor = PluginExecutor(implementation=config["plugins"]["executor"])
+        self._plugin_executor = PluginExecutor(
+            implementation=get_config_option("plugins", "executor")
+        )
 
         self._scheduler = BackgroundScheduler()
 
@@ -102,8 +102,7 @@ class RadioBridgeServer(object):
     def start(self):
         self._started = True
 
-        config = get_config()
-        configure_logging(config["main"]["logging_config"])
+        configure_logging(get_config_option("main", "logging_config"))
         wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)
 
         all_otps, _ = generate_and_write_otps()

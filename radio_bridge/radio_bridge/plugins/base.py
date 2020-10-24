@@ -26,7 +26,7 @@ import multiprocessing
 import structlog
 import pluginlib
 
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_config_option
 from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import AudioPlayer
 from radio_bridge.otp import validate_otp
@@ -63,9 +63,9 @@ class BasePlugin(object):
     REQUIRES_INTERNET_CONNECTION: bool
 
     def __init__(self):
-        self._callsign = get_config()["tx"]["callsign"]
-        self._tx_mode = get_config()["tx"]["mode"]
-        self._gpio_pin = get_config().get("tx", "gpio_pin", fallback=None)
+        self._callsign = get_config_option("tx", "callsign")
+        self._tx_mode = get_config_option("tx", "mode")
+        self._gpio_pin = get_config_option("tx", "gpio_pin", fallback=None)
         self._audio_player = AudioPlayer()
 
         self._config = {}
@@ -74,7 +74,7 @@ class BasePlugin(object):
     def _tts(self):
         # NOTE: We instantiate this object lazily on demand so any changes to the config state made
         # during the program life cycle are reflected here.
-        return TextToSpeech(implementation=get_config()["tts"]["implementation"])
+        return TextToSpeech(implementation=get_config_option("tts", "implementation"))
 
     def initialize(self, config: dict) -> None:
         """

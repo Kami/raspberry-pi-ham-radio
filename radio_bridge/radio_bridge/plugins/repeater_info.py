@@ -24,7 +24,7 @@ from bs4 import BeautifulSoup
 from expiringdict import ExpiringDict
 
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config_option
 
 REPEATERS_URL_2M = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=2"
 REPEATERS_URL_70CM = "http://rpt.hamradio.si/?modul=repetitorji&vrsta=3"
@@ -81,7 +81,7 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
     # For example 3 8 7 0 1 - First 70cm repeater
     DTMF_SEQUENCE = "38???"
 
-    _skipload_ = get_config().getboolean("plugin:repeater_info", "enable", fallback=True) is False
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def run(self, sequence: str):
         repeater_id, repeater_type = self._parse_repeater_id_url_from_sequence(sequence=sequence)

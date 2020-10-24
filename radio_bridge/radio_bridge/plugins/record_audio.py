@@ -21,7 +21,7 @@ import pyaudio
 import structlog
 
 from radio_bridge.plugins.base import BaseNonDTMFPlugin
-from radio_bridge.configuration import get_config
+from radio_bridge.configuration import get_plugin_config_option
 
 
 LOG = structlog.getLogger(__name__)
@@ -34,7 +34,7 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
     NAME = "Record Audio"
     DESCRIPTION = "Record audio and write it to a file on disk."
 
-    _skipload_ = get_config().getboolean("plugin:record_audio", "enable", fallback=True) is False
+    _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def initialize(self, config: dict) -> None:
         super(RecordAudioPlugin, self).initialize(config=config)

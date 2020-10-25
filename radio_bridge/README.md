@@ -101,12 +101,12 @@ for different pre-defined locations.
 
 | Name | DTMF Sequence | Requires Internet Connection | Description | Example Recording |
 | --- | :---: | :---: | --- | --- |
-| Help | ``12`` | No | Display all the available DTMF commands. | [examples/audio/plugin_help.mp3](examples/audio/plugin_help.mp3) |
+| Help | ``12`` | No | Display all the available DTMF commands. | [plugin_help.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_help.mp3) |
 | Clean DTMF Sequence | ``*D*`` | No | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar. | none |
-| Current Time | ``21`` | No | Say current local time for local timezone and UTC. | [examples/audio/plugin_current_time.mp3](examples/audio/plugin_current_time.mp3) |
-| Local Weather | ``34`` | No | Display weather information for a local weather station connected to this Raspberry PI | [examples/audio/plugin_local_weather.mp3](examples/audio/plugin_local_weather.mp3) |
-| Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.s [examples/audio/plugin_location_weather_ljubljana.mp3](examples/audio/plugin_location_weather_ljubljana.mp3) |
-| Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si [examples/audio/plugin_repeater_info.mp3](examples/audio/plugin_repeater_info.mp3) |
+| Current Time | ``21`` | No | Say current local time for local timezone and UTC. | [plugin_current_time.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_current_time.mp3) |
+| Local Weather | ``34`` | No | Display weather information for a local weather station connected to this Raspberry Pi | [plugin_local_weather.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_local_weather.mp3) |
+| Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si | [plugin_location_weather_ljubljana.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_location_weather_ljubljana.mp3) |
+| Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si | [plugin_repeater_info.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_repeater_info.mp3) |
 | Cron Say | none | No | Plugin which allows various announcements and information defined in the config to be played at defined intervals. | none |
 | Record Audio | none | None | Plugin which records audio from the audio in and stores it in a file. This can be useful when troubleshooting things, etc. | none |
 

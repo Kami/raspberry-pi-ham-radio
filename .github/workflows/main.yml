@@ -58,6 +58,11 @@ jobs:
         sed -i 's#ham-radio/wx_server#ham_radio#g' coverage.xml
         sed -i 's#filename="#filename="wx_server/#g' coverage.xml
         codecov --root ../ --required -F wx_server -f coverage.xml
+    - name: Run Test Dist Creation
+      working-directory: wx_server/
+      run: |
+        tox -edist
+
   radio-bridge-build:
     runs-on: ubuntu-latest
     needs: pre_job
@@ -92,8 +97,8 @@ jobs:
     - name: Run Lint
       working-directory: radio_bridge/
       run: |
-        tox -elint -vvv
-    - name: Run Unit Tests
+        tox -elint
+    - name: Run Unit Tests And Submit Code Coverage
       working-directory: radio_bridge/
       run: |
         tox -eunit-tests
@@ -102,3 +107,7 @@ jobs:
         sed -i 's#ham-radio/radio_bridge#ham_radio#g' coverage.xml
         sed -i 's#filename="#filename="radio_bridge/#g' coverage.xml
         codecov --root ../ --required -F radio_bridge -f coverage.xml
+    - name: Run Test Dist Creation
+      working-directory: radio_bridge/
+      run: |
+        tox -edist

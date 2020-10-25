@@ -99,6 +99,6 @@ jobs:
         tox -eunit-tests
         coverage xml
         # Fix up path in the coverage.xml file
-        sed -i 's#ham-radio/wx_server#ham_radio#g' coverage.xml
+        sed -i 's#ham-radio/radio_bridge#ham_radio#g' coverage.xml
         sed -i 's#filename="#filename="radio_bridge/#g' coverage.xml
         codecov --required -F radio_bridge -f coverage.xml

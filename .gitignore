@@ -1,6 +1,12 @@
 .tox/
 .coverage
 dist/
+build/
 *egg-info*
 virtualenv/
+coverage.xml
 wx_server/data/
+wx_server/LICENSE.txt
+wx_server/NOTICE.md
+radio_bridge/LICENSE.txt
+radio_bridge/NOTICE.md

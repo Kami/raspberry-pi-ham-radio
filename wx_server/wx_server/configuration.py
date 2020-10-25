@@ -27,8 +27,8 @@ CONFIG_PATH = os.environ.get("WX_SERVER_CONFIG_PATH", DEFAULT_CONFIG_PATH)
 
 DEFAULT_VALUES = {
     "main": {
-        "data_dir": "{rootdir}/data/",
-        "logging_config": "{rootdir}/conf/logging.conf",
+        "data_dir": "/tmp/wx-server-data/",
+        "logging_config": "{rootdir}/wx_server/conf/logging.conf",
     }
 }
 
@@ -61,6 +61,9 @@ def load_and_parse_config(config_path: str, validate: bool = True) -> None:
 
 def validate_config(config):
     config["main"]["data_dir"] = config["main"]["data_dir"].replace("{rootdir}", ROOT_DIR)
+
+    if not os.path.isdir(config["main"]["data_dir"]):
+        os.makedirs(config["main"]["data_dir"])
 
     if not os.path.isdir(config["main"]["data_dir"]):
         raise ValueError(

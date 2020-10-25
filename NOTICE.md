@@ -10,6 +10,7 @@ A list of the used code pieces / libraries and their corresponding licenses is a
   at https://github.com/ribt/dtmf-decoder.
 * ``radio_bridge/radio_bridge/utils/subprocess.py:on_parent_exit`` - Taken from StackStorm/st2
   (Apache 2.0).
+* ``{wx_server/radio_bridge/dist_utils.py}`` - Taken from StackStorm/st2 (Apache 2.0).
 
 ## Bundles Libraries
 

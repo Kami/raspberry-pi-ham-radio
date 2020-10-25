@@ -19,8 +19,7 @@ import structlog
 import requests
 import xmltodict
 
-from generated.protobuf import messages_pb2
-
+from radio_bridge.generated.protobuf import messages_pb2
 from radio_bridge.plugins.base import BaseDTMFWithDataPlugin
 from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.utils import weather as weather_utils

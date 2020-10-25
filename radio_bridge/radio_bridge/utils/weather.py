@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from generated.protobuf import messages_pb2
+from radio_bridge.generated.protobuf import messages_pb2
 
 WEATHER_OBSERVATION_SHORT = """
 Temperature {temperature} degrees celsius.

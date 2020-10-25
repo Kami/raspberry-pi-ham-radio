@@ -19,7 +19,7 @@ from typing import Any
 import copy
 import datetime
 
-from generated.protobuf import messages_pb2
+from wx_server.generated.protobuf import messages_pb2
 
 __all__ = ["format_ecowitt_weather_data", "format_wu_weather_data"]
 

@@ -21,8 +21,7 @@ import datetime
 import pytz
 import structlog
 
-from generated.protobuf import messages_pb2
-
+from wx_server.generated.protobuf import messages_pb2
 from wx_server.configuration import get_config
 
 LOG = structlog.get_logger(__name__)

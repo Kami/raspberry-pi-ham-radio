@@ -54,6 +54,8 @@ jobs:
       run: |
         tox -eunit-tests
         coverage xml
+        sed -i 's#ham-radio/wx_server#ham_radio#g' coverage.xml
+        sed -i 's#filename="#filename="wx_server/#g' coverage.xml
         codecov --required -F wx_server -f coverage.xml
   radio-bridge-build:
     runs-on: ubuntu-latest
@@ -94,4 +96,7 @@ jobs:
       run: |
         tox -eunit-tests
         coverage xml
+        # Fix up path in the coverage.xml file
+        sed -i 's#ham-radio/wx_server#ham_radio#g' coverage.xml
+        sed -i 's#filename="#filename="radio_bridge/#g' coverage.xml
         codecov --required -F radio_bridge -f coverage.xml

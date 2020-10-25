@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 100
-ignore = E128,E402,E722,W504,E203
+ignore = E128,E402,E722,W504,E203,W503
 exclude=*.egg/*,build,dist
 
 # NOTE: This requires flake8 >= 3.0.0 to work correctly.

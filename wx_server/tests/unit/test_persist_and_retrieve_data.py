@@ -54,7 +54,7 @@ class PersistAndRetrieveDataTestCase(unittest.TestCase):
 
         assert (
             os.path.isfile(os.path.join(cls.temp_dir, "home/2020/10/10/observation_1110.pb"))
-            == True
+            is True
         )
 
         observation_pb = dict_to_protobuf(data)
@@ -88,7 +88,7 @@ class PersistAndRetrieveDataTestCase(unittest.TestCase):
 
         assert (
             os.path.isfile(os.path.join(cls.temp_dir, "home/2020/10/10/observation_1610.pb"))
-            == True
+            is True
         )
 
     def test_observation_dict_to_pb(self):

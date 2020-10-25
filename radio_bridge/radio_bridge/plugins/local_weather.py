@@ -34,7 +34,7 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
     NAME = "Current weather"
     DESCRIPTION = "Current weather information for local weather station."
     REQUIRES_INTERNET_CONNECTION = False
-    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="31")
+    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="34")
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 

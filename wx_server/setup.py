@@ -47,8 +47,8 @@ setup(
     name="wx-server",
     version=version,
     description=(
-        "HTTP server for persisting weather station observarion in Ecowitt and Weather "
-        "Underground format on disk"
+        "HTTP server for persisting weather station observations in Ecowitt and Weather "
+        "Underground format to disk."
     ),
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

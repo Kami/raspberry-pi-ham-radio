@@ -18,6 +18,7 @@ from typing import Optional
 import os
 import datetime
 
+import pytz
 import structlog
 
 from generated.protobuf import messages_pb2
@@ -42,7 +43,7 @@ def persist_weather_observation(station_id: str, observation_pb: messages_pb2.We
     Observations are organized into 1 minute buckets and we simply assume we will receive a single
     observation per minute.
     """
-    date = datetime.datetime.fromtimestamp(observation_pb.timestamp)
+    date = datetime.datetime.utcfromtimestamp(observation_pb.timestamp)
     target_directory = get_directory_path_for_date(station_id=station_id, date=date)
 
     os.makedirs(target_directory, exist_ok=True)
@@ -82,10 +83,13 @@ def get_weather_observation_for_date(
     no matching observation is found, None is returned.
     """
     # We only care about minute resolution so we ignore other components
-    date = date.replace(second=0, microsecond=0)
+    original_date = date.replace(second=0, microsecond=0)
+
+    if date.tzinfo and date.tzinfo != pytz.UTC:
+        raise ValueError("Date must contain UTC timezone")
 
     dates = [
-        date,
+        original_date,
     ]
 
     if return_closest:
@@ -103,9 +107,11 @@ def get_weather_observation_for_date(
 
     if not os.path.isfile(file_path):
         LOG.debug(
-            'Unable to find observation for station "%s" and date "%s"' % (station_id, date),
-            date=date,
+            'Unable to find observation for station "%s" and date "%s"'
+            % (station_id, original_date),
+            date=original_date,
             dates=dates,
+            file_path=file_path,
         )
         return None
 

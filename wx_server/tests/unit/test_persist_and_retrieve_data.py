@@ -13,9 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import unittest
 import datetime
 import tempfile
+
+import pytz
 
 import wx_server.configuration
 
@@ -33,41 +36,60 @@ class PersistAndRetrieveDataTestCase(unittest.TestCase):
         super(PersistAndRetrieveDataTestCase, cls).setUpClass()
 
         # Use temporary directory for tests data path
-        temp_dir = tempfile.mkdtemp()
-        wx_server.configuration.CONFIG = {"main": {"data_dir": temp_dir}}
+        cls.temp_dir = tempfile.mkdtemp()
+        wx_server.configuration.CONFIG = {"main": {"data_dir": cls.temp_dir}}
         cls._insert_mock_observations()
 
     @classmethod
     def _insert_mock_observations(cls):
         data = format_ecowitt_weather_data(ECOWITT_FORM_DATA_DICT)
 
+        # Original timestamp is in UTC
         observation_pb = dict_to_protobuf(data)
         observation_pb.temperature = 1.0
         observation_pb.timestamp = int(
-            datetime.datetime(2020, 10, 10, 13, 10).replace(tzinfo=None).timestamp()
+            datetime.datetime(2020, 10, 10, 11, 10).replace(tzinfo=pytz.UTC).timestamp()
         )
         persist_weather_observation(station_id="home", observation_pb=observation_pb)
+
+        assert (
+            os.path.isfile(os.path.join(cls.temp_dir, "home/2020/10/10/observation_1110.pb"))
+            == True
+        )
 
         observation_pb = dict_to_protobuf(data)
         observation_pb.temperature = 2.0
         observation_pb.timestamp = int(
-            datetime.datetime(2020, 10, 10, 15, 00).replace(tzinfo=None).timestamp()
+            datetime.datetime(2020, 10, 10, 13, 00).replace(tzinfo=pytz.UTC).timestamp()
         )
         persist_weather_observation(station_id="home", observation_pb=observation_pb)
 
         observation_pb = dict_to_protobuf(data)
         observation_pb.temperature = 3.0
         observation_pb.timestamp = int(
-            datetime.datetime(2020, 10, 10, 16, 00).replace(tzinfo=None).timestamp()
+            datetime.datetime(2020, 10, 10, 14, 00).replace(tzinfo=pytz.UTC).timestamp()
         )
         persist_weather_observation(station_id="home", observation_pb=observation_pb)
 
         observation_pb = dict_to_protobuf(data)
         observation_pb.temperature = 4.0
         observation_pb.timestamp = int(
-            datetime.datetime(2020, 10, 10, 16, 2).replace(tzinfo=None).timestamp()
+            datetime.datetime(2020, 10, 10, 14, 2).replace(tzinfo=pytz.UTC).timestamp()
         )
         persist_weather_observation(station_id="home", observation_pb=observation_pb)
+
+        # Original timestamp is in local time (UTC + 1)
+        observation_pb = dict_to_protobuf(data)
+        observation_pb.temperature = 1.0
+        observation_pb.timestamp = int(
+            datetime.datetime(2020, 10, 10, 17, 10).replace(tzinfo=pytz.timezone("CET")).timestamp()
+        )
+        persist_weather_observation(station_id="home", observation_pb=observation_pb)
+
+        assert (
+            os.path.isfile(os.path.join(cls.temp_dir, "home/2020/10/10/observation_1610.pb"))
+            == True
+        )
 
     def test_observation_dict_to_pb(self):
         data = format_ecowitt_weather_data(ECOWITT_FORM_DATA_DICT)
@@ -90,14 +112,14 @@ class PersistAndRetrieveDataTestCase(unittest.TestCase):
 
     def test_get_weather_observation_for_date(self):
         # 1. Invalid / unrecognized station id (no observations available)
-        date = datetime.datetime(2020, 10, 10, 15, 00)
+        date = datetime.datetime(2020, 10, 10, 13, 00)
         station_id = "invalid"
 
         result = get_weather_observation_for_date(station_id=station_id, date=date)
         self.assertEqual(result, None)
 
         # 2. Observation exists for this timestamp
-        date = datetime.datetime(2020, 10, 10, 15, 00)
+        date = datetime.datetime(2020, 10, 10, 13, 00)
         station_id = "home"
 
         result = get_weather_observation_for_date(station_id=station_id, date=date)
@@ -106,20 +128,19 @@ class PersistAndRetrieveDataTestCase(unittest.TestCase):
 
         # 3. Observation doesn't exist for this minute, but exists for 5 minutes ago (non strict
         # mode)
-        date = datetime.datetime(2020, 10, 10, 16, 7)
+        date = datetime.datetime(2020, 10, 10, 14, 7)
         station_id = "home"
 
         result = get_weather_observation_for_date(station_id=station_id, date=date)
         self.assertTrue(result is not None)
         self.assertEqual(
             result.timestamp,
-            int(datetime.datetime(2020, 10, 10, 16, 2).replace(tzinfo=None).timestamp()),
+            int(datetime.datetime(2020, 10, 10, 14, 2).replace(tzinfo=pytz.UTC).timestamp()),
         )
         self.assertEqual(result.temperature, 4)
 
         # 4. Observation doesn't exist for this minute, but exists for 5 minutes ago (strict mode)
-
-        date = datetime.datetime(2020, 10, 10, 16, 7)
+        date = datetime.datetime(2020, 10, 10, 14, 7)
         station_id = "home"
 
         result = get_weather_observation_for_date(

@@ -4,3 +4,4 @@ gunicorn==20.0.4
 structlog==20.1.0
 colorama==0.4.3
 protobuf==3.13.0
+pytz==2020.1

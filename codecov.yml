@@ -41,5 +41,5 @@ flags:
     carryforward: false
   wx_server:
     paths:
-      - wx_Server/
+      - wx_server/
     carryforward: true

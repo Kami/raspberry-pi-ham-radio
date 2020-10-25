@@ -1,6 +1,6 @@
 # Raspberry Pi Ham Radio Controller
 
-![CI](https://github.com/Kami/raspberry-pi-ham-radio/workflows/CI/badge.svg?branch=master)
+[![CI](https://github.com/Kami/raspberry-pi-ham-radio/workflows/CI/badge.svg?branch=master)](https://github.com/Kami/raspberry-pi-ham-radio/actions)
 
 This repository contains source code and related information which allows users to expose various
 information on a ham frequency and perform various DTMF code and other related automations using

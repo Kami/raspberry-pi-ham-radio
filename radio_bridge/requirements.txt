@@ -3,6 +3,7 @@ colorama==0.4.3
 protobuf==3.13.0
 pluginlib==0.8.0
 configobj==5.0.6
+wx_server@git+https://github.com/Kami/raspberry-pi-ham-radio.git@master#subdirectory=wx_server
 # Needed when tx.mode=gpio
 #RPi.GPIO==0.7.0
 # Needed when tts.library = "gtts"
@@ -10,7 +11,8 @@ gTTS==2.1.1
 # Needed when tts.library = "espeak"
 # We need our work which includes subprocess.Popen workaround which allows us to
 # kill spawned process when we kill the parent process
-git+https://github.com/Kami/py-espeak-ng.git@preexec_fn_patch#egg=py-espeak-ng
+py-espeak-ng@git+https://github.com/Kami/py-espeak-ng.git@preexec_fn_patch
+#git+https://github.com/Kami/py-espeak-ng.git@preexec_fn_patch#egg=py-espeak-ng
 PyAudio==0.2.11
 scipy==1.5.2
 apscheduler==3.6.3

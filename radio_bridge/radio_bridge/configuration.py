@@ -29,11 +29,11 @@ __all__ = ["get_plugin_config", "get_plugin_config_option", "set_config_option"]
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
-DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../conf/radio_bridge.conf"))
+DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "conf/radio_bridge.conf"))
 CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", None)
 
 DEFAULT_VALUES_CONFIG_PATH = os.path.abspath(
-    os.path.join(BASE_DIR, "../conf/radio_bridge.defaults.conf")
+    os.path.join(BASE_DIR, "conf/radio_bridge.defaults.conf")
 )
 
 VALID_TTS_IMPLEMENTATIONS: List[str] = []

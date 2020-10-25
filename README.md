@@ -4,7 +4,9 @@
 
 This repository contains source code and related information which allows users to expose various
 information on a ham frequency and perform various DTMF code and other related automations using
-Raspberry Pi or a similar lower power device.
+Raspberry Pi or a similar low powered device.
+
+It was primarily designed to be deployed next to and connected directly to a VHF / UHF repeater.
 
 It consists of two sub-projects:
 
@@ -13,9 +15,9 @@ It consists of two sub-projects:
 2. [Radio Bridge Server](radio_bridge/) - Software which exposes various functionality on a ham
   radio frequency.
 
-**NOTE: This project is work in progress and under development. Do not use for anything critical.**
+**NOTE: This project is work in progress and under development. Do not use it for anything critical.**
 
-## Supported Python versions:
+## Supported Python versions
 
 * Python 3.6
 * Python 3.7
@@ -24,7 +26,7 @@ It consists of two sub-projects:
 
 ## Notes
 
-This setup assumes weather station can connect to a WiFi network which is needed for for operation.
+This setup assumes weather station can connect to a WiFi network which is needed for the operation.
 
 If there is no WiFi network available where you want to deploy this setup, you can configure
 Rasperry Pi to acts as an Access Point to which Weather Station can connect.
@@ -46,23 +48,4 @@ automatically synchronize time over the internet and you will need to configure 
 TBW.
 
 - Document how to configure USB sound card
-- Document how to install text to spech and other dependencies
-
-## Radio Setup
-
-- We use VOX functionality so we don't need more hardware to trigger PTT, not 100% ideal, but
-  works for this use case.
-
-## Weather Station Setup
-
-WIP
-
-- Configure weather station to send data to local wx server.
-
-## Software
-
-This repository consists of 2 Python projects.
-
-1. ``wx_server`` - this project consists of a HTTP server to which weather station can send data in
-  Ecowitt format and this data is then formatted and persisted on disk. Data is persisted as serialized
-  Protobuf messages in files per disk - one file per observation.
+- Document how to install text to speech and other dependencies

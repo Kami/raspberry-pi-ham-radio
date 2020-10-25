@@ -39,9 +39,21 @@ python3 -c 'import hashlib ; print(hashlib.sha256(b"home" + b":" + b"foobar").he
 
 ### Weather Station
 
-Actual weather station configuration very much depends on the weather station model you have, but
-the screenshot below shows how you can configure ``Sainlogic Professional WiFi Weather Station``
+Actual weather station configuration very much depends on the weather station model you have.
+
+The screenshot below shows how you can configure ``Sainlogic Professional WiFi Weather Station``
 via the Android application.
+
+Ecowitt format:
+
+![Screenshot_20201024_133655_com ost wsview](https://user-images.githubusercontent.com/125088/97111489-4ec54000-16df-11eb-8afb-055940ace36d.jpg)
+
+WeatherUnderground format:
+
+![Screenshot_20201024_133613_com ost wsview](https://user-images.githubusercontent.com/125088/97111520-7ddbb180-16df-11eb-9b0d-99e91d8c2ff3.jpg)
+
+In this screenshots, ``192.168.160.247`` is the IP address of Raspberry PI, ``home`` is the weather
+station name and ``foobar`` is the password / secret.
 
 ## Running The Service
 
@@ -86,7 +98,3 @@ original.
 # Delete files older than 300 days
 find <data dir> -name "*observation*.pb" -mtime +300 -print0 | xargs -0 rm
 ```
-
-## TODO
-
-- [ ] Support WeatherUnderground format

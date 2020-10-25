@@ -247,22 +247,25 @@ This cron job will automatically delete cached files older than 4 hours (240 min
 
 ### Recording custom hello and callsign message using gtts-cli
 
+Before playing each audio file / message, this software will always first play the callsign.
+
+Callsign can be configured via ``tx.callsign`` configuration option. This can either contain an
+actual  callsign which will be synthesized to audio and played or a path to an .mp3 / .wav file
+which will be played.
+
+Example below shows how to record a custom call sign / hello message using ``gtts-cli`` tool.
+
+
 ```bash
-gtts-cli -l en-us --slow --nocheck "SIERRA FIVE TWO TANGO ECHO SIERRA TANGO" > audio_files/callsign.mp3
+gtts-cli -l en-us --slow --nocheck "SIERRA FIVE TWO TANGO ECHO SIERRA TANGO" > /tmp/audio_files/callsign.mp3
 ```
 
 ## TODO
 
-Main:
+Main
 
-- [ ] Audit log for all the ran commands
-- [ ] Move common logging, config parsing code into common package
-- [ ] Multi language supports
+- [ ] Multi language support
 
-DTMF Decoding:
+DTMF Decoding
 
 - [ ] Implement Goertzel algorithm based DTMF decoding
-
-Admin plugins:
-
-- [ ] Support for modifying main process state when process executor is used

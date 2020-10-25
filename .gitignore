@@ -1,4 +1,6 @@
 .tox/
 .coverage
+dist/
+*egg-info*
 virtualenv/
 wx_server/data/

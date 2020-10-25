@@ -4,6 +4,7 @@ dist/
 build/
 *egg-info*
 virtualenv/
+.eggs/
 coverage.xml
 wx_server/data/
 wx_server/LICENSE.txt

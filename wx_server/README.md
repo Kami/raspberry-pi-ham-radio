@@ -46,11 +46,11 @@ via the Android application.
 
 Ecowitt format:
 
-![Screenshot_20201024_133655_com ost wsview](https://user-images.githubusercontent.com/125088/97111489-4ec54000-16df-11eb-8afb-055940ace36d.jpg)
+![Screenshot_20201024_133655_com ost wsview](https://user-images.githubusercontent.com/125088/97113784-da919900-16ec-11eb-9735-132f8bb29b38.jpg)
 
 WeatherUnderground format:
 
-![Screenshot_20201024_133613_com ost wsview](https://user-images.githubusercontent.com/125088/97111520-7ddbb180-16df-11eb-9b0d-99e91d8c2ff3.jpg)
+![Screenshot_20201024_133613_com ost wsview](https://user-images.githubusercontent.com/125088/97113789-e3826a80-16ec-11eb-9c56-a5b3d91ed1a4.jpg)
 
 In this screenshots, ``192.168.160.247`` is the IP address of Raspberry PI, ``home`` is the weather
 station name and ``foobar`` is the password / secret.

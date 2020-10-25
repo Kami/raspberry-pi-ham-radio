@@ -26,7 +26,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+          # TODO: 3.9 is getting stuck on GH actions some times for some unknown reason
+          python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v1
@@ -63,7 +64,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+          # TODO: 3.9 is getting stuck on GH actions some times for some unknown reason
+          python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v1

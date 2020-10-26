@@ -13,9 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import mock
-import datetime
-
 from radio_bridge.plugins.help import HelpPlugin
 
 from tests.unit.plugins.base import BasePluginTestCase

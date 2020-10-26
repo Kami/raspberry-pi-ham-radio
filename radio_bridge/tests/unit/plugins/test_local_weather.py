@@ -69,8 +69,8 @@ class LocalWeatherPluginTestCase(BasePluginTestCase):
         persist_weather_observation(station_id="home", observation_pb=observation_pb)
 
     @mock.patch("radio_bridge.plugins.local_weather.datetime")
-    def test_run(self, mock_datetime):
-        # 1. No observation found for this date
+    def test_run_no_observation_found_for_date(self, mock_datetime):
+        # No observation found for this date
         mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 10, 25, 19, 57)
 
         plugin = LocalWeatherPluginForTest()
@@ -84,10 +84,12 @@ class LocalWeatherPluginTestCase(BasePluginTestCase):
         self.assertEqual(len(plugin.mock_said_text), 1)
         self.assertEqual(plugin.mock_said_text[0], expected_text)
 
-        # 2. Weather observation found.
+    @mock.patch("radio_bridge.plugins.local_weather.datetime")
+    def test_run_success_observation_found(self, mock_datetime):
+        # Weather observation found.
         mock_datetime.datetime.utcnow.return_value = MOCK_DATETIME
 
-        plugin.reset_mock_values()
+        plugin = LocalWeatherPluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)
 
         plugin.initialize(config={"weather_station_id": "home"})
@@ -106,10 +108,12 @@ UV index: 3
         self.assertEqual(plugin.mock_said_text[0], expected_text)
         mock_datetime.datetime.utcnow.return_value = MOCK_DATETIME
 
-        # 3. Weather observation not found (different station id)
+    @mock.patch("radio_bridge.plugins.local_weather.datetime")
+    def test_run_observation_not_found_for_station(self, mock_datetime):
+        # Weather observation not found (different station id)
         mock_datetime.datetime.utcnow.return_value = MOCK_DATETIME
 
-        plugin.reset_mock_values()
+        plugin = LocalWeatherPluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)
 
         plugin.initialize(config={"weather_station_id": "other_station"})

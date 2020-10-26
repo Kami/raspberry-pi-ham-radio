@@ -22,6 +22,9 @@ from radio_bridge.plugins.repeater_info import REPEATERS_URL_2M
 from radio_bridge.plugins.repeater_info import REPEATERS_URL_70CM
 from radio_bridge.plugins.repeater_info import RepeaterInfoPlugin
 
+from tests.unit.plugins.base import BasePluginTestCase
+from tests.unit.plugins.base import MockBasePlugin
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FIXTURES_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../fixtures/plugins/repeater_info"))
 
@@ -32,7 +35,58 @@ with open(os.path.join(FIXTURES_DIR, "repeaters_70cm.html"), "r") as fp:
     MOCK_DATA_70CM = fp.read()
 
 
+class RepeaterInfoPluginForTest(RepeaterInfoPlugin, MockBasePlugin):
+    pass
+
+
 class RepeaterInfoPluginTestCase(unittest.TestCase):
+    def test_run_success(self):
+        plugin = RepeaterInfoPluginForTest()
+        self.assertEqual(len(plugin.mock_said_text), 0)
+
+        plugin.initialize(config={})
+
+        with requests_mock.Mocker() as m:
+            m.get(REPEATERS_URL_2M, text=MOCK_DATA_2M)
+            plugin.run(sequence="201")
+
+        expected_text = "Invalid repeater type."
+
+        expected_text = """
+Repeater S55VLM.
+Location: LJUBLJANA CENTER.
+Input frequency: 1 4 4 decimal 9 7 5 MHz.
+Output frequency: 1 4 5 decimal 5 7 5.
+CTCSS: 1 2 3 decimal 0 MHz
+""".strip()
+
+        self.assertEqual(len(plugin.mock_said_text), 1)
+        self.assertEqual(plugin.mock_said_text[0], expected_text)
+
+    def test_run_invalid_repeater_type(self):
+        plugin = RepeaterInfoPluginForTest()
+        self.assertEqual(len(plugin.mock_said_text), 0)
+
+        plugin.initialize(config={})
+        plugin.run(sequence="901")
+
+        expected_text = "Invalid repeater type."
+
+        self.assertEqual(len(plugin.mock_said_text), 1)
+        self.assertEqual(plugin.mock_said_text[0], expected_text)
+
+    def test_run_unable_to_retrieve_details(self):
+        plugin = RepeaterInfoPluginForTest()
+        self.assertEqual(len(plugin.mock_said_text), 0)
+
+        plugin.initialize(config={})
+        plugin.run(sequence="255")
+
+        expected_text = "Unable to retrieve details for repeater with id 55"
+
+        self.assertEqual(len(plugin.mock_said_text), 1)
+        self.assertEqual(plugin.mock_said_text[0], expected_text)
+
     def test_parse_repeater_id_and_type_from_sequence(self):
         plugin = RepeaterInfoPlugin()
 

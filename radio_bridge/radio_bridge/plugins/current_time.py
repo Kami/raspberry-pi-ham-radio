@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Optional
+
 import datetime
 
 import pytz
@@ -44,13 +46,14 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     def __init__(self):
         super(CurrentTimePlugin, self).__init__()
 
-    def initialize(self, config: dict) -> None:
+    def initialize(self, config: Optional[dict]) -> None:
         """
         Validate plugin specific configuration.
         """
         super(CurrentTimePlugin, self).initialize(config=config)
 
         # Validate that the specified timezone is correct
+        assert config is not None
         local_timezone = config.get("local_timezone")
 
         if not local_timezone:

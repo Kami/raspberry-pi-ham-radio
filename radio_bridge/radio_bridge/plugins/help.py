@@ -39,7 +39,6 @@ class HelpPlugin(BaseDTMFPlugin):
         text_to_say = "Available commands:"
 
         for index, plugin_class in enumerate(plugins.values()):
-            # Skip admin plugins
             sequence_text = ""
             for char in plugin_class.DTMF_SEQUENCE:
                 sequence_text += char + " "

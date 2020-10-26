@@ -214,6 +214,10 @@ def get_plugin_config_option(
     """
     section = "plugin:%s" % (plugin_id)
     result = get_config_option(section, option, option_type=option_type, fallback=fallback)
+
+    if result is None and fallback is not None:
+        return fallback
+
     return result
 
 

@@ -28,7 +28,7 @@ WIND_DATA_WIND = "Wind {wind_speed} kilometers per hour from the {wind_direction
 WIND_DATA_NO_WIND = "No wind."
 
 RAIN_RAIN = "Rain {rain_rate} mm per hour"
-RAIN_NO_RAIN = ""
+RAIN_NO_RAIN = "No rain."
 
 __all__ = ["observation_pb_to_text", "get_wind_direction_text"]
 

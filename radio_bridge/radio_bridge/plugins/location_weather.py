@@ -34,7 +34,7 @@ LOCATION_CODE_TO_CITY_MAP = {
 }
 
 # NOQA
-CITY_TO_XML_LOCATION_MAP = {
+CITY_TO_XML_URL_MAP = {
     "Ljubljana": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_LJUBL-ANA_BEZIGRAD_latest.xml",  # NOQA
     "Maribor": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_MARIBOR_SLIVNICA_latest.xml",  # NOQA
     "Celje": "http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_CELJE_latest.xml",  # NOQA
@@ -74,7 +74,7 @@ class LocationWeatherPlugin(BaseDTMFWithDataPlugin):
             self.say("Unable to retrieve weather observation data")
 
         text = weather_utils.observation_pb_to_text(observation_pb)
-        self.say("Weather information for %s. %s" % (city, text))
+        self.say("Weather information for %s.\n%s" % (city, text))
 
 
 def get_weather_observation(city: str) -> messages_pb2.WeatherObservation:
@@ -83,7 +83,7 @@ def get_weather_observation(city: str) -> messages_pb2.WeatherObservation:
     object.
     """
     # TODO: Cache data for 60 seconds
-    url = CITY_TO_XML_LOCATION_MAP[city]
+    url = CITY_TO_XML_URL_MAP[city]
 
     LOG.debug("Retrieving weather data for city %s from %s" % (city, url))
     response = requests.get(url)

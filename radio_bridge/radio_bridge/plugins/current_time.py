@@ -24,7 +24,7 @@ from radio_bridge.configuration import get_plugin_config_option
 __all__ = ["CurrentTimePlugin"]
 
 TEXT = """
-Current time is {hour_local} {minute_local} local. {hour_utc}, {minute_utc} U T C.
+Current time is {hour_local} {minute_local} local. {hour_utc} {minute_utc} U T C.
 """.strip()
 
 

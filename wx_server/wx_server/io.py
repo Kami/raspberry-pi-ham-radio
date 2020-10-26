@@ -84,7 +84,7 @@ def get_weather_observation_for_date(
     # We only care about minute resolution so we ignore other components
     original_date = date.replace(second=0, microsecond=0)
 
-    if date.tzinfo and date.tzinfo != pytz.UTC:
+    if date.tzinfo and date.tzinfo not in [pytz.UTC, datetime.timezone.utc]:
         raise ValueError("Date must contain UTC timezone")
 
     dates = [

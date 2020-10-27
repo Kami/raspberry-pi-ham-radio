@@ -29,8 +29,6 @@ from radio_bridge.configuration import set_config_option
 __all__ = ["ConfigurationTestCase"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../"))
-
 CONFIG_PATH_1 = os.path.abspath(os.path.join(BASE_DIR, "../fixtures/configs/config1.ini"))
 
 

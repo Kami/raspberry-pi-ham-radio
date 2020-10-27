@@ -16,10 +16,10 @@
 from typing import List
 
 import os
-import unittest
 
-from radio_bridge.log import configure_logging
 from radio_bridge.plugins.base import BasePlugin
+
+from tests.unit.base import BaseTestCase
 
 # TODO: Use debug log level for tests
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -45,11 +45,7 @@ class MockBasePlugin(BasePlugin):
         self.mock_said_text = []
 
 
-class BasePluginTestCase(unittest.TestCase):
+class BasePluginTestCase(BaseTestCase):
     """
     Base class for plugin test cases.
     """
-
-    @classmethod
-    def setUpClass(cls):
-        configure_logging(LOGGING_CONFIG_PATH)

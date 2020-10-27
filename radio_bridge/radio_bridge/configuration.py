@@ -24,13 +24,17 @@ import configparser
 from configobj import ConfigObj
 import structlog
 
-__all__ = ["get_plugin_config", "get_plugin_config_option", "set_config_option"]
+__all__ = [
+    "get_config_option",
+    "get_plugin_config",
+    "get_plugin_config_option",
+    "set_config_option",
+]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../"))
 
 DEFAULT_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "conf/radio_bridge.conf"))
-CONFIG_PATH = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", None)
 
 DEFAULT_VALUES_CONFIG_PATH = os.path.abspath(
     os.path.join(BASE_DIR, "conf/radio_bridge.defaults.conf")
@@ -139,7 +143,7 @@ def _validate_config(config):
     return config
 
 
-def _get_config() -> configparser.ConfigParser:
+def _get_config(validate: bool = True, force_load: bool = False) -> configparser.ConfigParser:
     """
     Retrieved loaded and parsed config instance.
 
@@ -147,12 +151,14 @@ def _get_config() -> configparser.ConfigParser:
     """
     global CONFIG
 
-    if not CONFIG:
-        _load_and_parse_config(CONFIG_PATH)
+    config_path = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", None)
 
-    if CONFIG_PATH and CONFIG_LOAD_TIME < int(os.path.getmtime(CONFIG_PATH)):
+    if not CONFIG or force_load:
+        _load_and_parse_config(config_path=config_path, validate=validate)
+
+    if config_path and CONFIG_LOAD_TIME < int(os.path.getmtime(config_path)):
         LOG.debug("Config file on disk has been updated since we parsed it, re-loading...")
-        _load_and_parse_config(CONFIG_PATH)
+        _load_and_parse_config(config_path=config_path, validate=validate)
 
     assert CONFIG is not None
     return CONFIG
@@ -189,6 +195,9 @@ def get_config_option(
             return fallback
 
         raise e
+
+    if value is None:
+        return fallback
 
     return value
 
@@ -231,15 +240,16 @@ def set_config_option(section: str, option: str, value: Any, write_to_disk: bool
     each plugin is executed in a new sub process.
     """
     config = _get_config()
+    config_path = os.environ.get("RADIO_BRIDGE_CONFIG_PATH", None)
 
     try:
         config[section][option] = value
     except KeyError:
         LOG.debug("Skipping updating %s.%s config value since it's not set" % (section, option))
 
-    if write_to_disk and CONFIG_PATH:
-        LOG.debug("Writing updates config file to disk", file_path=CONFIG_PATH)
-        with open(CONFIG_PATH, "wb") as fp:
+    if write_to_disk and config_path:
+        LOG.debug("Writing updates config file to disk", file_path=config_path)
+        with open(config_path, "wb") as fp:
             config.write(fp)  # type: ignore
 
     return True

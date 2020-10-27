@@ -14,7 +14,6 @@
 # limitations under the License.
 
 import os
-import unittest
 
 import requests_mock
 
@@ -39,7 +38,7 @@ class RepeaterInfoPluginForTest(RepeaterInfoPlugin, MockBasePlugin):
     pass
 
 
-class RepeaterInfoPluginTestCase(unittest.TestCase):
+class RepeaterInfoPluginTestCase(BasePluginTestCase):
     def test_run_success(self):
         plugin = RepeaterInfoPluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)

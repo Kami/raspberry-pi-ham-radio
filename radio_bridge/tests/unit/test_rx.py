@@ -15,6 +15,7 @@
 
 import os
 import tempfile
+import unittest
 
 from radio_bridge.rx import RX
 
@@ -24,8 +25,9 @@ __all__ = ["RXTestCase"]
 
 
 class RXTestCase(BaseTestCase):
+    @unittest.skipIf(os.environ.get("CI"), "Skipping test on CI with no input devices")
     def test_record_audio(self):
-        # NOTE: This test will fail if there is no input device detected on the syste,
+        # NOTE: This test will fail if there is no input device detected on the system
         _, temp_path = tempfile.mkstemp()
         os.unlink(temp_path)
 

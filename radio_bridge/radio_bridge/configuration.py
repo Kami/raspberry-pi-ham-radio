@@ -29,6 +29,7 @@ __all__ = [
     "get_plugin_config",
     "get_plugin_config_option",
     "set_config_option",
+    "set_plugin_config_option",
 ]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -191,7 +192,7 @@ def get_config_option(
     try:
         value = getattr(section, get_method)(option)
     except KeyError as e:
-        if fallback:
+        if fallback is not None:
             return fallback
 
         raise e
@@ -245,7 +246,8 @@ def set_config_option(section: str, option: str, value: Any, write_to_disk: bool
     try:
         config[section][option] = value
     except KeyError:
-        LOG.debug("Skipping updating %s.%s config value since it's not set" % (section, option))
+        config[section] = {}
+        config[section][option] = value
 
     if write_to_disk and config_path:
         LOG.debug("Writing updates config file to disk", file_path=config_path)
@@ -253,3 +255,15 @@ def set_config_option(section: str, option: str, value: Any, write_to_disk: bool
             config.write(fp)  # type: ignore
 
     return True
+
+
+def set_plugin_config_option(
+    plugin_id: str, option: str, value: Any, write_to_disk: bool = False
+) -> bool:
+    """
+    Function which updates config value for a particular plugin.
+    """
+    section = "plugin:%s" % (plugin_id)
+    return set_config_option(
+        section=section, option=option, value=value, write_to_disk=write_to_disk
+    )

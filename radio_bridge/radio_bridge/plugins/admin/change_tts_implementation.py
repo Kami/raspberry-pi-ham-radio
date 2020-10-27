@@ -34,9 +34,9 @@ class ChangeTTSImplementationAdminPlugin(BaseAdminDTMFWithDataPlugin):
     def run(self, sequence: str):
         if sequence == "1":
             set_config_option("tts", "implementation", "gtts", write_to_disk=True)
-            self.say("TTS mode changed to online")
+            self.say("TTS mode changed to online.")
         elif sequence == "2":
             set_config_option("tts", "implementation", "espeak", write_to_disk=True)
-            self.say("TTS mode changes to offline")
+            self.say("TTS mode changed to offline.")
         else:
-            self.say("Invalid TTS mode value")
+            self.say("Invalid TTS mode value.")

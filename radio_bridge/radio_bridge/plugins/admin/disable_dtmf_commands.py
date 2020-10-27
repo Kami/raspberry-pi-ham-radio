@@ -15,7 +15,7 @@
 
 from radio_bridge.plugins.base import BaseAdminDTMFPlugin
 from radio_bridge.configuration import get_plugin_config_option
-from radio_bridge.configuration import set_config_option
+from radio_bridge.configuration import set_plugin_config_option
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 
 __all__ = ["DisableDTMFCommandsAdminPlugin"]
@@ -33,9 +33,6 @@ class DisableDTMFCommandsAdminPlugin(BaseAdminDTMFPlugin):
         plugins = get_plugins_with_dtmf_sequence(include_admin=False)
 
         for dtmf_sequence, plugin_instance in plugins.items():
-            section_name = "plugin:%s" % (plugin_instance.ID)
-
-            # if config.has_section(section_name):
-            set_config_option(section_name, "enable", "False", write_to_disk=True)
+            set_plugin_config_option(plugin_instance.ID, "enable", "False", write_to_disk=True)
 
         self.say("All non-admin DTMF plugins disabled.")

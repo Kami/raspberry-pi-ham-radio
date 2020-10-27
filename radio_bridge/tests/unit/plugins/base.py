@@ -17,7 +17,10 @@ from typing import List
 
 import os
 
+from radio_bridge.configuration import get_plugin_config_option
+from radio_bridge.configuration import set_plugin_config_option
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 
 from tests.unit.base import BaseTestCase
 
@@ -25,7 +28,7 @@ from tests.unit.base import BaseTestCase
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGGING_CONFIG_PATH = os.path.abspath(os.path.join(BASE_DIR, "../../../conf/logging.tests.conf"))
 
-__all__ = ["BasePluginTestCase", "MockBasePlugin"]
+__all__ = ["BasePluginTestCase", "BaseAdminPluginTestCase", "MockBasePlugin"]
 
 
 class MockBasePlugin(BasePlugin):
@@ -49,3 +52,41 @@ class BasePluginTestCase(BaseTestCase):
     """
     Base class for plugin test cases.
     """
+
+    pass
+
+
+class BaseAdminPluginTestCase(BasePluginTestCase):
+    """
+    Base class for admin plugin test cases.
+    """
+
+    def assertAllPluginsAreDisabled(self, include_admin=False):
+        plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
+
+        for plugin_instance in plugins.values():
+            value = get_plugin_config_option(plugin_instance.ID, "enable", "bool")
+            self.assertFalse(
+                value, "Plugin %s is enabled, but it should be disabled" % (plugin_instance.ID)
+            )
+
+    def assertAllPluginsAreEnabled(self, include_admin=False):
+        plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
+
+        for plugin_instance in plugins.values():
+            value = get_plugin_config_option(plugin_instance.ID, "enable", "bool")
+            self.assertTrue(
+                value, "Plugin %s is disabled, but it should be enabled" % (plugin_instance.ID)
+            )
+
+    def _disable_all_plugins(self, include_admin=False):
+        plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
+
+        for plugin_instance in plugins.values():
+            set_plugin_config_option(plugin_instance.ID, "enable", "False", write_to_disk=False)
+
+    def _enable_all_plugins(self, include_admin=False):
+        plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
+
+        for plugin_instance in plugins.values():
+            set_plugin_config_option(plugin_instance.ID, "enable", "True", write_to_disk=False)

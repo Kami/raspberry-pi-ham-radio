@@ -16,6 +16,8 @@
 import os
 import shutil
 import tempfile
+import random
+import time
 
 from radio_bridge.tts import TextToSpeech
 from radio_bridge.audio_player import get_audio_file_duration
@@ -56,7 +58,19 @@ class TTSTestCase(BaseTestCase):
 
         self.assertFalse(os.path.isfile(output_file_path))
 
-        tts.text_to_speech(text=text)
+        # This test is sometimes flaky when running on CI and "Unable to find token seed" error is
+        # throw. To try to mitigate this, we retry on failure.
+        for i in range(0, 3):
+            try:
+                tts.text_to_speech(text=text)
+                break
+            except ValueError as e:
+                if "Unable to find token seed" not in str(e):
+                    raise e
+
+                print("Retrying gtts call due to failure: %s" % (str(e)))
+                time.sleep(random.randint(2, 5))
+
         self.assertTrue(os.path.isfile(output_file_path))
 
         duration = get_audio_file_duration(file_path=output_file_path)

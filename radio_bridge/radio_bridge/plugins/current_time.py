@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
-
 import datetime
 
 import pytz
@@ -46,7 +44,7 @@ class CurrentTimePlugin(BaseDTMFPlugin):
     def __init__(self):
         super(CurrentTimePlugin, self).__init__()
 
-    def initialize(self, config: Optional[dict]) -> None:
+    def initialize(self, config: dict) -> None:
         """
         Validate plugin specific configuration.
         """

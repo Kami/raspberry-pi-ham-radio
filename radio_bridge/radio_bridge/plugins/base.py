@@ -17,7 +17,6 @@ from typing import Dict
 from typing import Callable
 from typing import Tuple
 from typing import Any
-from typing import Optional
 
 import os
 import sys
@@ -78,7 +77,7 @@ class BasePlugin(object):
         # during the program life cycle are reflected here.
         return TextToSpeech(implementation=get_config_option("tts", "implementation"))
 
-    def initialize(self, config: Optional[dict]) -> None:
+    def initialize(self, config: dict) -> None:
         """
         Initialize plugin with plugin specific configuration and validate it (if any exists).
         """

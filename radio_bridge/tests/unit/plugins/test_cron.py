@@ -99,7 +99,10 @@ class CronSayPluginTestCase(BasePluginTestCase):
         # 1. Requested interval is greater than minimum run interval
         plugin_config = {"say_test": "interval;seconds=10;text;Test."}
 
-        expected_msg = "Requested interval for job say_test is 10 seconds, but minimum allowed value is 120 seconds"
+        expected_msg = (
+            "Requested interval for job say_test is 10 seconds, but minimum allowed "
+            "value is 120 seconds"
+        )
         self.assertRaisesRegex(
             ValueError, expected_msg, plugin._parse_and_validate_config, config=plugin_config
         )

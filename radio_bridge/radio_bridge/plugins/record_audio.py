@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
-
 import os
 import datetime
 
@@ -38,7 +36,7 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
-    def initialize(self, config: Optional[dict]) -> None:
+    def initialize(self, config: dict) -> None:
         super(RecordAudioPlugin, self).initialize(config=config)
 
         if not os.path.isdir(self._config["data_dir"]):

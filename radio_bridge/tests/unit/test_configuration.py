@@ -145,3 +145,6 @@ class ConfigurationTestCase(unittest.TestCase):
 
         config = _get_config(force_load=True)
         self.assertEqual(config["tx"]["callsign"], "UPDATED")
+
+    def test_validation_failure(self):
+        pass

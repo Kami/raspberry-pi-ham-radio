@@ -29,8 +29,9 @@ class ChangeTTSImplementationAdminPluginForTest(ChangeTTSImplementationAdminPlug
 
 class ChangeTTSImplementationAdminPluginTestCase(BasePluginTestCase):
     def test_run_success_sequence_1(self):
-        set_config_option("tts", "implementation", "invalid")
+        set_config_option("tts", "implementation", "invalid", write_to_disk=True)
         self.assertEqual(get_config_option("tts", "implementation", "str"), "invalid")
+        self.assertConfigFileContainsValue(self._config_path, "tts", "implementation", "invalid")
 
         plugin = ChangeTTSImplementationAdminPluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)
@@ -39,6 +40,7 @@ class ChangeTTSImplementationAdminPluginTestCase(BasePluginTestCase):
         plugin.run(sequence="1")
 
         self.assertEqual(get_config_option("tts", "implementation", "str"), "gtts")
+        self.assertConfigFileContainsValue(self._config_path, "tts", "implementation", "gtts")
 
         expected_text = "TTS mode changed to online."
 
@@ -46,7 +48,7 @@ class ChangeTTSImplementationAdminPluginTestCase(BasePluginTestCase):
         self.assertEqual(plugin.mock_said_text[0], expected_text)
 
     def test_run_success_sequence_2(self):
-        set_config_option("tts", "implementation", "invalid")
+        set_config_option("tts", "implementation", "invalid", write_to_disk=True)
         self.assertEqual(get_config_option("tts", "implementation", "str"), "invalid")
 
         plugin = ChangeTTSImplementationAdminPluginForTest()
@@ -56,6 +58,7 @@ class ChangeTTSImplementationAdminPluginTestCase(BasePluginTestCase):
         plugin.run(sequence="2")
 
         self.assertEqual(get_config_option("tts", "implementation", "str"), "espeak")
+        self.assertConfigFileContainsValue(self._config_path, "tts", "implementation", "espeak")
 
         expected_text = "TTS mode changed to offline."
 

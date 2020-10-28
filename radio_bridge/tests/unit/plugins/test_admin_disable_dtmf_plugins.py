@@ -27,10 +27,13 @@ class DisableDTMFCommandsAdminPluginForTest(DisableDTMFCommandsAdminPlugin, Mock
 
 class DisableDTMFCommandsAdminPluginTestCase(BaseAdminPluginTestCase):
     def test_run_success(self):
-        self._enable_all_plugins()
+        self._enable_all_plugins(write_to_disk=True)
 
         # Verify all plugins are enabled
         self.assertAllPluginsAreEnabled(include_admin=False)
+        self.assertConfigFileContainsValue(
+            self._config_path, "plugin:current_time", "enable", "True"
+        )
 
         # Run plugin
         plugin = DisableDTMFCommandsAdminPluginForTest()
@@ -40,6 +43,9 @@ class DisableDTMFCommandsAdminPluginTestCase(BaseAdminPluginTestCase):
         plugin.run()
 
         self.assertAllPluginsAreDisabled(include_admin=False)
+        self.assertConfigFileContainsValue(
+            self._config_path, "plugin:current_time", "enable", "False"
+        )
 
         expected_text = "All non-admin DTMF plugins disabled."
 

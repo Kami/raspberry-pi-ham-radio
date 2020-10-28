@@ -250,7 +250,7 @@ def set_config_option(section: str, option: str, value: Any, write_to_disk: bool
         config[section][option] = value
 
     if write_to_disk and config_path:
-        LOG.debug("Writing updates config file to disk", file_path=config_path)
+        LOG.debug("Writing updated config file to disk", file_path=config_path)
         with open(config_path, "wb") as fp:
             config.write(fp)  # type: ignore
 

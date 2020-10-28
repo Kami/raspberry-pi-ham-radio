@@ -16,6 +16,9 @@
 from typing import List
 
 import os
+import tempfile
+
+from configobj import ConfigObj
 
 from radio_bridge.configuration import get_plugin_config_option
 from radio_bridge.configuration import set_plugin_config_option
@@ -53,7 +56,38 @@ class BasePluginTestCase(BaseTestCase):
     Base class for plugin test cases.
     """
 
-    pass
+    def setUp(self):
+        super(BasePluginTestCase, self).setUp()
+
+        # Use temporary empty config file for all the tests
+        _, self._temp_path = tempfile.mkstemp()
+        self._config_path = self._temp_path
+        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._config_path
+
+    def tearDown(self):
+        super(BasePluginTestCase, self).tearDown()
+
+        self._reset_environ()
+
+        if os.path.isfile(self._temp_path):
+            os.unlink(self._temp_path)
+
+    def _reset_environ(self):
+        if "RADIO_BRIDGE_CONFIG_PATH" in os.environ:
+            del os.environ["RADIO_BRIDGE_CONFIG_PATH"]
+
+    def assertConfigFileContainsValue(
+        self, config_path: str, section: str, option: str, expected_value: str
+    ):
+        """
+        Assert that the provided config file contains the specified value.
+        """
+        config = ConfigObj(config_path, default_encoding="utf-8", write_empty_values=True)
+
+        actual_value = config.get(section)[option]
+        self.assertEqual(
+            actual_value, expected_value, "Expected %s, got %s" % (expected_value, actual_value)
+        )
 
 
 class BaseAdminPluginTestCase(BasePluginTestCase):
@@ -79,14 +113,18 @@ class BaseAdminPluginTestCase(BasePluginTestCase):
                 value, "Plugin %s is disabled, but it should be enabled" % (plugin_instance.ID)
             )
 
-    def _disable_all_plugins(self, include_admin=False):
+    def _disable_all_plugins(self, include_admin=False, write_to_disk=False):
         plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
 
         for plugin_instance in plugins.values():
-            set_plugin_config_option(plugin_instance.ID, "enable", "False", write_to_disk=False)
+            set_plugin_config_option(
+                plugin_instance.ID, "enable", "False", write_to_disk=write_to_disk
+            )
 
-    def _enable_all_plugins(self, include_admin=False):
+    def _enable_all_plugins(self, include_admin=False, write_to_disk=False):
         plugins = get_plugins_with_dtmf_sequence(include_admin=include_admin)
 
         for plugin_instance in plugins.values():
-            set_plugin_config_option(plugin_instance.ID, "enable", "True", write_to_disk=False)
+            set_plugin_config_option(
+                plugin_instance.ID, "enable", "True", write_to_disk=write_to_disk
+            )

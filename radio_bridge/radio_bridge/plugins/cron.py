@@ -98,7 +98,10 @@ class CronSayItemConfig(object):
     @property
     def duration(self):
         if not self._duration:
-            if self.type == "text":
+            if self.type in ["text", "text_to_morse"]:
+                self._duration = CronSayPlugin.calculate_duration_for_text(text=self.value)
+            elif self.type == "morse":
+                # TODO: Use more accurate estimation for more code
                 self._duration = CronSayPlugin.calculate_duration_for_text(text=self.value)
             elif self.type == "file":
                 self._duration = get_audio_file_duration(file_path=self.value)
@@ -125,11 +128,9 @@ class CronSayPlugin(BaseNonDTMFPlugin):
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
-    def __init__(self):
-        super(CronSayPlugin, self).__init__()
-
-        plugin_config = get_plugin_config(self.ID)
-        self._job_id_to_config_map = self._parse_and_validate_config(plugin_config)
+    def initialize(self, config: dict) -> None:
+        super(CronSayPlugin, self).initialize(config=config)
+        self._job_id_to_config_map = self._parse_and_validate_config(self._config)
 
     def run(self, job_id: str) -> None:
         if job_id not in self._job_id_to_config_map:
@@ -150,11 +151,10 @@ class CronSayPlugin(BaseNonDTMFPlugin):
             self._audio_player.play_file(file_path=job_config.value, delete_after_play=False)
 
     def _parse_and_validate_config(self, config) -> Dict[str, CronSayItemConfig]:
-        plugin_config = get_plugin_config(self.ID)
-
         result = {}
-        for job_id, job_specs in plugin_config.items():
+        for job_id, job_specs in config.items():
             split = job_specs.split(JOB_SPEC_DELIMITER)
+            print(job_specs)
 
             if len(split) != 4:
                 raise ValueError('Plugin job specification "%s" is invalid' % (job_specs))
@@ -176,7 +176,11 @@ class CronSayPlugin(BaseNonDTMFPlugin):
 
             trigger_interval_seconds = self._get_interval_in_seconds(item.trigger_instance)
 
-            if not DEV_MODE and trigger_interval_seconds < MINIMUM_TRIGGER_INTERVAL:
+            if (
+                not DEV_MODE
+                and trigger_interval_seconds
+                and trigger_interval_seconds < MINIMUM_TRIGGER_INTERVAL
+            ):
                 raise ValueError(
                     "Requested interval for job %s is %s seconds, but minimum "
                     "allowed value is %s seconds"

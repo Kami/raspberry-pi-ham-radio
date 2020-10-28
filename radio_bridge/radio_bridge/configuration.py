@@ -210,7 +210,8 @@ def get_plugin_config(plugin_id: str) -> dict:
     try:
         plugin_config = dict(_get_config()["plugin:%s" % (plugin_id)])
         LOG.debug("Found config for plugin %s" % (plugin_id), config=plugin_config)
-    except KeyError:
+    except KeyError as e:
+        LOG.debug('Missing config entry for plugin "%s": %s' % (plugin_id, str(e)))
         plugin_config = {}
 
     return plugin_config

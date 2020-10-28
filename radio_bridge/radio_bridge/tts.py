@@ -25,9 +25,6 @@ from radio_bridge.configuration import get_config_option
 
 LOG = structlog.getLogger(__name__)
 
-CACHE_GENERATED_AUDIO_FILES = get_config_option("tts", "enable_cache", "bool", fallback=False)
-CACHED_AUDO_FILES_PATH = get_config_option("tts", "cache_directory")
-
 
 class BaseTextToSpeechImplementation(object):
     """
@@ -53,16 +50,22 @@ class BaseTextToSpeechImplementation(object):
         file_hash = hashlib.md5(
             text.encode("utf-8") + self.implementation_id.encode("utf-8")
         ).hexdigest()
+
         file_name = "%s%s" % (file_hash, self.file_extension)
 
-        if CACHE_GENERATED_AUDIO_FILES:
-            file_path = os.path.join(CACHED_AUDO_FILES_PATH, file_name)
+        cache_generated_audio_files = get_config_option(
+            "tts", "enable_cache", "bool", fallback=False
+        )
+
+        if cache_generated_audio_files:
+            cached_audio_files_path = get_config_option("tts", "cache_directory")
+            file_path = os.path.join(cached_audio_files_path, file_name)
         else:
             file_path = os.path.join("/tmp", file_name)
 
-        if CACHE_GENERATED_AUDIO_FILES and use_cache:
+        if cache_generated_audio_files and use_cache:
             if os.path.isfile(file_path):
-                LOG.debug("Using cache file: %s" % (file_path))
+                LOG.debug("Using existing cached file: %s" % (file_path))
                 return file_path
 
         return file_path
@@ -84,8 +87,11 @@ class ESpeakTextToSpeech(BaseTextToSpeechImplementation):
         from espeakng import ESpeakNG
 
         file_path = self._get_cache_file_path(text=text, use_cache=use_cache)
+        cache_generated_audio_files = get_config_option(
+            "tts", "enable_cache", "bool", fallback=False
+        )
 
-        if CACHE_GENERATED_AUDIO_FILES and use_cache and os.path.isfile(file_path):
+        if cache_generated_audio_files and use_cache and os.path.isfile(file_path):
             LOG.debug("Using existing cached file: %s" % (file_path))
 
         LOG.trace('Performing TTS on text "%s" and saving result to %s' % (text, file_path))
@@ -93,7 +99,12 @@ class ESpeakTextToSpeech(BaseTextToSpeechImplementation):
         esng = ESpeakNG()
         esng.voice = "en-us"
         esng.pitch = 32
-        esng.speed = 150
+        esng.pitch = 32
+
+        if slow:
+            esng.speed = 80
+        else:
+            esng.speed = 150
 
         wave_data = esng.synth_wav(text)
 
@@ -117,8 +128,11 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
         from gtts import gTTS
 
         file_path = self._get_cache_file_path(text=text, use_cache=use_cache)
+        cache_generated_audio_files = get_config_option(
+            "tts", "enable_cache", "bool", fallback=False
+        )
 
-        if CACHE_GENERATED_AUDIO_FILES and use_cache and os.path.isfile(file_path):
+        if cache_generated_audio_files and use_cache and os.path.isfile(file_path):
             LOG.debug("Using existing cached file: %s" % (file_path))
             return file_path
 
@@ -141,7 +155,13 @@ class TextToSpeech(object):
         implementation: str = "gtts",
         **implementation_kwargs: Any,
     ):
-        os.makedirs(CACHED_AUDO_FILES_PATH, exist_ok=True)
+        cache_generated_audio_files = get_config_option(
+            "tts", "enable_cache", "bool", fallback=False
+        )
+        cached_audio_files_path = get_config_option("tts", "cache_directory", "str", fallback=None)
+
+        if cache_generated_audio_files:
+            os.makedirs(cached_audio_files_path, exist_ok=True)
 
         self._implementation = implementation
         self._implementation_kwargs = implementation_kwargs

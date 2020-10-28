@@ -110,7 +110,7 @@ def _validate_config(config):
 
     if not os.path.isfile(config["main"]["logging_config"]):
         raise ValueError(
-            "Logging config %s doesn't exist or it's not a file"
+            "Logging config with path \"%s\" doesn't exist or it's not a file"
             % (config["main"]["logging_config"])
         )
 

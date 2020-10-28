@@ -30,6 +30,7 @@ __all__ = ["ConfigurationTestCase"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH_1 = os.path.abspath(os.path.join(BASE_DIR, "../fixtures/configs/config1.ini"))
+CONFIG_PATH_2 = os.path.abspath(os.path.join(BASE_DIR, "../fixtures/configs/config2.ini"))
 
 
 class ConfigurationTestCase(unittest.TestCase):
@@ -39,8 +40,10 @@ class ConfigurationTestCase(unittest.TestCase):
 
         radio_bridge.configuration.CONFIG = None
 
-        _, self._temp_path = tempfile.mkstemp()
-        shutil.copy(CONFIG_PATH_1, self._temp_path)
+        _, self._temp_path_1 = tempfile.mkstemp()
+        _, self._temp_path_2 = tempfile.mkstemp()
+        shutil.copy(CONFIG_PATH_1, self._temp_path_1)
+        shutil.copy(CONFIG_PATH_2, self._temp_path_2)
 
     def tearDown(self):
         super(ConfigurationTestCase, self).tearDown()
@@ -67,7 +70,7 @@ class ConfigurationTestCase(unittest.TestCase):
     def test_get_config_success_reload_on_new_config(self):
         # Verify _get_config() re-loads the config from disk if the version on disk has been
         # modified
-        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path
+        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path_1
 
         config = _get_config()
         self.assertEqual(config["main"]["dev_mode"], "True")
@@ -75,16 +78,16 @@ class ConfigurationTestCase(unittest.TestCase):
         self.assertEqual(config["tx"]["callsign"], "ABCD")
 
         # Modify config on disk, verify changes are reflected on _get_config()
-        with open(self._temp_path, "r") as fp:
+        with open(self._temp_path_1, "r") as fp:
             original_content = fp.read()
 
         time.sleep(1)
 
         modified_content = original_content.replace("ABCD", "MODIFIED")
-        with open(self._temp_path, "w") as fp:
+        with open(self._temp_path_1, "w") as fp:
             fp.write(modified_content)
 
-        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path
+        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path_1
 
         config = _get_config()
         self.assertEqual(config["main"]["dev_mode"], "True")
@@ -127,7 +130,7 @@ class ConfigurationTestCase(unittest.TestCase):
         self.assertEqual(value, "fallback2")
 
     def test_set_config_option(self):
-        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path
+        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path_1
 
         config = _get_config()
         self.assertEqual(config["tx"]["callsign"], "ABCD")
@@ -146,5 +149,8 @@ class ConfigurationTestCase(unittest.TestCase):
         config = _get_config(force_load=True)
         self.assertEqual(config["tx"]["callsign"], "UPDATED")
 
-    def test_validation_failure(self):
-        pass
+    def test_validation_failure_invalid_logging_path(self):
+        os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path_2
+
+        expected_msg = "Logging config with path \"invalid\" doesn't exist or it's not a file"
+        self.assertRaisesRegex(ValueError, expected_msg, _get_config, force_load=True)

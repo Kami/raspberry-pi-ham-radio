@@ -72,6 +72,7 @@ def get_plugins_with_dtmf_sequence(include_admin: bool = True) -> Dict[str, Type
         ):
             result[key] = plugin_instance
 
+    result = dict(sorted(result.items(), key=lambda x: x[1].DTMF_SEQUENCE))
     return result
 
 
@@ -90,6 +91,9 @@ def _load_and_register_plugins() -> None:
         plugins["AdminDTMFPlugin"].items(),
         plugins["AdminDTMFWithDataPlugin"].items(),
     ):
+        if "ForTest" in plugin_name:
+            continue
+
         LOG.debug("Found plugin: %s" % (plugin_name))
 
         # Initialize and validate plugin config
@@ -111,6 +115,9 @@ def _load_and_register_plugins() -> None:
         LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
 
     for plugin_name, plugin_class in plugins["NonDTMFPlugin"].items():
+        if "ForTest" in plugin_name:
+            continue
+
         LOG.debug("Found plugin: %s" % (plugin_name))
 
         # Initialize and validate plugin config

@@ -52,6 +52,14 @@ Special thanks to the authors and contributors of those other projects.
 - Support for playing morse code directly
 - Audit logs - all the executed commands are logged under ``AUDIT`` log level
 
+## Installation
+
+You can install latest in development version using pip directly from git:
+
+```bash
+pip install "git+https://github.com/Kami/raspberry-pi-ham-radio.git@master#egg=radio_bridge&subdirectory=radio_bridge"
+```
+
 ## Configuration
 
 Radio bridge can be configured via ``.ini`` style configuration file.
@@ -63,7 +71,7 @@ You can specify path to a configuration value to use by setting ``RADIO_BRIDGE_C
 environment variable as shown below.
 
 ```bash
-RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf radio_bridge/bin/radio-bridge
+RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf radio-bridge
 ```
 
 Starting it with ``--emulator`` and ``--dev`` flag which comes handy during testing and
@@ -71,7 +79,7 @@ development:
 
 ```bash
 export RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf
-radio_bridge/bin/radio-bridge --emulator --dev --debug
+radio-bridge --emulator --dev --debug
 ```
 
 In emulator mode, DTMF sequences can be entered via keyboard and dev mode means that some abuse

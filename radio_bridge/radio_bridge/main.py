@@ -276,7 +276,7 @@ class RadioBridgeServer(object):
             LOG.debug("Running scheduled job: %s" % (job_id))
 
             try:
-                cron_plugin.run(job_id=job_id)
+                cron_plugin.run(job_id=job_id)  # type: ignore
             finally:
                 self._cron_jobs_to_run_lock.acquire()
                 self._cron_jobs_to_run.remove(job_id)

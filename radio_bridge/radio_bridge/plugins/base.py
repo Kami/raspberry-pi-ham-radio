@@ -71,10 +71,6 @@ class BasePlugin(object):
 
         self._config = {}
 
-    @pluginlib.abstractmethod
-    def run(self, sequence: str):
-        pass
-
     @property
     def _tts(self):
         # NOTE: We instantiate this object lazily on demand so any changes to the config state made

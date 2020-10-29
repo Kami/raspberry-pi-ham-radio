@@ -6,4 +6,6 @@ skip_covered = False
 omit =
     */generated/*
     */generated/protobuf/*pb2*.py
+    # 3rd party code
     radio_bridge/utils/subprocess.py
+    radio_bridge/utils/logging.py

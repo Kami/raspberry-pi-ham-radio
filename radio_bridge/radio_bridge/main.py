@@ -15,6 +15,7 @@
 
 from typing import Tuple
 from typing import Dict
+from typing import List
 from typing import Any
 from typing import Optional
 
@@ -25,7 +26,6 @@ import threading
 import atexit
 import select
 import termios
-import logging
 
 import structlog
 
@@ -43,6 +43,7 @@ from radio_bridge.dtmf import DTMF_TABLE_HIGH_LOW
 from radio_bridge.plugins import get_available_plugins
 from radio_bridge.plugins import get_plugins_with_dtmf_sequence
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins.executor import PluginExecutor
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -77,12 +78,12 @@ VALID_DTMF_CHARACTERS = DTMF_TABLE_HIGH_LOW.keys()
 
 
 class RadioBridgeServer(object):
-    def __init__(self, dev_mode: bool = False, emulator_mode: bool = False, debug: bool = False):
+    def __init__(self):
         self._started = False
 
-        self._all_plugins = {}
-        self._dtmf_plugins = {}
-        self._sequence_to_plugin_map = {}
+        self._all_plugins: Dict[str, BasePlugin] = {}
+        self._dtmf_plugins: Dict[str, BaseDTMFPlugin] = {}
+        self._sequence_to_plugin_map: Dict[str, BaseDTMFPlugin] = {}
 
         self._emulator_mode = False
 
@@ -100,7 +101,7 @@ class RadioBridgeServer(object):
         self._cron_jobs_to_run_lock = threading.Lock()
         # Holds a list of ids for cron jobs which should run during the next iteration of the main
         # loop
-        self._cron_jobs_to_run = []
+        self._cron_jobs_to_run: List[str] = []
 
     def initialize(self, dev_mode: bool = False, emulator_mode: bool = False, debug: bool = False):
         # 1. Configure logging

@@ -14,12 +14,12 @@
 # limitations under the License.
 
 from typing import Dict
-from typing import Type
 from typing import Optional
 
 import itertools
 
 from radio_bridge.plugins.base import BasePlugin
+from radio_bridge.plugins.base import BaseDTMFPlugin
 from radio_bridge.plugins.base import BaseAdminDTMFPlugin
 from radio_bridge.plugins.base import BaseAdminDTMFWithDataPlugin
 from radio_bridge.configuration import get_plugin_config
@@ -27,24 +27,25 @@ from radio_bridge.configuration import get_plugin_config
 import structlog
 import pluginlib
 
-# Maps DTMF sequence to a plugin class instance (singleton)
-DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP: Dict[str, Type[BasePlugin]] = {}
+# Maps plugin name to plugin class instance (singleton) for all the available plugins
+REGISTERED_PLUGINS: Dict[str, BasePlugin] = {}
 
-REGISTERED_PLUGINS: Dict[str, Type[BasePlugin]] = {}
+# Maps DTMF sequence to a plugin class instance (singleton)
+DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP: Dict[str, BaseDTMFPlugin] = {}
 
 LOG = structlog.getLogger(__name__)
 
 INITIALIZED = False
 
 
-def get_plugin_class_for_dtmf_sequence(sequence: str) -> Optional[Type[BasePlugin]]:
+def get_plugin_class_for_dtmf_sequence(sequence: str) -> Optional[BasePlugin]:
     if not INITIALIZED:
         _load_and_register_plugins()
 
     return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP.get(sequence, None)
 
 
-def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
+def get_available_plugins() -> Dict[str, BasePlugin]:
     """
     Return a list of all the available and registered plugins.
     """
@@ -54,7 +55,7 @@ def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
     return REGISTERED_PLUGINS
 
 
-def get_plugins_with_dtmf_sequence(include_admin: bool = True) -> Dict[str, Type[BasePlugin]]:
+def get_plugins_with_dtmf_sequence(include_admin: bool = True) -> Dict[str, BaseDTMFPlugin]:
     """
     Return a list of all the available plugins which are triggered via DTMF sequence.
     """
@@ -91,7 +92,7 @@ def _load_and_register_plugins() -> None:
         plugins["AdminDTMFPlugin"].items(),
         plugins["AdminDTMFWithDataPlugin"].items(),
     ):
-        if "ForTest" in plugin_name:
+        if "ForTest" in plugin_name or "Mock" in plugin_name:
             continue
 
         LOG.debug("Found plugin: %s" % (plugin_name))
@@ -115,7 +116,7 @@ def _load_and_register_plugins() -> None:
         LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
 
     for plugin_name, plugin_class in plugins["NonDTMFPlugin"].items():
-        if "ForTest" in plugin_name:
+        if "ForTest" in plugin_name or "Mock" in plugin_name:
             continue
 
         LOG.debug("Found plugin: %s" % (plugin_name))

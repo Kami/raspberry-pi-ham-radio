@@ -18,6 +18,7 @@ import logging
 
 __all__ = ["set_log_level_for_all_loggers"]
 
+
 # This function is taken from StackStorm/st2 (ASF 2.0 license)
 # https://github.com/StackStorm/st2/blob/master/st2common/st2common/logging/misc.py
 def set_log_level_for_all_handlers(logger, level=logging.DEBUG):

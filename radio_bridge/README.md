@@ -66,6 +66,17 @@ environment variable as shown below.
 RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf radio_bridge/bin/radio-bridge
 ```
 
+Starting it with ``--emulator`` and ``--dev`` flag which comes handy during testing and
+development:
+
+```bash
+export RADIO_BRIDGE_CONFIG_PATH=/etc/radio_bridge/radio_bridge.conf
+radio_bridge/bin/radio-bridge --emulator --dev --debug
+```
+
+In emulator mode, DTMF sequences can be entered via keyboard and dev mode means that some abuse
+prevention checks won't be performed.
+
 For production deployments, you are encouraged to user supervisord or a similar service manager.
 
 You can find an example supervisord config at

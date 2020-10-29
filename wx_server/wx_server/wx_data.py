@@ -52,13 +52,17 @@ def handle_observation_ecowitt_format(station_id: str, secret: str):
     log.debug("Received request", path="/".join(request.path.split("/")[:-1]))
     log.debug("Raw request payload / form data", payload=form_data)
 
-    res = format_ecowitt_weather_data(form_data)
-    observation_pb = dict_to_protobuf(res)
+    try:
+        res = format_ecowitt_weather_data(form_data)
+        observation_pb = dict_to_protobuf(res)
+    except Exception as e:
+        log.debug("Failed to parse incoming data: %s" % (str(e)), exc_info=True)
+        return "Failed to parse incoming data", 400, {}
 
     persist_weather_observation(station_id=station_id, observation_pb=observation_pb)
     log.debug("Weather observation persisted", observation_pb=observation_pb)
 
-    return "", 200, {}
+    return "Observation saved", 200, {}
 
 
 @wx_data_app.route("/wu/<string:data>", methods=["GET"])
@@ -82,10 +86,14 @@ def handle_observation_wunderground_format(data: str):
     log.debug("Received request", path="/".join(request.path.split("/")[:-1]))
     log.debug("Raw request data", data=parsed_data)
 
-    res = format_wu_weather_data(parsed_data)
-    observation_pb = dict_to_protobuf(res)
+    try:
+        res = format_wu_weather_data(parsed_data)
+        observation_pb = dict_to_protobuf(res)
+    except Exception as e:
+        log.debug("Failed to parse incoming data: %s" % (str(e)), exc_info=True)
+        return "Failed to parse incoming data", 400, {}
 
     persist_weather_observation(station_id=station_id, observation_pb=observation_pb)
     log.debug("Weather observation persisted", observation_pb=observation_pb)
 
-    return "", 200, {}
+    return "Observation saved", 200, {}

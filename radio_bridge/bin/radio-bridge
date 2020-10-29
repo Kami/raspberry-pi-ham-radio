@@ -2,6 +2,7 @@
 
 import os
 import sys
+import argparse
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../"))
@@ -16,5 +17,24 @@ from radio_bridge.main import RadioBridgeServer
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Start Radio Bridge")
+    parser.add_argument(
+        "--dev",
+        action="store_true",
+        help="Enable development mode.",
+    )
+    parser.add_argument(
+        "--emulator",
+        action="store_true",
+        help="Enable emulator mode.",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable debug mode.",
+    )
+
+    args = parser.parse_args(sys.argv[1:])
     server = RadioBridgeServer()
+    server.initialize(dev_mode=args.dev, emulator_mode=args.emulator, debug=args.debug)
     server.start()

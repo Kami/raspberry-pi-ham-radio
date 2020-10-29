@@ -67,8 +67,6 @@ AVERAGE_AUDIO_DURATION_PER_WORD = 1
 # Minimum interval for trigger in seconds. Jobs can't run more often than this specified einterval.
 MINIMUM_TRIGGER_INTERVAL = 120
 
-DEV_MODE = get_config_option("main", "dev_mode", "bool", fallback=False)
-
 
 class CronSayItemConfig(object):
     # Job id
@@ -175,9 +173,10 @@ class CronSayPlugin(BaseNonDTMFPlugin):
             )
 
             trigger_interval_seconds = self._get_interval_in_seconds(item.trigger_instance)
+            dev_mode = get_config_option("main", "dev_mode", "bool", fallback=False)
 
             if (
-                not DEV_MODE
+                not dev_mode
                 and trigger_interval_seconds
                 and trigger_interval_seconds < MINIMUM_TRIGGER_INTERVAL
             ):
@@ -187,7 +186,7 @@ class CronSayPlugin(BaseNonDTMFPlugin):
                     % (job_id, trigger_interval_seconds, MINIMUM_TRIGGER_INTERVAL)
                 )
 
-            if not DEV_MODE and item.duration > MAXIMUM_PLAYBACK_DURATION:
+            if not dev_mode and item.duration > MAXIMUM_PLAYBACK_DURATION:
                 raise ValueError(
                     "Calculated audio duration for job %s is longer than maximum "
                     "allowed (%s seconds > %s seconds)"

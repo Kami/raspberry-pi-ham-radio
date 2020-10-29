@@ -18,6 +18,7 @@ import logging.config
 
 import structlog
 
+from radio_bridge.utils.logging import set_log_level_for_all_loggers
 
 TRACE = logging.DEBUG - 1  # 10 - 1
 AUDIT = logging.CRITICAL + 10  # 50 + 10
@@ -68,24 +69,46 @@ def add_custom_log_levels():
     logging.addLevelName(AUDIT, "AUDIT")
 
 
-def configure_logging(logging_config: str):
+def configure_logging(logging_config: str, debug: bool = False):
     add_custom_log_levels()
 
     logging.config.fileConfig(logging_config, disable_existing_loggers=False)
+    logging.basicConfig(level=logging.DEBUG)
+
+    if debug:
+        set_log_level_for_all_loggers()
+
+    processors = [
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.StackInfoRenderer(),
+        structlog.dev.set_exc_info,
+        structlog.processors.format_exc_info,
+        structlog.processors.UnicodeDecoder(),
+        structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M:%S UTC", utc=True),
+        ConsoleRendererWithCustomLogLevels(),
+    ]
+
+    if debug:
+        processors.append(filter_by_level("debug"))
 
     structlog.configure(
-        processors=[
-            structlog.stdlib.add_log_level,
-            structlog.stdlib.PositionalArgumentsFormatter(),
-            structlog.processors.StackInfoRenderer(),
-            structlog.dev.set_exc_info,
-            structlog.processors.format_exc_info,
-            structlog.processors.UnicodeDecoder(),
-            structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M:%S UTC", utc=True),
-            ConsoleRendererWithCustomLogLevels(),
-        ],
+        processors=processors,
         wrapper_class=structlog.BoundLogger,
         context_class=dict,  # or OrderedDict if the runtime's dict is unordered (e.g. Python <3.6)
         logger_factory=structlog.stdlib.LoggerFactory(),
         cache_logger_on_first_use=True,
     )
+
+
+def filter_by_level(level_name: str):
+    def filter_by_level_inner(logger, name, event_dict):
+        this_level = structlog.stdlib._NAME_TO_LEVEL[name]
+        set_level = structlog.stdlib._NAME_TO_LEVEL[level_name]
+
+        if this_level >= set_level:
+            return event_dict
+        else:
+            raise structlog.DropEvent
+
+    return filter_by_level_inner

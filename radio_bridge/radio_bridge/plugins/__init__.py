@@ -38,6 +38,9 @@ INITIALIZED = False
 
 
 def get_plugin_class_for_dtmf_sequence(sequence: str) -> Optional[Type[BasePlugin]]:
+    if not INITIALIZED:
+        _load_and_register_plugins()
+
     return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP.get(sequence, None)
 
 
@@ -45,6 +48,9 @@ def get_available_plugins() -> Dict[str, Type[BasePlugin]]:
     """
     Return a list of all the available and registered plugins.
     """
+    if not INITIALIZED:
+        _load_and_register_plugins()
+
     return REGISTERED_PLUGINS
 
 
@@ -52,6 +58,9 @@ def get_plugins_with_dtmf_sequence(include_admin: bool = True) -> Dict[str, Type
     """
     Return a list of all the available plugins which are triggered via DTMF sequence.
     """
+    if not INITIALIZED:
+        _load_and_register_plugins()
+
     if include_admin:
         return DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP
 
@@ -113,7 +122,3 @@ def _load_and_register_plugins() -> None:
         LOG.debug("Registered plugin %s" % (plugin_name))
 
     INITIALIZED = True
-
-
-if not INITIALIZED:
-    _load_and_register_plugins()

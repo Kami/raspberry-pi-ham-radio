@@ -25,6 +25,7 @@ import threading
 import atexit
 import select
 import termios
+import logging
 
 import structlog
 
@@ -33,6 +34,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from wx_server.configuration import load_and_parse_config as wx_server_load_and_parse_config
 
 from radio_bridge.configuration import get_config_option
+from radio_bridge.configuration import set_config_option
 from radio_bridge.log import configure_logging
 from radio_bridge.otp import generate_and_write_otps
 from radio_bridge.rx import RX
@@ -73,16 +75,16 @@ MAX_LOOP_ITERATIONS_EMULATOR_MODE = (MAX_LOOP_ITERATIONS_RX_MODE * 0.4) / SELECT
 
 VALID_DTMF_CHARACTERS = DTMF_TABLE_HIGH_LOW.keys()
 
-EMULATOR_MODE = get_config_option("main", "emulator_mode", "bool", fallback=False)
-
 
 class RadioBridgeServer(object):
-    def __init__(self):
+    def __init__(self, dev_mode: bool = False, emulator_mode: bool = False, debug: bool = False):
         self._started = False
 
-        self._all_plugins = get_available_plugins()
-        self._dtmf_plugins = get_plugins_with_dtmf_sequence()
-        self._sequence_to_plugin_map = self._dtmf_plugins
+        self._all_plugins = {}
+        self._dtmf_plugins = {}
+        self._sequence_to_plugin_map = {}
+
+        self._emulator_mode = False
 
         self._dtmf_decoder = DTMFDecoder()
         self._rx = RX(
@@ -100,14 +102,32 @@ class RadioBridgeServer(object):
         # loop
         self._cron_jobs_to_run = []
 
-    def start(self):
-        self._started = True
-
-        configure_logging(get_config_option("main", "logging_config"))
+    def initialize(self, dev_mode: bool = False, emulator_mode: bool = False, debug: bool = False):
+        # 1. Configure logging
+        configure_logging(get_config_option("main", "logging_config"), debug=debug)
         wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)
 
+        if dev_mode:
+            LOG.info("Development mode is active")
+            set_config_option("main", "dev_mode", "True")
+
+        if emulator_mode:
+            LOG.info("Running in emulator mode")
+            set_config_option("main", "emulator_mode", "True")
+
+        self._emulator_mode = get_config_option("main", "emulator_mode", "bool", fallback=False)
+
+        # 2. Load and register plugins
+        self._all_plugins = get_available_plugins()
+        self._dtmf_plugins = get_plugins_with_dtmf_sequence()
+        self._sequence_to_plugin_map = self._dtmf_plugins
+
+        # 3. Generate OTPs
         all_otps, _ = generate_and_write_otps()
         LOG.info("Generated and unused OTPs for admin commands", otps=all_otps)
+
+    def start(self):
+        self._started = True
 
         LOG.info("Active plugins: %s" % (self._all_plugins))
 
@@ -144,14 +164,14 @@ class RadioBridgeServer(object):
         iteration_counter = 0
 
         # How many loop iterations before we reset the read_sequence array
-        if EMULATOR_MODE:
+        if self._emulator_mode:
             # In regular RX mode, each recording is 0.4 seconds long, which means, we use the same
             # number of iterations in emulator mode
             max_loop_iterations = MAX_LOOP_ITERATIONS_EMULATOR_MODE
         else:
             max_loop_iterations = MAX_LOOP_ITERATIONS_RX_MODE
 
-        if EMULATOR_MODE:
+        if self._emulator_mode:
             old_settings = termios.tcgetattr(sys.stdin)
 
             # Make sure we reset tty back to the original settigs on exit
@@ -167,7 +187,6 @@ class RadioBridgeServer(object):
         while self._started:
             self._run_scheduled_jobs()
 
-            # TODO: Check if there are any cron jobs scheduled to run now and run them
             if iteration_counter >= max_loop_iterations:
                 # Max iterations reached, reset read_sequence and start from scratch
                 LOG.info("Max iterations reached, reseting read_sequence and iteration counter")
@@ -175,7 +194,7 @@ class RadioBridgeServer(object):
                 read_sequence = ""
                 iteration_counter = 0
 
-            if EMULATOR_MODE:
+            if self._emulator_mode:
                 if sys.stdin in select.select([sys.stdin], [], [], SELECT_TIMEOUT)[0]:
                     char = sys.stdin.read(1).upper()
                     if char not in VALID_DTMF_CHARACTERS:

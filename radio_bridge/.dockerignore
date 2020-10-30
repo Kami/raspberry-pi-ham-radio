@@ -1,0 +1,7 @@
+.tox/
+build/
+dist/
+.git/
+*.egg-info/
+*.egg
+.coverage

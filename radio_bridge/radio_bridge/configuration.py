@@ -50,6 +50,10 @@ CONFIG = None
 # Stores unix timestamp of when the config has been loaded and parsed
 CONFIG_LOAD_TIME: int = 0
 
+# Special value used so we can differentiate between fallback not being provided and fallback
+# being Nont
+FALLBACK_NOT_SET_VALUE = "|~*~notset*~|"
+
 LOG = structlog.get_logger()
 
 
@@ -166,7 +170,7 @@ def _get_config(validate: bool = True, force_load: bool = False) -> configparser
 
 
 def get_config_option(
-    section: str, option: str, option_type: str = "str", fallback: Any = None
+    section: str, option: str, option_type: str = "str", fallback: Any = FALLBACK_NOT_SET_VALUE
 ) -> Any:
     """
     Return value for the provided config section and option.
@@ -184,20 +188,23 @@ def get_config_option(
     else:
         raise ValueError("Unsupported option_type: %s" % (option_type))
 
-    section = ConfigParserConfigObj._original_get(config, section)
+    section_value = ConfigParserConfigObj._original_get(config, section)
 
-    if section is None:
-        return fallback
+    if section_value is None:
+        if fallback != FALLBACK_NOT_SET_VALUE:
+            return fallback
+
+        raise ValueError("Section %s is empty or missing" % (section))
 
     try:
-        value = getattr(section, get_method)(option)
+        value = getattr(section_value, get_method)(option)
     except KeyError as e:
-        if fallback is not None:
+        if fallback != FALLBACK_NOT_SET_VALUE:
             return fallback
 
         raise e
 
-    if value is None:
+    if value is None and fallback != FALLBACK_NOT_SET_VALUE:
         return fallback
 
     return value
@@ -218,7 +225,7 @@ def get_plugin_config(plugin_id: str) -> dict:
 
 
 def get_plugin_config_option(
-    plugin_id: str, option: str, option_type: str = "str", fallback: Any = None
+    plugin_id: str, option: str, option_type: str = "str", fallback: Any = FALLBACK_NOT_SET_VALUE
 ) -> Any:
     """
     Return configuration option for the provided plugin and option name.
@@ -226,7 +233,7 @@ def get_plugin_config_option(
     section = "plugin:%s" % (plugin_id)
     result = get_config_option(section, option, option_type=option_type, fallback=fallback)
 
-    if result is None and fallback is not None:
+    if result is None and fallback != FALLBACK_NOT_SET_VALUE:
         return fallback
 
     return result

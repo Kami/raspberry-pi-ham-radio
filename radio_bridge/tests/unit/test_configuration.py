@@ -106,6 +106,12 @@ class ConfigurationTestCase(unittest.TestCase):
         value = get_config_option("invalid_section", "callsign", "str", fallback="default1")
         self.assertEqual(value, "default1")
 
+        # fallback not provided
+        expected_msg = "Section invalid_section is empty or missing"
+        self.assertRaisesRegex(
+            ValueError, expected_msg, get_config_option, "invalid_section", "callsign", "str"
+        )
+
     def test_get_plugin_config_success(self):
         os.environ["RADIO_BRIDGE_CONFIG_PATH"] = CONFIG_PATH_1
 
@@ -128,6 +134,17 @@ class ConfigurationTestCase(unittest.TestCase):
             "current_time_invalid", "invalid", "str", fallback="fallback2"
         )
         self.assertEqual(value, "fallback2")
+
+        # fallback not provided
+        expected_msg = "Section plugin:current_time_invalid is empty or missing"
+        self.assertRaisesRegex(
+            ValueError,
+            expected_msg,
+            get_plugin_config_option,
+            "current_time_invalid",
+            "invalid",
+            "str",
+        )
 
     def test_set_config_option(self):
         os.environ["RADIO_BRIDGE_CONFIG_PATH"] = self._temp_path_1

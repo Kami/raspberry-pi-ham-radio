@@ -7,6 +7,7 @@ build/
 virtualenv/
 .eggs/
 coverage.xml
+benchmark_histograms/
 wx_server/data/
 wx_server/LICENSE.txt
 wx_server/NOTICE.md

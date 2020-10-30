@@ -109,6 +109,10 @@ jobs:
         sed -i 's#ham-radio/radio_bridge#ham_radio#g' coverage.xml
         sed -i 's#filename="#filename="radio_bridge/#g' coverage.xml
         codecov --root ../ --required -F radio_bridge -f coverage.xml
+    - name: Run Micro Benchmarks
+      working-directory: radio_bridge/
+      run: |
+        tox -emicro-benchmarks
     - name: Run Test Dist Creation
       working-directory: radio_bridge/
       run: |

@@ -1,5 +1,6 @@
 pytest
 pytest-cov
+pytest-benchmark
 requests-mock
 mock
 coverage==5.3

@@ -200,4 +200,4 @@ class DTMFDecoder(object):
         :param return_on_first_char: True if we should return on a first matching character instead
                                      of processing the whole sequence.
         """
-        return self._decoder.decode()
+        return self._decoder.decode(return_on_first_char=return_on_first_char)

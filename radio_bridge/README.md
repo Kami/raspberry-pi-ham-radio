@@ -192,6 +192,37 @@ treated as such - it has many possible attack vectors and weaknesses (brute forc
 
 That's also the reason why only non-destructive functionality is exposed via admin commands.
 
+## Note on Power Consumption
+
+The software was primarily tested on Raspberry Pi 4 model b. To measure power consumption, I used
+of the shelf power meter.
+
+Power consumption in idle modle (without this software running) was ``2.5 W`` and power
+consumption with this software running in the idle "DTMF decoding" loop was between
+``3.0`` - ``3.5`` W.
+
+Currently the most CPU intensive part is DTMF decoding algorithm which pretty much runs all the
+time during the life time of this program (this is needed to be able to detect and decode any
+transmitted DTMF sequences).
+
+In the future, there is a plan to implement a low power / sleep mode. In that mode, user will be able
+to either completely turn DTMF decoding off or enable special "sleep mode" where the software will
+only for DTMF codes on a specific interval (e.g. every 10 past the whole hour or every 10 minutes
+for 1 minute) and if any DTMF code will be detected during that time interval, software will go
+fully running / awake mode for a specific duration (configurable via config).
+
+Primary situation where low power / sleep mode comes handy is when deploying this software on a
+RPi which is powered by external battery (e.g. power bank) and connected to battery powered hand held
+radio.
+
+Such deployment may come handy in various emergency situations.
+
+Based on initial testing, estimated RPi power consumption in in lower power / sleep mode will be
+around ``2.5`` - ``3.0`` W.
+
+As an alternative, you should also be able to run this software on RPi which has lower power
+consumption out of the box, but this hasn't been tested yet.
+
 ## Note on VOX Transmission Mode
 
 When using VOX mode and VOX functionality of your radio it's important you set audio out levels on
@@ -285,7 +316,19 @@ gtts-cli -l en-us --slow --nocheck "SIERRA FIVE TWO TANGO ECHO SIERRA TANGO" > /
 Main
 
 - [ ] Multi language support
+- [ ] Permanent / scheduled "low power" / "sleep mode" mode
+  - [ ] Ability to turn off DTMF decoding and DTMF plugins in the config - in that scenario, only
+        cron plugin will run. This may come handy in various scenarios where you only want to run
+        cron plugin which periodically transmits an announcement or similar
+  - [ ] Ability to on "sleep mode" which will cause the software to only listen for commands during
+        specific time frames (e.g. for 1 minute past 10 minute mark) and if any command is detected
+        during that window, software will go out of sleep mode for the pre-defined amount of time.
 
 DTMF Decoding
 
 - [ ] Implement Goertzel algorithm based DTMF decoding
+
+CI/CD
+
+- [ ] Automatic deployment of new version of this software to RPI devices which are connected to
+      the internet on merge / push to master.

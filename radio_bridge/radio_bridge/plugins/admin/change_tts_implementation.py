@@ -24,6 +24,7 @@ class ChangeTTSImplementationAdminPlugin(BaseAdminDTMFWithDataPlugin):
     ID = "change_tts_mode"
     NAME = "Change TTS mode"
     DESCRIPTION = "Change TTS mode to online / offline"
+    REQUIRES_INTERNET_CONNECTION = False
 
     # 92???1 - To change it to online one (gtts)
     # 92???2 - To change it to offline one (espeak)

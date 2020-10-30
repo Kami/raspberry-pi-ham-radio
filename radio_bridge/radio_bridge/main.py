@@ -86,6 +86,8 @@ class RadioBridgeServer(object):
         self._sequence_to_plugin_map: Dict[str, BaseDTMFPlugin] = {}
 
         self._emulator_mode = False
+        self._dev_mode = False
+        self._offline_mode = False
 
         self._dtmf_decoder = DTMFDecoder()
         self._rx = RX(
@@ -103,7 +105,13 @@ class RadioBridgeServer(object):
         # loop
         self._cron_jobs_to_run: List[str] = []
 
-    def initialize(self, dev_mode: bool = False, emulator_mode: bool = False, debug: bool = False):
+    def initialize(
+        self,
+        dev_mode: bool = False,
+        emulator_mode: bool = False,
+        offline_mode: bool = False,
+        debug: bool = False,
+    ):
         # 1. Configure logging
         configure_logging(get_config_option("main", "logging_config"), debug=debug)
         wx_server_load_and_parse_config(WX_SERVER_CONFIG_PATH)
@@ -116,12 +124,36 @@ class RadioBridgeServer(object):
             LOG.info("Running in emulator mode")
             set_config_option("main", "emulator_mode", "True")
 
+        if offline_mode:
+            LOG.info(
+                "Running in offline mode. Only plugins which don't require internet "
+                'connection will be available and using "espeak" TTS engine.'
+            )
+            set_config_option("main", "offline_mode", "True")
+            set_config_option("tts", "implementation", "espeak")
+
         self._emulator_mode = get_config_option("main", "emulator_mode", "bool", fallback=False)
+        self._dev_mode = get_config_option("main", "dev_mode", "bool", fallback=False)
+        self._offline_mode = get_config_option("main", "offline_mode", "bool", fallback=False)
 
         # 2. Load and register plugins
         self._all_plugins = get_available_plugins()
         self._dtmf_plugins = get_plugins_with_dtmf_sequence()
         self._sequence_to_plugin_map = self._dtmf_plugins
+
+        # Filter out plugins in offline mode
+        # TODO: Move that functionality to get_ methods
+        if self._offline_mode:
+            self._all_plugins = {
+                name: instance
+                for (name, instance) in self._all_plugins.items()
+                if instance.REQUIRES_INTERNET_CONNECTION is False
+            }
+            self._dtmf_plugins = {
+                name: instance
+                for (name, instance) in self._dtmf_plugins.items()
+                if instance.REQUIRES_INTERNET_CONNECTION is False
+            }
 
         # 3. Generate OTPs
         all_otps, _ = generate_and_write_otps()
@@ -130,17 +162,41 @@ class RadioBridgeServer(object):
     def start(self):
         self._started = True
 
-        LOG.info("Active plugins: %s" % (self._all_plugins))
+        LOG.info(
+            "Radio bridge started",
+            dev_mode=self._dev_mode,
+            emulator_mode=self._emulator_mode,
+            offline_mode=self._offline_mode,
+            active_plugins=", ".join(self._all_plugins.keys()),
+        )
 
         # Start the scheduler
         self._scheduler.start()
 
         # Add any configured jobs to the scheduler
+        self._configure_cron_plugin_jobs()
+
+        LOG.info("Radio Bridge Server Started")
+
+        # Run main read on input loop and invoke corresponding plugin callbacks
+        self._main_loop()
+
+    def _configure_cron_plugin_jobs(self):
+        """
+        Method which adds jobs from CronSay plugin to the internal scheduler.
+        """
+        if "CronSayPlugin" not in self._all_plugins:
+            LOG.info("CronSay plugin is disabled")
+            return
+
         cron_plugin = self._all_plugins["CronSayPlugin"]
         jobs = cron_plugin.get_scheduler_jobs()
 
         def add_job_to_jobs_to_run(job_id):
             def add_job_to_jobs_to_run_inner():
+                # Special scheduler run function which adds job id for the job to run to an
+                # internal self._cron_jobs_to_run list which is then check on every main loop
+                # iteration
                 self._cron_jobs_to_run_lock.acquire()
 
                 try:
@@ -151,12 +207,12 @@ class RadioBridgeServer(object):
             return add_job_to_jobs_to_run_inner
 
         for job_id, job_trigger in jobs:
-            self._scheduler.add_job(add_job_to_jobs_to_run(job_id), trigger=job_trigger, id=job_id)
-
-        LOG.info("Radio Bridge Server Started")
-
-        # Run main read on input loop and invoke corresponding plugin callbacks
-        self._main_loop()
+            self._scheduler.add_job(
+                add_job_to_jobs_to_run(job_id),
+                trigger=job_trigger,
+                id=job_id,
+                name="run cron say plugin %s job" % (job_id),
+            )
 
     def _main_loop(self) -> None:
         # Read sequence and invoke any matching plugins
@@ -264,11 +320,16 @@ class RadioBridgeServer(object):
         If they are, it runs them sequentially in order and removes them from jobs to run at the
         end.
         """
+        if "CronSayPlugin" not in self._all_plugins:
+            # Plugin is disabled
+            return
+
         jobs_to_run = self._cron_jobs_to_run[:]
 
         LOG.trace("Jobs scheduled to run: %s" % (jobs_to_run))
 
         cron_plugin = self._all_plugins["CronSayPlugin"]
+
         # TODO: If there is a "pile up", auto drop old jobs to make sure we don't end up stick in
         # infinite job execution loop
 

@@ -152,7 +152,6 @@ class CronSayPlugin(BaseNonDTMFPlugin):
         result = {}
         for job_id, job_specs in config.items():
             split = job_specs.split(JOB_SPEC_DELIMITER)
-            print(job_specs)
 
             if len(split) != 4:
                 raise ValueError('Plugin job specification "%s" is invalid' % (job_specs))

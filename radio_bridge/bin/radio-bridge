@@ -29,6 +29,12 @@ if __name__ == "__main__":
         help="Enable emulator mode.",
     )
     parser.add_argument(
+        "--offline",
+        action="store_true",
+        help=("Enable offline mode where only plugins which don't require internet connection will "
+              "be used. This also implies \"espeak\" TTS engine."),
+    )
+    parser.add_argument(
         "--debug",
         action="store_true",
         help="Enable debug mode.",
@@ -36,5 +42,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args(sys.argv[1:])
     server = RadioBridgeServer()
-    server.initialize(dev_mode=args.dev, emulator_mode=args.emulator, debug=args.debug)
+    server.initialize(dev_mode=args.dev, emulator_mode=args.emulator, offline_mode=args.offline, debug=args.debug)
     server.start()

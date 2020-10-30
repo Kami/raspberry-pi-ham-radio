@@ -33,6 +33,7 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
     ID = "record_audio"
     NAME = "Record Audio"
     DESCRIPTION = "Record audio and write it to a file on disk."
+    REQUIRES_INTERNET_CONNECTION = False
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 

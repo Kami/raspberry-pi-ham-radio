@@ -26,6 +26,8 @@ class HelpPluginForTest(HelpPlugin, MockBasePlugin):
 
 
 class HelpPluginTestCase(BasePluginTestCase):
+    maxDiff = None
+
     def test_run_success(self):
         plugin = HelpPluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)
@@ -38,9 +40,10 @@ Available commands:
 1. Sequence * D * . Clear currently accumulated DTMF sequence.
 2. Sequence 1 2 . List available commands.
 3. Sequence 2 1 . Current date and time.
-4. Sequence 3 4 . Current weather information for local weather station.
-5. Sequence 3 5 ? ? . Current weather for location
-6. Sequence 3 8 ? ? ? . Display information for a specific repeater.
+4. Sequence 2 3 . Traffic events and incidents.
+5. Sequence 3 4 . Current weather information for local weather station.
+6. Sequence 3 5 ? ? . Current weather for location.
+7. Sequence 3 8 ? ? ? . Display information for a specific repeater.
 """.strip()
 
         self.assertEqual(len(plugin.mock_said_text), 1)

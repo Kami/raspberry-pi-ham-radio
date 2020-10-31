@@ -38,7 +38,7 @@ URL_RESPONSE_CACHE = ExpiringDict(max_len=20, max_age_seconds=(5 * 60))
 class TrafficEventsPlugin(BaseDTMFPlugin):
     ID = "traffic_events"
     NAME = "Traffic Events"
-    DESCRIPTION = "Traffic events and incidents"
+    DESCRIPTION = "Traffic events and incidents."
     REQUIRES_INTERNET_CONNECTION = True
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="23")
 

@@ -37,7 +37,7 @@ Special thanks to the authors and contributors of those other projects.
   - Ability to set maximum transmission time. If plugin will run longer for a defined threshold,
     it will be automatically killed and TX will be disabled.
   - Minimum delay between DTMF commands invocations to prevent spam and abuse.
-- Support for multiple text to speech configuration (gtts - internet access needed, espeak ng - no internet
+- Support for multiple text to speech engines (gtts - internet access needed, espeak ng - no internet
   access needed)
 - Extensive caching for fast performance - synthesized audio files are cached so they can be
   re-used on subsequent plugin invocation if the text stays the same. This way we can avoid TTS
@@ -126,6 +126,7 @@ for different pre-defined locations.
 | Local Weather | ``34`` | No | Display weather information for a local weather station connected to this Raspberry Pi | [plugin_local_weather.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_local_weather.mp3) |
 | Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si | [plugin_location_weather_ljubljana.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_location_weather_ljubljana.mp3) |
 | Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si | [plugin_repeater_info.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_repeater_info.mp3) |
+| Traffic Information | ``23`` | Yes | Display recent traffic information and events (incidents, road works) |
 | Cron Say | none | No | Plugin which allows various announcements and information defined in the config to be played at defined intervals. | none |
 | Record Audio | none | None | Plugin which records audio from the audio in and stores it in a file. This can be useful when troubleshooting things, etc. | none |
 

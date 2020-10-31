@@ -1,0 +1,1446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns:kazipot="http://www.promet.si" xmlns="http://www.w3.org/2005/Atom">
+  <title>Traffic conditions, 10/31/2020 4:59:12 PM local time</title>
+  <subtitle>Traffic events</subtitle>
+  <updated>2020-10-31T15:12:30.077Z</updated>
+  <link href="http://www.promet.si" />
+  <author>
+    <name>DARS d.d.</name>
+    <email>info@promet.si</email>
+  </author>
+  <entry>
+    <title>R2-452, Lesce - Črnivec: Accident</title>
+    <id>476218</id>
+    <updated>2020-10-31T14:07:55.447Z</updated>
+    <summary>R2-452, Radovljica - Lesce, traffic accident, road closed.</summary>
+    <category term="Accident" />
+  </entry>
+  <entry>
+    <title>A2 Obrežje - Brežice: Congestion</title>
+    <id>476217</id>
+    <updated>2020-10-31T15:12:30.077Z</updated>
+    <summary>A2, border crossing Obrežje, Bregana, delays info: cars 1 h at entrance.</summary>
+    <category term="Congestion" />
+  </entry>
+  <entry>
+    <title>A5 , Maribor - Lendava: Roadworks</title>
+    <id>476206</id>
+    <updated>2020-10-31T06:45:51.987Z</updated>
+    <summary>A5, motorway, near Maribor in the direction of Hungary, roadworks, traffic is diverted through rest area.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A2-E70, Ljubljana - Obrežje: Congestion</title>
+    <id>476171</id>
+    <updated>2020-10-31T13:33:15.343Z</updated>
+    <summary>A2-E70, motorway, near Krško in the direction of Croatia, congestion, length: 500 m.</summary>
+    <category term="Congestion" />
+  </entry>
+  <entry>
+    <title>A2 Brežice - Obrežje: Congestion</title>
+    <id>476154</id>
+    <updated>2020-10-31T15:12:14.08Z</updated>
+    <summary>A2, border crossing Obrežje, Bregana, delays info: cars 1 h at exit.</summary>
+    <category term="Congestion" />
+  </entry>
+  <entry>
+    <title>RT-924, Podlom - Kranjski Rak - Luče: Roadworks</title>
+    <id>476141</id>
+    <updated>2020-10-30T07:53:36.42Z</updated>
+    <summary>RT-924, Podlom - Kranjski Rak - Luče, roadworks, single alternate lane traffic, until 6. 11. 2020, daily between 7 am and 4 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-413, Zbilje - Vodice: Roadworks</title>
+    <id>476140</id>
+    <updated>2020-10-30T07:48:37.403Z</updated>
+    <summary>R2-413, Zbilje - Vodice, at Zapoge, roadworks, single alternate lane traffic, until 6. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-424, Dežno - Črnolica: Roadworks</title>
+    <id>476131</id>
+    <updated>2020-10-30T06:58:49.473Z</updated>
+    <summary>R2-424, Dežno - Črnolica, roadworks, single alternate lane traffic, until 15. 9. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-752, Arclin - Ljubečna: Roadworks</title>
+    <id>476126</id>
+    <updated>2020-10-31T12:52:12.607Z</updated>
+    <summary>R3-752, Arclin - Ljubečna, in Ljubečna, roadworks, road closed, until 8. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-699, Dravograd - Libeliče: Roadworks</title>
+    <id>476065</id>
+    <updated>2020-10-29T08:26:15.803Z</updated>
+    <summary>R3-699, Dravograd - Libeliče, at Tribej, roadworks, single alternate lane traffic, until 15. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-213, Pudob - Babno Polje: Roadworks</title>
+    <id>476060</id>
+    <updated>2020-10-30T07:03:18.713Z</updated>
+    <summary>R1-213, Pudob - Babno polje, at Podgora pri Ložu, roadworks, single alternate lane traffic, daily between 7 am and 3 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-408, Žiri - Trebija: Roadworks</title>
+    <id>476027</id>
+    <updated>2020-10-30T07:11:28.03Z</updated>
+    <summary>R2-408, Žiri - Trebija, at Žiri, roadworks, single alternate lane traffic, until 2. 11. 2020, daily between 7 am and 4 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-425, Pesje - Velenje: Roadworks</title>
+    <id>476025</id>
+    <updated>2020-10-29T05:25:23.493Z</updated>
+    <summary>R2-425, Pesje - Velenje, in Velenje, roadworks, single alternate lane traffic, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-414, Kamnik - Ločica: Roadworks</title>
+    <id>475950</id>
+    <updated>2020-10-28T07:00:19.833Z</updated>
+    <summary>R2-414, Kamnik - Ločica, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-215, Trebnje - Mokronog: Roadworks</title>
+    <id>475941</id>
+    <updated>2020-10-28T06:32:21.18Z</updated>
+    <summary>R1-215, Trebnje - Mokronog, in Mirna, roadworks, single alternate lane traffic, until 30. 10. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-702, Trbonje - Vuhred: Roadworks</title>
+    <id>475882</id>
+    <updated>2020-10-27T09:40:56.843Z</updated>
+    <summary>R3-702, Trbonje - Vuhred, in Vuzenica, roadworks, single alternate lane traffic, until 5. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-107, Podplat - Rogatec: Roadworks</title>
+    <id>475868</id>
+    <updated>2020-10-27T07:44:16.457Z</updated>
+    <summary>G2-107, Rogaška Slatina - Rogatec, at Tuncovec, roadworks, single alternate lane traffic, until 6. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-433, Senarska - Lenart: Roadworks</title>
+    <id>475746</id>
+    <updated>2020-10-26T09:15:05.94Z</updated>
+    <summary>R1-229, Senarska - Lenart, in Lenart v Slovenskih goricah, on Ptujska cesta, roadworks, single alternate lane traffic, until 22. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-659, Kot - Sodevci: Roadworks</title>
+    <id>475731</id>
+    <updated>2020-10-26T08:04:32.423Z</updated>
+    <summary>R3-659, Kot - Sodevci, at Sodevci, roadworks, road closed, until 18. 2. 2021, complete closure of the bridge and border crossing until 2. 11. 2020. Detour: Stari trg ob Kolpi - Dolenji Radenci - Sodevci.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LC-295220, Ratež - Gumberk - Otočec: Roadworks</title>
+    <id>475711</id>
+    <updated>2020-10-26T06:52:02.093Z</updated>
+    <summary>LC Ratež - Gumberk - Otočec, roadworks, road closed, until 4. 11. 2020. Detour: Ratež - Žabja vas - Novo mesto - Mačkovec - Otočec.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-428, S. Logar - Pavličevo sedlo: Roadworks</title>
+    <id>465428</id>
+    <updated>2020-10-22T06:51:50.43Z</updated>
+    <summary>R2-428, Sestre Logar - Pavličevo sedlo, Pavličevo sedlo, roadworks, single alternate lane traffic, until 5. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-425, Poljana - Šentvid: Roadworks</title>
+    <id>465336</id>
+    <updated>2020-10-21T10:20:25.033Z</updated>
+    <summary>R2-425, Črna na Koroškem - Šoštanj, at Črna na Koroškem, roadworks, single alternate lane traffic, until 18. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-230, Križevci - Ljutomer: Roadworks</title>
+    <id>465312</id>
+    <updated>2020-10-22T07:30:19.093Z</updated>
+    <summary>R1-230, Križevci - Ljutomer, at Ljutomer, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-229, Rogoznica - Senarska: Roadworks</title>
+    <id>465311</id>
+    <updated>2020-10-21T06:36:07.947Z</updated>
+    <summary>R1-229, Ptuj - Senarska, at Trnovski Vrh, roadworks, single alternate lane traffic, until 6. 11. 2020, daily between 7:30 am and 4 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-435, Maribor - Ruše: Roadworks</title>
+    <id>465305</id>
+    <updated>2020-10-26T06:56:23.503Z</updated>
+    <summary>R2-435, Maribor - Ruše, at Ruše, roadworks, single alternate lane traffic, until 25. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-225, Radmirje - Mozirje: Roadworks</title>
+    <id>465160</id>
+    <updated>2020-10-20T05:13:13.913Z</updated>
+    <summary>R1-225, Radmirje - Mozirje, in Spodnja Rečica, roadworks, single alternate lane traffic, until 30. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Maribor - Lendava: Roadworks</title>
+    <id>465098</id>
+    <updated>2020-10-21T15:56:21.26Z</updated>
+    <summary>A5, motorway, near Murska Sobota - near Murska Sobota in the direction of Hungary, roadworks, carriageway closed, traffic diverted to the other side where it flows in two directions.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Lendava - Maribor: Roadworks</title>
+    <id>465083</id>
+    <updated>2020-10-21T12:54:48.9Z</updated>
+    <summary>A5, motorway, near Murska Sobota - near Murska Sobota in the direction of Maribor, roadworks, one lane closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-608, Solkan - Lokve: Roadworks</title>
+    <id>464875</id>
+    <updated>2020-10-16T06:05:10.39Z</updated>
+    <summary>R3-608, Solkan - Lokve, in Trnovo, roadworks, single alternate lane traffic, until 16. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-608, Čepovan - Dolenja Trebuša: HGV</title>
+    <id>464793</id>
+    <updated>2020-10-19T05:24:39.113Z</updated>
+    <summary>R3-608, Čepovan - Dolenja Trebuša, road closed for heavy vehicles over 3,5 tones.</summary>
+    <category term="HGV" />
+  </entry>
+  <entry>
+    <title>R3-608, Čepovan - Dolenja Trebuša: Obstructions</title>
+    <id>464792</id>
+    <updated>2020-10-19T05:24:27.17Z</updated>
+    <summary>R3-608, Čepovan - Dolenja Trebuša, single alternate lane traffic.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-686, Žiče - Dramlje: Roadworks</title>
+    <id>464765</id>
+    <updated>2020-10-29T13:02:43.66Z</updated>
+    <summary>R3-686, Žiče - Dramlje, at Stare Slemene, roadworks, road closed, until 17. 12. 2020. Detour: Žiče - Loče - Ponikva - Dole - Dramlje - Straža na Gori.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LZ-212600, C. dveh cesarjev: Roadworks</title>
+    <id>464642</id>
+    <updated>2020-10-14T06:34:26.383Z</updated>
+    <summary>Ljubljana, C. dveh cesarjev, roadworks, road closed, until 30. 8. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-108, Litija - Zagorje: Roadworks</title>
+    <id>464526</id>
+    <updated>2020-10-13T07:41:24.91Z</updated>
+    <summary>G2-108, Litija - Zagorje, at Šklendrovec, roadworks, single alternate lane traffic, until 6. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>RT-926, Solčava - Podolševa - Sleme: Roadworks</title>
+    <id>464521</id>
+    <updated>2020-10-13T07:13:35.923Z</updated>
+    <summary>RT-926, Solčava - Podolševa - Sleme, roadworks, single alternate lane traffic, until 14. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-647, Mlačevo - Rašica: Roadworks</title>
+    <id>464520</id>
+    <updated>2020-10-13T07:02:08.007Z</updated>
+    <summary>R3-647, Grosuplje - Rašica, at Čušperk, roadworks, single alternate lane traffic, until 21. 1. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-219, Poljčane - Podplat: Roadworks</title>
+    <id>464408</id>
+    <updated>2020-10-12T08:44:22.34Z</updated>
+    <summary>R1-219, Poljčane - Podplat, Zgornji Gabernik, roadworks, single alternate lane traffic, until 6. 3. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LG-211010, Dunajska cesta: Roadworks</title>
+    <id>464402</id>
+    <updated>2020-10-12T08:14:09.52Z</updated>
+    <summary>Ljubljana, Dunajska cesta, from H3 (Bežigrad) towards city centre, roadworks, traffic obstructed, until 20. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-745, Dolge Njive - Spodnji Duplek: Roadworks</title>
+    <id>464382</id>
+    <updated>2020-10-12T06:48:41.633Z</updated>
+    <summary>R3-745, Dolge Njive - Spodnji Duplek, in Zgornja Korena, roadworks, single alternate lane traffic, until 18. 3. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-220, Krško - Brežice: Roadworks</title>
+    <id>464372</id>
+    <updated>2020-10-12T06:37:23.14Z</updated>
+    <summary>R1-220, Krško - Brežice, in Brežice, Cesta svobode, roadworks, single alternate lane traffic, until 25. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-643, Podpeč - Rakitna: Roadworks</title>
+    <id>464370</id>
+    <updated>2020-10-12T06:30:40.273Z</updated>
+    <summary>R3-643, Podpeč - Rakitna, in Preserje, roadworks, road closed, until 13. 11. 2020. Detour: Preserje - Kamnik pod Krimom - Lazi.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-112, Poljana - Ravne: Roadworks</title>
+    <id>464353</id>
+    <updated>2020-10-30T08:10:04.52Z</updated>
+    <summary>G2-112, Ravne na Koroškem - Prevalje, Ravne, roadworks, single alternate lane traffic.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H4 , Nova Gorica - Razdrto: Roadworks</title>
+    <id>464077</id>
+    <updated>2020-10-12T09:35:30.23Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba in the direction of Ljubljana, roadworks, road closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H4 , Nova Gorica - Razdrto: Roadworks</title>
+    <id>464076</id>
+    <updated>2020-10-12T09:33:56.05Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba in the direction of Razdrto, roadworks, road closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G1-1, Dravograd - Radlje: Roadworks</title>
+    <id>463933</id>
+    <updated>2020-10-09T05:12:35.89Z</updated>
+    <summary>G1-1, Dravograd - Maribor, between Muta and Zgornja Vižinga, roadworks, single alternate lane traffic, until 22. 12. 2020, daily between 7 am and 5 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-726, Stročja vas - Pavlovci: Roadworks</title>
+    <id>463850</id>
+    <updated>2020-10-08T07:06:04.563Z</updated>
+    <summary>R3-726, Stročja vas - Pavlovci, at Vuzmetinci, roadworks, single alternate lane traffic, until 31. 8. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-726, Stročja vas - Pavlovci: Roadworks</title>
+    <id>463848</id>
+    <updated>2020-10-08T06:59:23.78Z</updated>
+    <summary>R3-726, Stročja vas - Pavlovci, at Hermanci, roadworks, road closed, until 18. 12. 2020. Detour: Pavlovci - Libanja - Ivanjkovci - Žerovinci - Radomerje - Ljutomer - Stročja vas.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-104, Trzin - Ljubljana (Črnuče): Roadworks</title>
+    <id>463856</id>
+    <updated>2020-10-30T04:37:30.443Z</updated>
+    <summary>G2-104, Trzin - Ljubljana (Črnuče), roadworks, one lane closed, until 7. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-449, Pesnica - Lenart: Roadworks</title>
+    <id>463592</id>
+    <updated>2020-10-06T07:00:53.363Z</updated>
+    <summary>G1-3, Maribor - Lenart, at Dolnja Počehova, roadworks, traffic obstructed, until 1. 3. 2023.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-447, Želodnik - Domžale: Roadworks</title>
+    <id>463586</id>
+    <updated>2020-10-06T06:45:33.873Z</updated>
+    <summary>R2-447, Želodnik - Domžale, at Domžale, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-425, Poljana - Šentvid: Roadworks</title>
+    <id>463572</id>
+    <updated>2020-10-06T05:59:00.933Z</updated>
+    <summary>R2-425, Mežica - Črna na Koroškem, at Žerjav, roadworks, single alternate lane traffic, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-425, Poljana - Šentvid: Roadworks</title>
+    <id>463567</id>
+    <updated>2020-10-06T05:51:32.527Z</updated>
+    <summary>R2-425, Mežica - Črna na Koroškem, at Polena, at Mežica, roadworks, single alternate lane traffic, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Maribor - Lendava: Roadworks</title>
+    <id>463520</id>
+    <updated>2020-10-28T07:08:35.963Z</updated>
+    <summary>A5, motorway, near Murska Sobota in the direction of Hungary, roadworks, road closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-402, Dobrovo - Neblo: Roadworks</title>
+    <id>463110</id>
+    <updated>2020-10-01T08:11:10.767Z</updated>
+    <summary>R2-402, Dobrovo - Neblo, at Dobrovo, roadworks, single alternate lane traffic, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-745, Dolge Njive - Spodnji Duplek: Roadworks</title>
+    <id>463098</id>
+    <updated>2020-10-01T06:38:57.467Z</updated>
+    <summary>R3-745, Dolge Njive - Spodnji Duplek, in Spodnji Duplek, roadworks, single alternate lane traffic, until 6. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>RT-906, Mrzli Stud. - Rudno Polje: Roadworks</title>
+    <id>462979</id>
+    <updated>2020-10-30T07:22:49.94Z</updated>
+    <summary>RT-906, Mrzli Studenec - Rudno polje, in Srednja vas in Bohinj, roadworks, single alternate lane traffic.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-701, Ruta - Pesek: Roadworks</title>
+    <id>462848</id>
+    <updated>2020-10-23T16:30:38.297Z</updated>
+    <summary>R3-701, Ruta - Lovrenc na Pohorju, roadworks, single alternate lane traffic, until 15. 6. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-103, Ušnik - Plave: Roadworks</title>
+    <id>462845</id>
+    <updated>2020-09-29T06:43:11.353Z</updated>
+    <summary>G2-103, Ušnik - Plave, in Doblar, roadworks, single alternate lane traffic, until 15. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>RT-902, Strmec - Mangart: Weather</title>
+    <id>462538</id>
+    <updated>2020-10-15T06:43:32.95Z</updated>
+    <summary>RT-902, Strmec - Mangart, snow, road closed.</summary>
+    <category term="Weather" />
+  </entry>
+  <entry>
+    <title>R3-651, Novo mesto (Bučna vas - Krka): Roadworks</title>
+    <id>462124</id>
+    <updated>2020-09-23T06:02:49.187Z</updated>
+    <summary>R3-651, Novo mesto, Bučna vas - Krka, Andrijaničeva cesta, roadworks, traffic obstructed, until 20. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H4 , Razdrto - Nova Gorica: Roadworks</title>
+    <id>461718</id>
+    <updated>2020-10-12T09:37:58.123Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba in the direction of Italy, roadworks, one lane closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H4 , Nova Gorica - Razdrto: Roadworks</title>
+    <id>461713</id>
+    <updated>2020-10-12T09:36:37.253Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba - between Vipava and Vrtojba in the direction of Razdrto, roadworks, carriageway closed, traffic diverted to the other side where it flows in two directions.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-403, Podbrdo - Petrovo Brdo: Roadworks</title>
+    <id>461338</id>
+    <updated>2020-09-17T06:29:00.71Z</updated>
+    <summary>R2-403, Podbrdo - Petrovo Brdo, at Podbrdo, roadworks, single alternate lane traffic.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-106, Livold - Fara: Roadworks</title>
+    <id>461330</id>
+    <updated>2020-10-28T18:43:44.377Z</updated>
+    <summary>G2-106, Kočevje - Petrina, Livold - Štalcerji, roadworks, road closed, until 15. 11. 2020. Detour: Štalcerji - Kočevska Reka - Rakitnica - Kočevje - Livold.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LC--159714, Kočno ob Ložnici: Obstructions</title>
+    <id>461328</id>
+    <updated>2020-09-17T06:12:48.723Z</updated>
+    <summary>Kočno ob Ložnici, speed and weight limitations due to damaged road.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-425, Pesje - Velenje: Roadworks</title>
+    <id>461301</id>
+    <updated>2020-09-17T05:15:44.78Z</updated>
+    <summary>R2-425, Pesje - Velenje, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-419, Soteska - Novo mesto: Roadworks</title>
+    <id>460868</id>
+    <updated>2020-10-15T10:22:22.79Z</updated>
+    <summary>R2-419, Soteska - Novo mesto, in Novo mesto, on Topliška cesta, roadworks, traffic obstructed, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-102, Logatec: Roadworks</title>
+    <id>460860</id>
+    <updated>2020-09-14T06:16:39.627Z</updated>
+    <summary>G2-102, highway connection Logatec - Logatec, at Logatec, single alternate lane traffic, road works, until 25. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-630, Prem - Obrov: Roadworks</title>
+    <id>460070</id>
+    <updated>2020-10-22T05:47:01.18Z</updated>
+    <summary>R3-630, Prem - Obrov, in Prem, roadworks, road closed, until 7. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A2-E61, Karavanke - Ljubljana: Roadworks</title>
+    <id>459879</id>
+    <updated>2020-10-31T09:15:24.867Z</updated>
+    <summary>A2-E61, motorway, between Kranj and Jesenice - near Kranj in the direction of Ljubljana, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H5-E751, Škofije - Koper: Obstructions</title>
+    <id>459557</id>
+    <updated>2020-09-03T11:57:32.04Z</updated>
+    <summary>H5-E751, expressway, near Koper in the direction of Koper, nadzor prometa, traffic obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-454, Hajdina (Mariborska cesta - Gomile): Roadworks</title>
+    <id>459522</id>
+    <updated>2020-09-03T06:59:41.553Z</updated>
+    <summary>R2-454, Ptuj - Sl. Bistrica, in Zgornja Hajdina, roadworks, single alternate lane traffic, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-443, Lendava - Pince: Obstructions</title>
+    <id>459458</id>
+    <updated>2020-09-02T17:59:18.233Z</updated>
+    <summary>R2-443, Pince - border Hungary, border crossing Pince, border control point.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G2-109, Mejni plato - meja Madžarska: Obstructions</title>
+    <id>459456</id>
+    <updated>2020-09-02T17:58:42.97Z</updated>
+    <summary>G2-109, Dolga vas- border Hungary, border crossing Dolga vas, border control point.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>A2-E61, Ljubljana - Karavanke: Roadworks</title>
+    <id>459375</id>
+    <updated>2020-09-02T06:41:36.257Z</updated>
+    <summary>A2-E61, motorway, near Karavanke tunnel and Jesenice - near Karavanke tunnel in the direction of Austria, roadworks, one lane closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A2-E61, Ljubljana - Karavanke: Roadworks</title>
+    <id>459303</id>
+    <updated>2020-09-08T06:05:31.167Z</updated>
+    <summary>A2-E61, motorway, near Kranj - between Kranj and Jesenice in the direction of Austria, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-447, Želodnik - Domžale: Roadworks</title>
+    <id>459110</id>
+    <updated>2020-08-31T11:57:53.897Z</updated>
+    <summary>R2-447, Želodnik - Domžale, in Dob, roadworks, one lane closed, until 6. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-408, Logatec - Žiri: Roadworks</title>
+    <id>459095</id>
+    <updated>2020-10-30T06:50:47.423Z</updated>
+    <summary>R2-408, Logatec - Žiri, roadworks, single alternate lane traffic, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-102, Dolenja Trebuša - Želin: Obstructions</title>
+    <id>458814</id>
+    <updated>2020-10-16T14:10:17.157Z</updated>
+    <summary>G2-102, Dolenja Trebuša - Želin, at Stopnik, single alternate lane traffic, damadged road.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-447, Želodnik - Domžale: Roadworks</title>
+    <id>458507</id>
+    <updated>2020-10-09T05:51:09.553Z</updated>
+    <summary>R2-447, Želodnik - Domžale, at Dob, roadworks, traffic obstructed, until 7. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-675, Mokrice - Obrežje - Slovenska vas: Roadworks</title>
+    <id>458209</id>
+    <updated>2020-10-05T23:21:38.63Z</updated>
+    <summary>R3-675, Obrežje - Slovenska vas, roadworks, single alternate lane traffic, until 23. 7. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-440, Cankova - Kuzma: Roadworks</title>
+    <id>458204</id>
+    <updated>2020-09-30T08:43:49.3Z</updated>
+    <summary>R2-440, Cankova - Kuzma, at Krašči, at Ropoča, roadworks, single alternate lane traffic, until 6. 4. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-447, Petrovče - Žalec: Roadworks</title>
+    <id>457588</id>
+    <updated>2020-08-18T05:50:31.607Z</updated>
+    <summary>R2-447, Šempeter - Žalec - Celje, in Žalec, roadworks, single alternate lane traffic, until 24. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-609, Ajdovščina - Predmeja: Roadworks</title>
+    <id>457492</id>
+    <updated>2020-10-06T07:54:36.59Z</updated>
+    <summary>R3-609, Ajdovščina - Predmeja, at Predmeja, roadworks, road closed, until 5. 2. 2021, road will be closed until Monday to Friday, daily between 8 am and 5 pm. Rest of the time and also at weekends traffic will run alternative one way. Detour: Ajdovščina - Col - Predmeja.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>H4 , Razdrto - Nova Gorica: Roadworks</title>
+    <id>456295</id>
+    <updated>2020-10-12T09:35:05.607Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba in the direction of Italy, roadworks, road closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-712, Žihlava - Rogoznica (Ptuj): Roadworks</title>
+    <id>456267</id>
+    <updated>2020-10-30T07:24:39.107Z</updated>
+    <summary>R3-712, Žihlava - Rogoznica (Ptuj), at Grabšinci, roadworks, single alternate lane traffic.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-642, Podpeč - Ig: Roadworks</title>
+    <id>456107</id>
+    <updated>2020-08-07T04:31:23.287Z</updated>
+    <summary>R3-642, Podpeč - Ig, at Ig, Tomišelj - Podkraj, roadworks, road closed, until 18. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A2-E61, Karavanke - Ljubljana: Obstructions</title>
+    <id>455882</id>
+    <updated>2020-09-30T04:42:12.617Z</updated>
+    <summary>A2-E61, motorway, between Kranj and Jesenice in the direction of Ljubljana, nadzor prometa, traffic obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-409, Ljubljana (Vič) - Brezovica: Roadworks</title>
+    <id>455771</id>
+    <updated>2020-10-30T07:20:37.803Z</updated>
+    <summary>R2-409, Brezovica - Ljubljana (Vič), roadworks, one lane closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Maribor - Lendava: Roadworks</title>
+    <id>455238</id>
+    <updated>2020-10-10T20:51:55.913Z</updated>
+    <summary>A5, motorway, near Murska Sobota - between Murska Sobota and Lendava in the direction of Hungary, roadworks, carriageway closed, traffic diverted to the other side where it flows in two directions.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Lendava - Maribor: Roadworks</title>
+    <id>455235</id>
+    <updated>2020-10-10T20:51:33.987Z</updated>
+    <summary>A5, motorway, between Murska Sobota and Lendava - near Murska Sobota in the direction of Maribor, roadworks, one lane closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-749, Jurovski Dol - Lenart: Roadworks</title>
+    <id>453969</id>
+    <updated>2020-10-26T08:55:14.883Z</updated>
+    <summary>R3-749, Jurovski Dol - Lenart, at Jurovski Dol, roadworks, single alternate lane traffic, until 1. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-715, Murska Sobota - Skakovci: Roadworks</title>
+    <id>453942</id>
+    <updated>2020-07-20T03:51:35.197Z</updated>
+    <summary>R3-715, Murska Sobota - Skakovci, road closed, road reconstruction, until 3. 7. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-430, Slivnica - Slovenska Bistrica: Roadworks</title>
+    <id>453951</id>
+    <updated>2020-07-20T04:39:26.33Z</updated>
+    <summary>R2-430, Slivnica - Slovenska Bistrica, at Bukovec, roadworks, single alternate lane traffic, until 22. 11. 2020, at 5 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-112, Poljana - Ravne: Roadworks</title>
+    <id>453655</id>
+    <updated>2020-10-02T06:27:05.773Z</updated>
+    <summary>G2-112, Ravne - Prevalje, at Dobja vas, roadworks, traffic obstructed, until 15. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-752, Bukovžlak - Teharje: Roadworks</title>
+    <id>453514</id>
+    <updated>2020-07-24T04:00:44.453Z</updated>
+    <summary>R3-752, Bukovžlak - Teharje, at Bukovžlak, road closed, road reconstruction, until 20. 12. 2020. Detour: Kidričeva ulica - Mariborska cesta - Bežigrajska cesta - Bukovžlak.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-437, Šentilj - Pesnica: Roadworks</title>
+    <id>453511</id>
+    <updated>2020-07-16T05:21:52.353Z</updated>
+    <summary>R2-437, Pesnica - Šentilj, at Kaniža, roadworks, single alternate lane traffic, until 31. 5. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-225, Stahovica - Črnivec: Roadworks</title>
+    <id>453294</id>
+    <updated>2020-09-06T03:32:27.57Z</updated>
+    <summary>R1-225, Kamnik - Stahovica - Črnivec, at Stahovica, at crossroads for Kamniška Bistrica, roadworks, single alternate lane traffic, until 27. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LG-211100, Zadobrovška cesta: Roadworks</title>
+    <id>453164</id>
+    <updated>2020-10-30T08:27:47.17Z</updated>
+    <summary>LG-211100, Ljubljana, Zadobrovška cesta, roadworks, road closed. Detour: Zaloška, highway junciton Sneberje.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-418, Dobruška vas - Šentjernej: Roadworks</title>
+    <id>453124</id>
+    <updated>2020-07-13T05:32:48.663Z</updated>
+    <summary>R3-669, Dobruška vas - Šentjernej, Dobruška vas - Dobrava pri Škocjanu, roadworks, single alternate lane traffic, until 27. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-102, Peršeti - Most na Soči: Roadworks</title>
+    <id>452849</id>
+    <updated>2020-07-10T08:55:10.947Z</updated>
+    <summary>G2-102, Most na Soči - Tolmin, in Podljubinj, roadworks, single alternate lane traffic, until 18. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LG-211030, Tržaška cesta: Roadworks</title>
+    <id>451753</id>
+    <updated>2020-08-07T12:36:18.287Z</updated>
+    <summary>Ljubljana, Tržaška cesta, roadworks, traffic obstructed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LZ-212020, Tavčarjeva ulica: Roadworks</title>
+    <id>451606</id>
+    <updated>2020-08-31T06:50:42.717Z</updated>
+    <summary>Ljubljana, Tavčarjeva ulica, between Miklošičeva cesta and Cigaletova ulica, roadworks, road closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-440, Cankova - Kuzma: Roadworks</title>
+    <id>451600</id>
+    <updated>2020-07-01T06:45:34.793Z</updated>
+    <summary>R2-440, Cankova - Kuzma, Krašči - Rogašovci, traffic obstructed, on several sections, until 6. 4. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-227, Kotlje - Slovenj Gradec: Roadworks</title>
+    <id>451468</id>
+    <updated>2020-08-07T05:17:22.81Z</updated>
+    <summary>R1-227, Ravne na Koroškem - Kotlje - Slovenj Gradec, at Slovenj Gradec, on Celjska cesta, roadworks, traffic obstructed, until 19. 10. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-651, Trebnje - Novo mesto (Bučna vas): Roadworks</title>
+    <id>451331</id>
+    <updated>2020-10-27T07:34:00.22Z</updated>
+    <summary>R3-651, Novo mesto (Bučna vas) - Mirna Peč, Novo mesto - Hudo, roadworks, single alternate lane traffic, until 14. 12. 2020, until 15/11/2020 local road Muhaber - Potočna vas is closed.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-101, Ljubelj - Bistrica (Tržič): Obstructions</title>
+    <id>450968</id>
+    <updated>2020-06-30T04:15:14.957Z</updated>
+    <summary>G2-101, Ljubelj - Tržič, near tunnel Ljubelj towards Tržič, traffic control. Control of documents of passengers coming from Austria to Slovenia.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-437, Šentilj - Pesnica: Roadworks</title>
+    <id>450459</id>
+    <updated>2020-06-22T05:57:43.36Z</updated>
+    <summary>R2-437, Pesnica - Šentilj, Pesnica - Gačnik, roadworks, single alternate lane traffic, until 14. 9. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-435, Maribor - Ruše: Roadworks</title>
+    <id>449798</id>
+    <updated>2020-06-17T05:48:47.147Z</updated>
+    <summary>R2-435, Maribor - Ruše, at the turn for Pekre, roadworks, single alternate lane traffic, until 21. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-708, Zg. Kungota - MP Plač: Obstructions</title>
+    <id>449008</id>
+    <updated>2020-06-30T04:18:41.86Z</updated>
+    <summary>R3-708, Zg. Kungota - Podigrac, pass Podigrac, crossing is allowed only for citizens of Slovenia and Austria.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-444, Vipava - Ajdovščina: Roadworks</title>
+    <id>449003</id>
+    <updated>2020-06-11T06:45:21.597Z</updated>
+    <summary>R2-444, Vipava - Ajdovščina, at Vipava, roadworks, single alternate lane traffic, until 8. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-441, Murska Sobota - Gederovci: Obstructions</title>
+    <id>448894</id>
+    <updated>2020-06-30T04:20:18.95Z</updated>
+    <summary>R2-441, Murska Sobota - Gederovci, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-230, Most čez Muro - Gornja Radgona: Obstructions</title>
+    <id>448895</id>
+    <updated>2020-06-30T04:20:05.33Z</updated>
+    <summary>R1-230, Most čez Muro - Gornja Radgona, pass Gornja Radgona, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-232, Hodoš - Petrovci: Obstructions</title>
+    <id>448893</id>
+    <updated>2020-09-02T17:50:22.697Z</updated>
+    <summary>R1-232, Hodoš - Petrovci, border crossing Hodoš, border control point.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-703, Gortina - Bistriški jarek: Obstructions</title>
+    <id>448892</id>
+    <updated>2020-06-30T04:17:06.143Z</updated>
+    <summary>R3-703, Muta - Pernice, pass Pernice, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1--124173, cesta brez imena: Obstructions</title>
+    <id>448885</id>
+    <updated>2020-06-30T04:15:30.833Z</updated>
+    <summary>R1-210 Kranj - Jezersko, pass Jezerski vrh, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-201, Korensko Sedlo - Podkoren: Obstructions</title>
+    <id>448884</id>
+    <updated>2020-06-30T04:14:55.39Z</updated>
+    <summary>R1-201, Podkoren - Korensko sedlo, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G1-5, Zidani Most - Radeče: Roadworks</title>
+    <id>448581</id>
+    <updated>2020-10-13T06:56:19.54Z</updated>
+    <summary>G1-5, Celje - Krško, Zidani Most - Radeče, roadworks, single alternate lane traffic, until 21. 3. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>RT-915, Grda Draga - Pudob: Roadworks</title>
+    <id>448560</id>
+    <updated>2020-10-01T05:44:29.787Z</updated>
+    <summary>RT-915, Ilirska Bistrica - Grda Draga - Pudob, Sviščaki - Kozarišče, roadworks, single alternate lane traffic, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-608, Lokve - Čepovan: Roadworks</title>
+    <id>447959</id>
+    <updated>2020-10-27T07:05:08.547Z</updated>
+    <summary>R3-608, Lokve - Čepovan, at Lokve, roadworks, road closed, until 1. 12. 2020. Detour: Čepovan - Grgar - Lokve.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-441, Murska Sobota - Gederovci: Roadworks</title>
+    <id>447638</id>
+    <updated>2020-06-01T07:20:44.46Z</updated>
+    <summary>R2-441, Murska Sobota - Gederovci, in Murska Sobota, roadworks, traffic obstructed, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A1-E57, E59, Šentilj - Maribor: Obstructions</title>
+    <id>447513</id>
+    <updated>2020-07-31T19:06:21.867Z</updated>
+    <summary>A1-E57/59, motorway, between Šentilj and Maribor - between Šentilj and Maribor in the direction of Maribor, two lanes closed, control of entry in to Slovenia.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G2-108, Šentjakob - Ribče: Roadworks</title>
+    <id>446981</id>
+    <updated>2020-05-26T05:55:56.337Z</updated>
+    <summary>G2-108, Ljubljana - Litija, at Senožeti, roadworks, single alternate lane traffic, until 25. 1. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-447, Žalec - Šempeter: Roadworks</title>
+    <id>446459</id>
+    <updated>2020-10-30T07:31:02.827Z</updated>
+    <summary>R2-447, Žalec - Šempeter, Šempeter v Savinjski dolini, single alternate lane traffic, between 6 am and 6 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G2-112, Poljana - Ravne: Roadworks</title>
+    <id>446178</id>
+    <updated>2020-08-31T07:48:33.55Z</updated>
+    <summary>G2-112, Poljana - Ravne, at Prevalje, roadworks, traffic obstructed, until 31. 5. 2021.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-604, Ročinj - Lig: Obstructions</title>
+    <id>446094</id>
+    <updated>2020-06-30T06:23:51.517Z</updated>
+    <summary>R3-604, Ročinj - Lig, at Kambreško, single alternate lane traffic.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G1-4, Slovenj Gradec - Gornji Dolič: Roadworks</title>
+    <id>446070</id>
+    <updated>2020-05-18T07:50:43.56Z</updated>
+    <summary>G1-4, Slovenj Gradec - Velenje, in Šmartno pri Slovenj Gradec, roadworks, single alternate lane traffic, until 28. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-626, Gračišče - Brezovica: Roadworks</title>
+    <id>445756</id>
+    <updated>2020-05-15T05:45:49.853Z</updated>
+    <summary>R3-626, Gračišče - Brezovica, at Brezovica pri Gradinu, roadworks, single alternate lane traffic, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G1-2, Spuhlja - Ormož: Roadworks</title>
+    <id>445353</id>
+    <updated>2020-10-19T07:09:51.767Z</updated>
+    <summary>G1-2, Spuhlja - Ormož, Borovci - Gorišnica, roadworks, single alternate lane traffic, until 15. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LC-195100, Bubno - MP Ciringa: Obstructions</title>
+    <id>445122</id>
+    <updated>2020-06-30T04:18:30.087Z</updated>
+    <summary>LC-Ciringa, Svečina / Berghausen, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-437, Šentilj: Obstructions</title>
+    <id>443902</id>
+    <updated>2020-06-30T04:18:56.907Z</updated>
+    <summary>R2-437, Šentilj - border Šentilj, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-202, Državna meja - Rateče: Obstructions</title>
+    <id>443821</id>
+    <updated>2020-06-30T04:14:41.673Z</updated>
+    <summary>R1-202, Kranjska Gora - Rateče, border Rateče, alowed for citizens of Slovenia and Italy.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G2-112, Holmec - Poljana: Obstructions</title>
+    <id>443715</id>
+    <updated>2020-06-30T04:16:20.767Z</updated>
+    <summary>G2-112, Holmec - Poljana, border crossing Holmec, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>H4 , Nova Gorica - Razdrto: Obstructions</title>
+    <id>443710</id>
+    <updated>2020-07-31T19:05:37.65Z</updated>
+    <summary>H4, expressway, between Vipava and Vrtojba in the direction of Razdrto, traffic obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>A3-E70, E61, Fernetiči - razcep Gabrk: Obstructions</title>
+    <id>443709</id>
+    <updated>2020-07-31T19:05:01.677Z</updated>
+    <summary>A3-E70/61, motorway, between Gabrk and Fernetiči, Ferneti in the direction of Ljubljana, traffic obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-229, Rogoznica - Senarska: Roadworks</title>
+    <id>443668</id>
+    <updated>2020-10-30T08:14:58.007Z</updated>
+    <summary>R1-229, Rogoznica - Senarska, roadworks, traffic obstructed, until 31. 12. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>A5 , Lendava - Pince: Obstructions</title>
+    <id>443159</id>
+    <updated>2020-07-31T19:06:00.21Z</updated>
+    <summary>A5, motorway, near Lendava - near Lendava in the direction of Hungary, traffic is diverted through rest area.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-436, Zg. Kungota - Jurij: Obstructions</title>
+    <id>443104</id>
+    <updated>2020-06-30T04:18:18.21Z</updated>
+    <summary>R2-436, Zg. Kungota - Jurij, pass Jurij, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-609, Predmeja - Lokve: Roadworks</title>
+    <id>442796</id>
+    <updated>2020-07-14T09:38:34.013Z</updated>
+    <summary>R3-609, Predmeja - Lokve, at the exit for Čaven, until 18. 12. 2020, daily between 7 am and 7 pm. Detour: Ajdovščina - Selo - Nova Gorica.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-428, S. Logar - Pavličevo sedlo: Roadworks</title>
+    <id>432745</id>
+    <updated>2020-10-30T08:37:07.723Z</updated>
+    <summary>R2-428, Sestre Logar - Pavličevo sedlo, in Logarska Dolina, roadworks, road closed. Detour: Sestre Logar - Solčava - Podolševa - Sveti Duh. For cars detour is also possible along the local road on Mačkov Kot.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-680, Rimske Toplice - Jurklošter: Roadworks</title>
+    <id>432744</id>
+    <updated>2020-09-21T04:52:49.353Z</updated>
+    <summary>R3-680, Rimske Toplice - Jurklošter, at Globoko, road closed, due to works on railway, until 28. 5. 2021. Detour: traffic is diverted to Rimske Toplice - Zidani Most - Radeče - Boštanj - Planina - Jurklošter.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-723, Čepinci - meja Madžarska: Obstructions</title>
+    <id>432562</id>
+    <updated>2020-09-05T06:35:28.347Z</updated>
+    <summary>R3-723, Čepinci - Meja Madžarska, border crossing Čepinci, border is open daily between 6 am and 6 pm, only citizens of Slovenia and Hungary are allowed to pass.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-433, Trate - most čez Muro: Obstructions</title>
+    <id>432516</id>
+    <updated>2020-06-30T04:19:48.63Z</updated>
+    <summary>R2-433, Trate - Most čez Muro, Trate, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-434, Radlje - Radeljski prelaz: Obstructions</title>
+    <id>432515</id>
+    <updated>2020-06-30T04:17:20.98Z</updated>
+    <summary>R2-434, Radlje - Radeljski prelaz, pass Radlje, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G1-1, Vič - Dravograd: Obstructions</title>
+    <id>432161</id>
+    <updated>2020-06-30T04:16:48.463Z</updated>
+    <summary>G1-1, Dravograd - Vič, pass Vič, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-444, Razdrto - Manče: Roadworks</title>
+    <id>432121</id>
+    <updated>2020-10-15T05:10:20.737Z</updated>
+    <summary>R2-444, Razdrto - Podnanos, roadworks, single alternate lane traffic, until 26. 12. 2020, occasionally road closed for 10 minutes between 8 am and 5 pm.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R3-719, Kramarovci: Obstructions</title>
+    <id>431767</id>
+    <updated>2020-06-30T04:24:34.26Z</updated>
+    <summary>R3-719, Rogaševci - Kramarovci, pass Kramarovci, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-706, Hajdičev mlin - Gradišče: Obstructions</title>
+    <id>431766</id>
+    <updated>2020-06-30T04:17:51.42Z</updated>
+    <summary>R3-706, Hajdičev mlin - Gradišče, pass Gradišče, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-717, Gerlinci: Obstructions</title>
+    <id>431765</id>
+    <updated>2020-06-30T04:21:26.853Z</updated>
+    <summary>R3-717, Cankova - Gerlinci, pass Gerlinci, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-699, Dravograd - Libeliče: Obstructions</title>
+    <id>431764</id>
+    <updated>2020-06-30T04:16:32.773Z</updated>
+    <summary>R3-699, Dravograd - Libeliče, border Libeliče, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-718, Fikšinci: Obstructions</title>
+    <id>431762</id>
+    <updated>2020-06-30T04:21:55.487Z</updated>
+    <summary>R3-718, Fikšinci, pass Fikšinci, border open only for Slovenian and Austrijan citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-707, Sp. Selnica - Duh na Ostrem vrhu: Obstructions</title>
+    <id>431761</id>
+    <updated>2020-06-30T04:18:04.23Z</updated>
+    <summary>R3-707, Sp. Selnica - Duh na Ostrem vrhu, at Sv. Duh na Ostrem Vrhu, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-717, Korovci: Obstructions</title>
+    <id>431760</id>
+    <updated>2020-06-30T04:21:07.747Z</updated>
+    <summary>R3-717, Korovci, pass Korovci, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-428, S. Logar - Pavličevo sedlo: Obstructions</title>
+    <id>431757</id>
+    <updated>2020-06-30T04:15:43.067Z</updated>
+    <summary>R2-428, Sestre Logar - Pavličevo sedlo, pass Pavličevo sedlo, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-706, Ožbalt - Zg. Kapla: Obstructions</title>
+    <id>431756</id>
+    <updated>2020-06-30T04:17:34.153Z</updated>
+    <summary>R3-706, Ožbalt - Zg. Kapla, border Kapla, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-698, Mežica - Reht: Obstructions</title>
+    <id>431752</id>
+    <updated>2020-06-30T04:16:07.12Z</updated>
+    <summary>R3-698, Mežica - Reht, near Austrian border Podkraj pri Mežici, only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-197050, Matjaševci - m. Avstrija: Obstructions</title>
+    <id>431751</id>
+    <updated>2020-06-30T04:25:02.18Z</updated>
+    <summary>LC-197050, Matjaševci - Kuzma, pass Matjaševci, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-717, Cankova: Obstructions</title>
+    <id>431750</id>
+    <updated>2020-06-30T04:20:36.633Z</updated>
+    <summary>R3-717, Kuzma - Cankova, pass Cankova, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-720, Sotina: Obstructions</title>
+    <id>431709</id>
+    <updated>2020-06-30T04:24:47.53Z</updated>
+    <summary>R3-720, Sotina, border Sotina, border open only for Slovenian and Austrian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-120070, Domanjševci: Obstructions</title>
+    <id>431401</id>
+    <updated>2020-09-02T17:58:56.563Z</updated>
+    <summary>LC-120070, Domanjševci, border crossing Domanjševci/Szomoroc, road closed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-722, Martinje: Obstructions</title>
+    <id>431400</id>
+    <updated>2020-09-02T17:58:47.773Z</updated>
+    <summary>R3-722, Martinje, border crossing Martinje, road closed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-725, Fokovci - Prosenjakovci: Obstructions</title>
+    <id>431397</id>
+    <updated>2020-09-07T06:12:35.77Z</updated>
+    <summary>R3-725, Fokovci - Prosenjakovci, border crossing Prosenjakovci, open during school days 7 - 8 am and 2 - 3 pm, only for schoolchildren and their parents.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-439, Kobilje - Dobrovnik: Obstructions</title>
+    <id>431396</id>
+    <updated>2020-09-02T17:58:52.453Z</updated>
+    <summary>R2-439, Kobilje - Dobrovnik, border crossing Kobilje, road closed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>G2-102, Robič - Staro selo: Obstructions</title>
+    <id>431325</id>
+    <updated>2020-06-30T04:13:21.723Z</updated>
+    <summary>G2-102, Robič - Staro selo, BC Robič, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-627, Črni Kal - Osp: Obstructions</title>
+    <id>431182</id>
+    <updated>2020-06-30T03:55:35.203Z</updated>
+    <summary>R3-627, Črni Kal - Osp, border crossing Osp, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-406, Škofije - Lazaret: Obstructions</title>
+    <id>431181</id>
+    <updated>2020-06-30T03:55:15.403Z</updated>
+    <summary>R2-406, Ankaran - Lazaret, border crossing Lazaret, alowed for citizens of Slovenia and Italy.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC--348990, Erjavčeva ulica: Obstructions</title>
+    <id>431174</id>
+    <updated>2020-06-30T03:58:08.867Z</updated>
+    <summary>Nova Gorica - meja z Italijo, Erjavčeva ulica, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-605, Solarji - meja Italija: Obstructions</title>
+    <id>431170</id>
+    <updated>2020-06-30T04:03:31.487Z</updated>
+    <summary>R3-605, Solarji - meja Italija, BC Italia, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC--284595, Mišček: Obstructions</title>
+    <id>431169</id>
+    <updated>2020-06-30T04:02:52.79Z</updated>
+    <summary>Mišček - BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-020030, bencinska - meja Italija: Obstructions</title>
+    <id>431166</id>
+    <updated>2020-06-30T04:00:38.39Z</updated>
+    <summary>LC Vipolže - BC Italija, Vipolže, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-260010, RTC Lokvica - MP Lokvica: Obstructions</title>
+    <id>431163</id>
+    <updated>2020-06-30T03:56:49.57Z</updated>
+    <summary>LC, RTC Lokvica - BC Lokvica, BC Lokvica, prehod dovoljen za državljane Slovenije in Italije.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-259020, Miren - MP Miren (Italija): Obstructions</title>
+    <id>431162</id>
+    <updated>2020-06-30T03:57:22.72Z</updated>
+    <summary>LC, Miren - BC Miren (Italija), BC Miren, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-444, Nova Gorica - Rožna Dolina: Obstructions</title>
+    <id>431161</id>
+    <updated>2020-06-30T03:57:56.183Z</updated>
+    <summary>R2-444, Nova Gorica - Rožna Dolina, Rožna Dolina, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LZ-414070, Bazara - Šempeter - mp Šempeter: Obstructions</title>
+    <id>431160</id>
+    <updated>2020-06-30T03:57:42.293Z</updated>
+    <summary>LZ, Šempeter, Šempeter pri Gorici, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-020070, Podsabotin - meja Italija: Obstructions</title>
+    <id>431158</id>
+    <updated>2020-06-30T03:58:27.953Z</updated>
+    <summary>LC, Podsabotin - meja Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC-020060, Sovenca - mejni prehod: Obstructions</title>
+    <id>431157</id>
+    <updated>2020-06-30T04:00:06.627Z</updated>
+    <summary>LC, Hum - Sovenca, BC Hum, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC--340257, Gornje Cerovo: Obstructions</title>
+    <id>431154</id>
+    <updated>2020-06-30T04:00:25.677Z</updated>
+    <summary>LC Cerovo - BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC--337033, Ceglo: Obstructions</title>
+    <id>431153</id>
+    <updated>2020-06-30T04:00:52.203Z</updated>
+    <summary>LC Ceglo - BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>LC--334765, Plešivo: Obstructions</title>
+    <id>431152</id>
+    <updated>2020-06-30T04:01:46.56Z</updated>
+    <summary>LC Plešivo - meja z Italijo, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-402, Dobrovo - Neblo: Obstructions</title>
+    <id>431151</id>
+    <updated>2020-06-30T04:02:04.48Z</updated>
+    <summary>R2-402, Dobrovo - Neblo, Neblo, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3--299085, Golo Brdo: Obstructions</title>
+    <id>431149</id>
+    <updated>2020-06-30T04:02:35.697Z</updated>
+    <summary>R3, Golo Brdo - meja z Italijo, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3--682164, Britof: Obstructions</title>
+    <id>431148</id>
+    <updated>2020-06-30T04:03:08.753Z</updated>
+    <summary>R3, Britof - BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-601, Borjana - Robidišče: Obstructions</title>
+    <id>431147</id>
+    <updated>2020-06-30T04:13:35.753Z</updated>
+    <summary>R3-601, Borjana - Robidišče, BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-602, Staro Selo - Breginj - most: Obstructions</title>
+    <id>431144</id>
+    <updated>2020-06-30T04:13:55.04Z</updated>
+    <summary>R3-602, Staro selo - Breginj, BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-616, Gorjansko - Klariči: Obstructions</title>
+    <id>431142</id>
+    <updated>2020-06-30T03:56:31.733Z</updated>
+    <summary>R3-616, Gorjansko - Klariči, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-617, Gorjansko - Žekenc: Obstructions</title>
+    <id>431141</id>
+    <updated>2020-06-30T03:56:20.467Z</updated>
+    <summary>R3-617, Gorjansko - Žekenc, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-205, Divača - Lokev - Lipica: Obstructions</title>
+    <id>431140</id>
+    <updated>2020-06-30T03:55:46.813Z</updated>
+    <summary>R1-205, Divača - Lokev - Lipica, BC Lipica, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-619, Dutovlje - Repentabor: Obstructions</title>
+    <id>431139</id>
+    <updated>2020-06-30T03:56:04.09Z</updated>
+    <summary>R3-619, Dutovlje - Repentabor, border crossing Repentabor, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>RT-903, Idrsko - Livek: Obstructions</title>
+    <id>431137</id>
+    <updated>2020-06-30T04:13:05.593Z</updated>
+    <summary>RT-903, Idrsko - Livek, BC Italija, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R2-401, Žaga - Učja: Obstructions</title>
+    <id>431136</id>
+    <updated>2020-06-30T04:14:09.99Z</updated>
+    <summary>R2-401, Žaga - Učja, BC Učja, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-203, Predel - Bovec: Obstructions</title>
+    <id>431135</id>
+    <updated>2020-06-30T04:14:25.62Z</updated>
+    <summary>R1-203, Predel - Bovec, BC Predel, only for Slovenian and Italian citizens.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R1-210, Trebija - Sovodenj: Obstructions</title>
+    <id>428516</id>
+    <updated>2020-09-30T08:36:58.953Z</updated>
+    <summary>R1-210, Trebija - Sovodenj, at Fužine, single alternate lane traffic.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-677, Pišece - Zg. Pohanca - Krško: Obstructions</title>
+    <id>425080</id>
+    <updated>2020-09-30T08:41:33.31Z</updated>
+    <summary>R3-677, Pišece - Zg. Pohanca - Krško, at Pišece, single alternate lane traffic, until 30. 12. 2020.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>R3-716, Grad - Kuzma: Obstructions</title>
+    <id>423125</id>
+    <updated>2020-06-30T06:18:34.437Z</updated>
+    <summary>R3-716, Grad - Kuzma, at Grad, traffic obstructed, landslide.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>RT-912, Zali Log - Davča: Roadworks</title>
+    <id>421716</id>
+    <updated>2020-08-31T08:22:25.68Z</updated>
+    <summary>RT-912, Zali log - Davča, roadworks, single alternate lane traffic.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>LC-122010, Hrastnik - Radeče: Weather</title>
+    <id>420595</id>
+    <updated>2020-02-27T07:50:32.873Z</updated>
+    <summary>LC, Podkraj - Radeče, road closed.</summary>
+    <category term="Weather" />
+  </entry>
+  <entry>
+    <title>R3-645, Zadvor - Šmartno pri Litiji: Obstructions</title>
+    <id>407965</id>
+    <updated>2020-08-14T07:46:44.6Z</updated>
+    <summary>R3-645, Ljubljana (Litijska cesta) - Šmartno pri Litiji, Besnica - Trebeljevo, traffic obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>RT-903, Idrsko - Livek: Roadworks</title>
+    <id>384551</id>
+    <updated>2020-01-30T07:33:11.373Z</updated>
+    <summary>RT-903,  Idrsko - Livek, at Idrsko, partial road block until 30/11/2020. Alternative one-way traffic is possible.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R1-203, Predel - Bovec: Roadworks</title>
+    <id>382920</id>
+    <updated>2020-07-11T07:27:20.41Z</updated>
+    <summary>R1-203, Predel - Bovec, Strmec - Log pod Mangartom, roadworks on several sections, till 30th of November, 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>G1-5, Celje - Šmarjeta: Roadworks</title>
+    <id>363356</id>
+    <updated>2020-10-05T06:28:32.793Z</updated>
+    <summary>G1-5, Celje - Krško, in Laško, roadworks, single alternate lane traffic, until 30. 11. 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>RT-926, Sleme - Koprivna: HGV</title>
+    <id>328004</id>
+    <updated>2020-05-29T07:45:22.297Z</updated>
+    <summary>RT-926, Sleme - Koprivna, road closed for heavy vehicles over 3,5 tones, road surface in poor condition.</summary>
+    <category term="HGV" />
+  </entry>
+  <entry>
+    <title>RT-930, Pesek - Oplotnica: Roadworks</title>
+    <id>301899</id>
+    <updated>2020-07-23T07:02:46.337Z</updated>
+    <summary>RT-930, Pesek - Oplotnica, road closed, roadworks. Detour: Lukanja - Cezlak. Traffic to the quarry is possible.</summary>
+    <category term="Roadworks" />
+  </entry>
+  <entry>
+    <title>R2-428, Luče - Sestre Logar: Obstructions</title>
+    <id>273441</id>
+    <updated>2019-12-30T09:02:19.66Z</updated>
+    <summary>R2-428, Luče - Sestre Logar, traffic is obstructed.</summary>
+    <category term="Obstructions" />
+  </entry>
+  <entry>
+    <title>RT-930, Pesek - Oplotnica: HGV</title>
+    <id>223210</id>
+    <updated>2020-07-23T07:05:15.74Z</updated>
+    <summary>RT-930, Pesek - Oplotnica, Lukanja - Pesek, road closed for heavy vehicles over 7,5 tones.</summary>
+    <category term="HGV" />
+  </entry>
+  <entry>
+    <title>R3-716, Lemerje - Grad: Roadworks</title>
+    <id>206486</id>
+    <updated>2019-03-29T07:15:03.603Z</updated>
+    <summary>R3-716, Lemerje - Grad, at Zenkovci, traffic obstructed until the end of 2020.</summary>
+    <category term="Roadworks" />
+  </entry>
+</feed>

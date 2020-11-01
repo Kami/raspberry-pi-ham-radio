@@ -14,6 +14,7 @@
 # limitations under the License.
 
 from typing import Dict
+from typing import Type
 from typing import Optional
 
 import itertools
@@ -104,13 +105,7 @@ def _load_and_register_plugins() -> None:
 
         REGISTERED_PLUGINS[plugin_name] = plugin_instance
 
-        dtmf_sequence = plugin_class.DTMF_SEQUENCE
-
-        if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
-            raise ValueError(
-                "DTMF sequence #%s is already registered for another plugin (%s)"
-                % (dtmf_sequence, DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence])
-            )
+        dtmf_sequence = _validate_dtmf_sequence(plugin_class=plugin_class)
 
         DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence] = plugin_instance
         LOG.debug("Registered plugin %s with DTMF sequence #%s" % (plugin_name, dtmf_sequence))
@@ -130,3 +125,30 @@ def _load_and_register_plugins() -> None:
         LOG.debug("Registered plugin %s" % (plugin_name))
 
     INITIALIZED = True
+
+
+def _validate_dtmf_sequence(plugin_class: Type[BaseDTMFPlugin]) -> str:
+    """
+    Verify that the provided plugin contains a valid DTMF sequence.
+    """
+    dtmf_sequence = plugin_class.DTMF_SEQUENCE
+
+    # Validate sequence is unique
+    if dtmf_sequence in DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP:
+        raise ValueError(
+            'DTMF sequence "%s" is already registered for another plugin (%s)'
+            % (dtmf_sequence, DTMF_SEQUENCE_TO_PLUGIN_CLASS_INSTANCE_MAP[dtmf_sequence].NAME)
+        )
+
+    # Validate sequence contains no repeted numbers
+    for index in range(1, len(dtmf_sequence)):
+        char = dtmf_sequence[index]
+
+        if char == dtmf_sequence[index - 1] and char not in ["?", "*"]:
+            raise ValueError(
+                'Plugin "%s" contains repeated DTMF sequence numbers (%s). For '
+                "better DTMF decoding accuracy, plugins should contain no repeated "
+                "sequences" % (plugin_class.NAME, dtmf_sequence)
+            )
+
+    return dtmf_sequence

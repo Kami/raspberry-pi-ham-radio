@@ -92,7 +92,7 @@ class BasePlugin(object):
 
         import RPi.GPIO as GPIO
 
-        LOG.trace("Enabling TX mode", gpio_pin=self._gpio_pin)
+        LOG.debug("Enabling TX mode", gpio_pin=self._gpio_pin)
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._gpio_pin, GPIO.OUT)
@@ -108,7 +108,7 @@ class BasePlugin(object):
 
         import RPi.GPIO as GPIO
 
-        LOG.trace("Disabling TX mode", gpio_pin=self._gpio_pin)
+        LOG.debug("Disabling TX mode", gpio_pin=self._gpio_pin)
 
         GPIO.output(self._gpio_pin, GPIO.LOW)
 
@@ -129,7 +129,7 @@ class BasePlugin(object):
             self._say_callsign()
 
             # 2. Play actual requested text
-            LOG.trace('Playing text "%s"' % (text))
+            LOG.debug('Playing text "%s"' % (text))
 
             file_path = self._tts.text_to_speech(text=text)
             self._audio_player.play_file(file_path=file_path, delete_after_play=False)

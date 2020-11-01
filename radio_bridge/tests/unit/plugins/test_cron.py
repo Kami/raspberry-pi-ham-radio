@@ -135,6 +135,78 @@ class CronSayPluginTestCase(BasePluginTestCase):
         }
         self.assertEqual(context, expected_context)
 
-    def test_run_success(self):
-        # TODO
-        pass
+    @mock.patch("radio_bridge.plugins.cron.datetime")
+    def test_run_success_text_job(self, mock_datetime):
+        mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 10, 26, 14, 16)
+
+        _load_and_parse_config(config_path=CONFIG_PATH)
+        plugin_config = get_plugin_config(CronSayPlugin.ID)
+
+        plugin = CronSayPluginForTest()
+        plugin.initialize(config=plugin_config)
+
+        self.assertEqual(len(plugin.mock_said_text), 0)
+
+        job_id = "say_current_time_every_120_seconds"
+        plugin.run(job_id=job_id)
+
+        expected_text = "Current time is 14:16 UTC."
+
+        self.assertEqual(len(plugin.mock_said_text), 1)
+        self.assertEqual(plugin.mock_said_text[0], expected_text)
+
+    @mock.patch("morse.Morse")
+    def test_run_success_text_to_morse_job(self, mock_morse):
+        mock_morse_instance = mock.Mock()
+        mock_morse.return_value = mock_morse_instance
+
+        _load_and_parse_config(config_path=CONFIG_PATH)
+        plugin_config = get_plugin_config(CronSayPlugin.ID)
+
+        plugin = CronSayPluginForTest()
+        plugin.initialize(config=plugin_config)
+
+        self.assertEqual(mock_morse_instance.transmit.call_count, 0)
+
+        job_id = "say_text_as_morse_every_200_seconds"
+        plugin.run(job_id=job_id)
+
+        mock_morse.assert_called_with(words="sos")
+        self.assertEqual(mock_morse_instance.transmit.call_count, 1)
+
+    @mock.patch("morse.Morse")
+    def test_run_success_morse_job(self, mock_morse):
+        mock_morse_instance = mock.Mock()
+        mock_morse.return_value = mock_morse_instance
+
+        _load_and_parse_config(config_path=CONFIG_PATH)
+        plugin_config = get_plugin_config(CronSayPlugin.ID)
+
+        plugin = CronSayPluginForTest()
+        plugin.initialize(config=plugin_config)
+
+        self.assertEqual(mock_morse_instance.transmit.call_count, 0)
+
+        job_id = "say_morse_code_every_400_seconds"
+        plugin.run(job_id=job_id)
+
+        mock_morse.assert_called_with(morse="... --- ...")
+        self.assertEqual(mock_morse_instance.transmit.call_count, 1)
+
+    def test_run_success_file_job(self):
+        _load_and_parse_config(config_path=CONFIG_PATH)
+        plugin_config = get_plugin_config(CronSayPlugin.ID)
+
+        plugin = CronSayPluginForTest()
+        plugin.initialize(config=plugin_config)
+        plugin._audio_player = mock.Mock()
+
+        self.assertEqual(plugin._audio_player.play_file.call_count, 0)
+
+        job_id = "play_callsign_every_5_minutes"
+        plugin.run(job_id=job_id)
+
+        plugin._audio_player.play_file.assert_called_with(
+            file_path="tests/fixtures/audio/plugin_current_time.wav", delete_after_play=False
+        )
+        self.assertEqual(plugin._audio_player.play_file.call_count, 1)

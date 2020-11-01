@@ -133,6 +133,19 @@ for different pre-defined locations.
 NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
 overwritten / changed on per plugin basis inside the config.
 
+#### Cron Say Plugin
+
+Currently the following values are available in the context which is used when rendering the text
+value:
+
+* ``day_of_week`` - Current day of the week.
+* ``date`` - Current date in YYYY-MM-DD format
+* ``time_utc`` - Current time in HH:MM format (UTC)
+* ``time_local`` - Current time in HH:MM (local timezone)
+* ``weather_data`` - Weather observation for local weather station (if any observation is
+   available).
+* ``callsign`` - Value of the ``tx.callsign`` configuration option.
+
 ### Admin Plugins
 
 | Name | DTMF Sequence | Requires Internet Connection | Description |
@@ -324,10 +337,19 @@ Main
   - [ ] Ability to on "sleep mode" which will cause the software to only listen for commands during
         specific time frames (e.g. for 1 minute past 10 minute mark) and if any command is detected
         during that window, software will go out of sleep mode for the pre-defined amount of time.
+Misc:
+
+- [ ] Support expiring dict plugin local cache when using process plugin executor.
 
 DTMF Decoding
 
-- [ ] Implement Goertzel algorithm based DTMF decoding
+- ~~[ ] Implement Goertzel algorithm based DTMF decoding~~ - Based on the research and micro
+   benchmarking, current FFT based algorithm which utilizes numpy is more efficient than
+   alternative implementations.
+
+Plugins
+
+- [ ] Support Jinja templates for cron plugin text strings.
 
 CI/CD
 

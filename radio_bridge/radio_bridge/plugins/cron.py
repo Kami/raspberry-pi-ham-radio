@@ -28,11 +28,13 @@ import structlog
 from apscheduler.triggers.base import BaseTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
+from google.protobuf.json_format import MessageToDict
 
 from radio_bridge.plugins.base import BaseNonDTMFPlugin
 from radio_bridge.configuration import get_config_option
 from radio_bridge.configuration import get_plugin_config
 from radio_bridge.configuration import get_plugin_config_option
+from wx_server.io import get_weather_observation_for_date
 from radio_bridge.audio_player import get_audio_file_duration
 
 """
@@ -232,10 +234,21 @@ class CronSayPlugin(BaseNonDTMFPlugin):
         This allows user to reference various dynamic values in this text such as current time,
         date, etc.
         """
-        # TODO: Also add WX data and other useful info to the context.
+        station_id = self._config.get("weather_station_id", "default")
+        now_dt = datetime.datetime.utcnow()
+        observation_pb = get_weather_observation_for_date(station_id=station_id, date=now_dt)
+
         context = {}
-        context["time_utc"] = datetime.datetime.utcnow().strftime("%H:%M:%S")
-        context["time_local"] = datetime.datetime.now().strftime("%H:%M:%S")
+        context["callsign"] = get_config_option("tx", "callsign", "str", fallback="unknown")
+        context["day_of_week"] = now_dt.strftime("%A")
+        context["date"] = now_dt.strftime("%Y-%m-%d")
+        context["time_utc"] = datetime.datetime.utcnow().strftime("%H:%M")
+        context["time_local"] = datetime.datetime.now().strftime("%H:%M")
+
+        if observation_pb:
+            context["weather_data"] = MessageToDict(observation_pb)
+        else:
+            context["weather_data"] = {}
 
         return context
 

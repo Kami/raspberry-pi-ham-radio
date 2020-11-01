@@ -16,6 +16,8 @@
 import os
 import datetime
 
+import mock
+
 from radio_bridge.plugins.cron import CronSayPlugin
 from radio_bridge.configuration import get_plugin_config
 from radio_bridge.configuration import _load_and_parse_config
@@ -114,6 +116,24 @@ class CronSayPluginTestCase(BasePluginTestCase):
         self.assertRaisesRegex(
             ValueError, expected_msg, plugin._parse_and_validate_config, config=plugin_config
         )
+
+    @mock.patch("radio_bridge.plugins.cron.datetime")
+    def test_get_text_format_context(self, mock_datetime):
+        mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 10, 26, 19, 57)
+        mock_datetime.datetime.now.return_value = datetime.datetime(2020, 10, 26, 20, 57)
+
+        plugin = CronSayPlugin()
+        context = plugin._get_text_format_context()
+
+        expected_context = {
+            "callsign": "TEST",
+            "day_of_week": "Monday",
+            "date": "2020-10-26",
+            "time_utc": "19:57",
+            "time_local": "20:57",
+            "weather_data": {},
+        }
+        self.assertEqual(context, expected_context)
 
     def test_run_success(self):
         # TODO

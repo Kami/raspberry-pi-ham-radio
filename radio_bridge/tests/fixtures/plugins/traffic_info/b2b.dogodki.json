@@ -1,0 +1,1272 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T09:48:42.367+01:00",
+        "id": 476330,
+        "EntityId": "019a6765-215f-474a-9335-6c256aebf17e",
+        "kategorija": "R3",
+        "cesta": "R3-688, Žiče - Poljčane",
+        "vzrok": "Roadworks",
+        "opis": "R3-688, Žiče - Poljčane, at Lušečka vas, roadworks, single alternate lane traffic, until 3. 11. 2020, between 8 am to 5 pm.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T08:28:07.2+01:00",
+        "id": 476325,
+        "EntityId": "fe6c0591-8862-4201-87da-02294be2bddb",
+        "kategorija": "G2",
+        "cesta": "G2-103, Plave - Solkan",
+        "vzrok": "Roadworks",
+        "opis": "G2-103, Nova Gorica - Tolmin, at Plave, roadworks, single alternate lane traffic, until 4. 11. 2020.",
+        "dodatnoPojasnilo": "popravilo varnostne ograje"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T07:48:18.353+01:00",
+        "id": 476307,
+        "EntityId": "4d25e3af-f68a-4d5c-9e46-6b23ab66ed7a",
+        "kategorija": "R3",
+        "cesta": "R3-646, Cikava - Grosuplje",
+        "vzrok": "Roadworks",
+        "opis": "R3-646, Grosuplje - Šmarje Sap, roadworks, single alternate lane traffic, until 31. 3. 2021.",
+        "dodatnoPojasnilo": "gradnja plinovoda"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T07:33:43.83+01:00",
+        "id": 476302,
+        "EntityId": "abc10e84-d408-4227-bafb-f2bfb68ed69a",
+        "kategorija": "R3",
+        "cesta": "R3-687, Dole - Ponikva - Loče",
+        "vzrok": "Roadworks",
+        "opis": "R3-687, Dole - Ponikva - Loče, in Hotunje, roadworks, single alternate lane traffic, until 7. 11. 2020.",
+        "dodatnoPojasnilo": "preplastitev vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T07:33:33.147+01:00",
+        "id": 476301,
+        "EntityId": "f6f2a973-437c-48bf-968a-c839828f9851",
+        "kategorija": "R1",
+        "cesta": "R1-219, Bizeljsko - Čatež",
+        "vzrok": "Roadworks",
+        "opis": "R1-219, Bizeljsko - Čatež, at Župelevec, roadworks, single alternate lane traffic, until 4. 11. 2020.",
+        "dodatnoPojasnilo": "krpanje udarnih jam"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T07:30:03.833+01:00",
+        "id": 476299,
+        "EntityId": "c5de2f4c-d66b-49a2-a76a-a3fb94adcce0",
+        "kategorija": "R1",
+        "cesta": "R1-209, Lesce - Bled",
+        "vzrok": "Roadworks",
+        "opis": "R1-209, Lesce - Bled - Bohinj, at Bled, roadworks, single alternate lane traffic, until 3. 11. 2020, between 7 am to 3 pm.",
+        "dodatnoPojasnilo": "popravilo jaška"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T07:23:24.03+01:00",
+        "id": 476298,
+        "EntityId": "3e14e39a-2d04-4c40-a00b-8882d2eae319",
+        "kategorija": "R2",
+        "cesta": "R2-410, Tržič - Kokrica",
+        "vzrok": "Roadworks",
+        "opis": "R2-410, Kranj - Golnik, Goriče - Kokrica, roadworks, single alternate lane traffic, until 4. 11. 2020, between 6 am to 4 pm.",
+        "dodatnoPojasnilo": "popravilo vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:53:36.42+01:00",
+        "id": 476141,
+        "EntityId": "23443f18-3c66-49b9-9a6c-5275640c67f8",
+        "kategorija": "RT",
+        "cesta": "RT-924, Podlom - Kranjski Rak - Luče",
+        "vzrok": "Roadworks",
+        "opis": "RT-924, Podlom - Kranjski Rak - Luče, roadworks, single alternate lane traffic, until 6. 11. 2020, daily between 7 am and 4 pm.",
+        "dodatnoPojasnilo": "obrezovanje rastlinja"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:48:37.403+01:00",
+        "id": 476140,
+        "EntityId": "db9ced63-defd-4033-b7e9-0e57c5d3b2c6",
+        "kategorija": "R2",
+        "cesta": "R2-413, Zbilje - Vodice",
+        "vzrok": "Roadworks",
+        "opis": "R2-413, Zbilje - Vodice, at Zapoge, roadworks, single alternate lane traffic, until 6. 11. 2020.",
+        "dodatnoPojasnilo": "obnova in izgradnja pločnika"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T07:58:49.473+01:00",
+        "id": 476131,
+        "EntityId": "400b2a12-2916-48ed-928c-d9b2c4e7f241",
+        "kategorija": "R2",
+        "cesta": "R2-424, Dežno - Črnolica",
+        "vzrok": "Roadworks",
+        "opis": "R2-424, Dežno - Črnolica, roadworks, single alternate lane traffic, until 15. 9. 2021.",
+        "dodatnoPojasnilo": "gradnja dveh mostov in rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-29T09:26:15.803+01:00",
+        "id": 476065,
+        "EntityId": "24e15112-cd07-43ee-87ae-b0b1b50251d2",
+        "kategorija": "R3",
+        "cesta": "R3-699, Dravograd - Libeliče",
+        "vzrok": "Roadworks",
+        "opis": "R3-699, Dravograd - Libeliče, at Tribej, roadworks, single alternate lane traffic, until 15. 11. 2020.",
+        "dodatnoPojasnilo": "popravilo vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:03:18.713+01:00",
+        "id": 476060,
+        "EntityId": "01d48b66-9c55-419e-8ed9-3272e5ed3b76",
+        "kategorija": "R1",
+        "cesta": "R1-213, Pudob - Babno Polje",
+        "vzrok": "Roadworks",
+        "opis": "R1-213, Pudob - Babno polje, at Podgora pri Ložu, roadworks, single alternate lane traffic, daily between 7 am and 3 pm.",
+        "dodatnoPojasnilo": "popravilo bankin"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-29T06:25:23.493+01:00",
+        "id": 476025,
+        "EntityId": "45f7dd0c-207f-4863-ac95-c45c0d79e58f",
+        "kategorija": "R2",
+        "cesta": "R2-425, Pesje - Velenje",
+        "vzrok": "Roadworks",
+        "opis": "R2-425, Pesje - Velenje, in Velenje, roadworks, single alternate lane traffic, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "preplastitev vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-28T08:00:19.833+01:00",
+        "id": 475950,
+        "EntityId": "5ac1fd62-18d7-493a-9e3f-ebdb6db414fc",
+        "kategorija": "R2",
+        "cesta": "R2-414, Kamnik - Ločica",
+        "vzrok": "Roadworks",
+        "opis": "R2-414, Kamnik - Ločica, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": "vpihovanja optičnega kabla"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-28T07:32:21.18+01:00",
+        "id": 475941,
+        "EntityId": "998a9d8c-f11d-47c0-b532-4dcba427e759",
+        "kategorija": "R1",
+        "cesta": "R1-215, Trebnje - Mokronog",
+        "vzrok": "Roadworks",
+        "opis": "R1-215, Trebnje - Mokronog, in Mirna, roadworks, single alternate lane traffic, until 30. 10. 2020.",
+        "dodatnoPojasnilo": "popravilo vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-27T10:40:56.843+01:00",
+        "id": 475882,
+        "EntityId": "ab642c6e-dfb8-488d-a91f-a4ef9b2f09b2",
+        "kategorija": "R3",
+        "cesta": "R3-702, Trbonje - Vuhred",
+        "vzrok": "Roadworks",
+        "opis": "R3-702, Trbonje - Vuhred, in Vuzenica, roadworks, single alternate lane traffic, until 5. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja vodovodnega omrežja "
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-27T08:44:16.457+01:00",
+        "id": 475868,
+        "EntityId": "cb573a2c-bf55-4f55-bc2f-8cdc7d8cefba",
+        "kategorija": "G2",
+        "cesta": "G2-107, Podplat - Rogatec",
+        "vzrok": "Roadworks",
+        "opis": "G2-107, Rogaška Slatina - Rogatec, at Tuncovec, roadworks, single alternate lane traffic, until 6. 12. 2020.",
+        "dodatnoPojasnilo": "gradnja priključka na državno cesto"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-26T10:15:05.94+01:00",
+        "id": 475746,
+        "EntityId": "be65e05c-160b-4c92-a73d-bfed5ea62fd3",
+        "kategorija": "R2",
+        "cesta": "R2-433, Senarska - Lenart",
+        "vzrok": "Roadworks",
+        "opis": "R1-229, Senarska - Lenart, in Lenart v Slovenskih goricah, on Ptujska cesta, roadworks, single alternate lane traffic, until 22. 11. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcije TK kabelske kanalizacije"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-22T08:51:50.43+02:00",
+        "id": 465428,
+        "EntityId": "3d1e8556-61b9-4528-ab50-e37e6824238f",
+        "kategorija": "R2",
+        "cesta": "R2-428, S. Logar - Pavličevo sedlo",
+        "vzrok": "Roadworks",
+        "opis": "R2-428, Sestre Logar - Pavličevo sedlo, Pavličevo sedlo, roadworks, single alternate lane traffic, until 5. 11. 2020.",
+        "dodatnoPojasnilo": "rešitev nadstrešnice na mejnem prehodu"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-21T12:20:25.033+02:00",
+        "id": 465336,
+        "EntityId": "7982ae39-742e-4f51-9b7e-eab0403178b8",
+        "kategorija": "R2",
+        "cesta": "R2-425, Poljana - Šentvid",
+        "vzrok": "Roadworks",
+        "opis": "R2-425, Črna na Koroškem - Šoštanj, at Črna na Koroškem, roadworks, single alternate lane traffic, until 18. 12. 2020.",
+        "dodatnoPojasnilo": "gradnja kanalizacije Črna"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-22T09:30:19.093+02:00",
+        "id": 465312,
+        "EntityId": "99645a90-adb7-4e57-a2a8-02a46aef10be",
+        "kategorija": "R1",
+        "cesta": "R1-230, Križevci - Ljutomer",
+        "vzrok": "Roadworks",
+        "opis": "R1-230, Križevci - Ljutomer, at Ljutomer, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": "izvedba plinskega priključka"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-21T08:36:07.947+02:00",
+        "id": 465311,
+        "EntityId": "075a56de-9e83-46a8-9ea6-d03563ce2c3f",
+        "kategorija": "R1",
+        "cesta": "R1-229, Rogoznica - Senarska",
+        "vzrok": "Roadworks",
+        "opis": "R1-229, Ptuj - Senarska, at Trnovski Vrh, roadworks, single alternate lane traffic, until 6. 11. 2020, daily between 7:30 am and 4 pm.",
+        "dodatnoPojasnilo": "izgradnja kabelske kanalizacije"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-26T07:56:23.503+01:00",
+        "id": 465305,
+        "EntityId": "a7baf91f-fef6-445d-a3d4-34fff6b14057",
+        "kategorija": "R2",
+        "cesta": "R2-435, Maribor - Ruše",
+        "vzrok": "Roadworks",
+        "opis": "R2-435, Maribor - Ruše, at Ruše, roadworks, single alternate lane traffic, until 25. 11. 2020.",
+        "dodatnoPojasnilo": "izgradnja cestnega priključka"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-20T07:13:13.913+02:00",
+        "id": 465160,
+        "EntityId": "c8dd1199-02b1-492f-885e-ff1858134858",
+        "kategorija": "R1",
+        "cesta": "R1-225, Radmirje - Mozirje",
+        "vzrok": "Roadworks",
+        "opis": "R1-225, Radmirje - Mozirje, in Spodnja Rečica, roadworks, single alternate lane traffic, until 30. 12. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcije ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-21T17:56:21.26+02:00",
+        "id": 465098,
+        "EntityId": "aa7323b9-c8b7-4175-b461-a56809704301",
+        "kategorija": "A5",
+        "cesta": "A5 , Maribor - Lendava",
+        "vzrok": "Roadworks",
+        "opis": "A5, motorway, near Murska Sobota - near Murska Sobota in the direction of Hungary, roadworks, carriageway closed, traffic diverted to the other side where it flows in two directions.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-21T14:54:48.9+02:00",
+        "id": 465083,
+        "EntityId": "02c18bfe-128b-4b42-8ae0-af41ab2fa5f8",
+        "kategorija": "A5",
+        "cesta": "A5 , Lendava - Maribor",
+        "vzrok": "Roadworks",
+        "opis": "A5, motorway, near Murska Sobota - near Murska Sobota in the direction of Maribor, roadworks, one lane closed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-16T08:05:10.39+02:00",
+        "id": 464875,
+        "EntityId": "22b1cf82-fbc9-43b8-b883-92408fb1d504",
+        "kategorija": "R3",
+        "cesta": "R3-608, Solkan - Lokve",
+        "vzrok": "Roadworks",
+        "opis": "R3-608, Solkan - Lokve, in Trnovo, roadworks, single alternate lane traffic, until 16. 11. 2020.",
+        "dodatnoPojasnilo": "ureditev priključka"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-13T09:41:24.91+02:00",
+        "id": 464526,
+        "EntityId": "5cff6b57-2e3d-4348-878f-ca39843d6148",
+        "kategorija": "G2",
+        "cesta": "G2-108, Litija - Zagorje",
+        "vzrok": "Roadworks",
+        "opis": "G2-108, Litija - Zagorje, at Šklendrovec, roadworks, single alternate lane traffic, until 6. 11. 2020.",
+        "dodatnoPojasnilo": "urejanje brežin"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-13T09:13:35.923+02:00",
+        "id": 464521,
+        "EntityId": "e217adf3-8791-43ff-b15b-965884d6afe9",
+        "kategorija": "RT",
+        "cesta": "RT-926, Solčava - Podolševa - Sleme",
+        "vzrok": "Roadworks",
+        "opis": "RT-926, Solčava - Podolševa - Sleme, roadworks, single alternate lane traffic, until 14. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja elektro voda"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-13T09:02:08.007+02:00",
+        "id": 464520,
+        "EntityId": "070e3dcf-3428-4d6a-85e6-356ed8f55028",
+        "kategorija": "R3",
+        "cesta": "R3-647, Mlačevo - Rašica",
+        "vzrok": "Roadworks",
+        "opis": "R3-647, Grosuplje - Rašica, at Čušperk, roadworks, single alternate lane traffic, until 21. 1. 2021.",
+        "dodatnoPojasnilo": "gradnja pločnika"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T10:44:22.34+02:00",
+        "id": 464408,
+        "EntityId": "6311039f-fc38-4f2e-851e-6be2bfd813b0",
+        "kategorija": "R1",
+        "cesta": "R1-219, Poljčane - Podplat",
+        "vzrok": "Roadworks",
+        "opis": "R1-219, Poljčane - Podplat, Zgornji Gabernik, roadworks, single alternate lane traffic, until 6. 3. 2021.",
+        "dodatnoPojasnilo": "obnova cestišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T10:14:09.52+02:00",
+        "id": 464402,
+        "EntityId": "d1666969-76a9-4b21-a382-7f6233a2a76d",
+        "kategorija": "LG",
+        "cesta": "LG-211010, Dunajska cesta",
+        "vzrok": "Roadworks",
+        "opis": "Ljubljana, Dunajska cesta, from H3 (Bežigrad) towards city centre, roadworks, traffic obstructed, until 20. 12. 2020.",
+        "dodatnoPojasnilo": "obnova vozišča, promet poteka po smernem vozišču Lj(Center)- Črnuče dvosmerno, v vsako smer po enem voznem pasu"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T08:48:41.633+02:00",
+        "id": 464382,
+        "EntityId": "6d87507b-3d79-4856-bd4c-d3c25bc1a32b",
+        "kategorija": "R3",
+        "cesta": "R3-745, Dolge Njive - Spodnji Duplek",
+        "vzrok": "Roadworks",
+        "opis": "R3-745, Dolge Njive - Spodnji Duplek, in Zgornja Korena, roadworks, single alternate lane traffic, until 18. 3. 2021.",
+        "dodatnoPojasnilo": "ureditve območja avtobusnih postajališč in križišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T08:37:23.14+02:00",
+        "id": 464372,
+        "EntityId": "d838ae16-eb23-4702-aaee-6efe2f3edbfd",
+        "kategorija": "R1",
+        "cesta": "R1-220, Krško - Brežice",
+        "vzrok": "Roadworks",
+        "opis": "R1-220, Krško - Brežice, in Brežice, Cesta svobode, roadworks, single alternate lane traffic, until 25. 11. 2020.",
+        "dodatnoPojasnilo": "izgradnje površin za kolesarje in pešce"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T12:08:25.737+01:00",
+        "id": 464353,
+        "EntityId": "1e53bb30-a6ca-4b3a-bbcc-19aedcfeb9b2",
+        "kategorija": "G2",
+        "cesta": "G2-112, Poljana - Ravne",
+        "vzrok": "Roadworks",
+        "opis": "G2-112, Ravne na Koroškem - Prevalje, Ravne, roadworks, traffic obstructed, until 6. 11. 2020.",
+        "dodatnoPojasnilo": "gradnje kanalizacijskega omrežja"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-08T09:06:04.563+02:00",
+        "id": 463850,
+        "EntityId": "974e17f7-618f-45fa-a186-07426cdd2985",
+        "kategorija": "R3",
+        "cesta": "R3-726, Stročja vas - Pavlovci",
+        "vzrok": "Roadworks",
+        "opis": "R3-726, Stročja vas - Pavlovci, at Vuzmetinci, roadworks, single alternate lane traffic, until 31. 8. 2021.",
+        "dodatnoPojasnilo": "obnova cestišča in sanacija usadov"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T05:37:30.443+01:00",
+        "id": 463856,
+        "EntityId": "e04539d4-f001-4626-8f73-8acbdbd1145e",
+        "kategorija": "G2",
+        "cesta": "G2-104, Trzin - Ljubljana (Črnuče)",
+        "vzrok": "Roadworks",
+        "opis": "G2-104, Trzin - Ljubljana (Črnuče), roadworks, one lane closed, until 7. 11. 2020.",
+        "dodatnoPojasnilo": "obnova cestišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-06T09:00:53.363+02:00",
+        "id": 463592,
+        "EntityId": "aa9a24bd-b552-43f6-9035-06efe0160a98",
+        "kategorija": "R2",
+        "cesta": "R2-449, Pesnica - Lenart",
+        "vzrok": "Roadworks",
+        "opis": "G1-3, Maribor - Lenart, at Dolnja Počehova, roadworks, traffic obstructed, until 1. 3. 2023.",
+        "dodatnoPojasnilo": "izgradnja viadukta Pesnica"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-06T08:45:33.873+02:00",
+        "id": 463586,
+        "EntityId": "5e13d491-8bb8-410d-8ddd-2ef1ae0e008c",
+        "kategorija": "R2",
+        "cesta": "R2-447, Želodnik - Domžale",
+        "vzrok": "Roadworks",
+        "opis": "R2-447, Želodnik - Domžale, at Domžale, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": "obnova vozišča po prenovi vodovoda na lokalni cesti"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-06T07:59:00.933+02:00",
+        "id": 463572,
+        "EntityId": "2ed0b713-3d59-4611-b953-317a6e1348c2",
+        "kategorija": "R2",
+        "cesta": "R2-425, Poljana - Šentvid",
+        "vzrok": "Roadworks",
+        "opis": "R2-425, Mežica - Črna na Koroškem, at Žerjav, roadworks, single alternate lane traffic, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-06T07:51:32.527+02:00",
+        "id": 463567,
+        "EntityId": "16848690-310c-4bf4-940f-0255167c642f",
+        "kategorija": "R2",
+        "cesta": "R2-425, Poljana - Šentvid",
+        "vzrok": "Roadworks",
+        "opis": "R2-425, Mežica - Črna na Koroškem, at Polena, at Mežica, roadworks, single alternate lane traffic, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-01T10:11:10.767+02:00",
+        "id": 463110,
+        "EntityId": "404c4164-91e6-4df8-998f-7cd1c7e5648a",
+        "kategorija": "R2",
+        "cesta": "R2-402, Dobrovo - Neblo",
+        "vzrok": "Roadworks",
+        "opis": "R2-402, Dobrovo - Neblo, at Dobrovo, roadworks, single alternate lane traffic, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "izvedba krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-01T08:38:57.467+02:00",
+        "id": 463098,
+        "EntityId": "65ee4370-0203-4dae-8092-fc8fcb719d10",
+        "kategorija": "R3",
+        "cesta": "R3-745, Dolge Njive - Spodnji Duplek",
+        "vzrok": "Roadworks",
+        "opis": "R3-745, Dolge Njive - Spodnji Duplek, in Spodnji Duplek, roadworks, single alternate lane traffic, until 6. 11. 2020.",
+        "dodatnoPojasnilo": "kabliranje dela daljnovoda in polaganje NN kablov"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-11-02T08:13:30.497+01:00",
+        "id": 462979,
+        "EntityId": "7d5d8c43-6ca5-4316-bcde-3bf0d0cecb6a",
+        "kategorija": "RT",
+        "cesta": "RT-906, Mrzli Stud. - Rudno Polje",
+        "vzrok": "Roadworks",
+        "opis": "RT-906, Mrzli Studenec - Rudno polje, in Srednja vas in Bohinj, roadworks, single alternate lane traffic, until 14. 11. 2020.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-23T18:30:38.297+02:00",
+        "id": 462848,
+        "EntityId": "1ecb7d9a-0236-4dbb-9b31-9d94f87b8308",
+        "kategorija": "R3",
+        "cesta": "R3-701, Ruta - Pesek",
+        "vzrok": "Roadworks",
+        "opis": "R3-701, Ruta - Lovrenc na Pohorju, roadworks, single alternate lane traffic, until 15. 6. 2021.",
+        "dodatnoPojasnilo": "gradnja meteorne kanalizacije in vodovodnega omrežja "
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-29T08:43:11.353+02:00",
+        "id": 462845,
+        "EntityId": "cf4a23b5-4f74-4696-a71c-95dae2e26434",
+        "kategorija": "G2",
+        "cesta": "G2-103, Ušnik - Plave",
+        "vzrok": "Roadworks",
+        "opis": "G2-103, Ušnik - Plave, in Doblar, roadworks, single alternate lane traffic, until 15. 12. 2020.",
+        "dodatnoPojasnilo": "urejanje skalnih brežin"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-23T08:02:49.187+02:00",
+        "id": 462124,
+        "EntityId": "fbee38fb-fcfc-41de-9d4b-ed3498defa80",
+        "kategorija": "R3",
+        "cesta": "R3-651, Novo mesto (Bučna vas - Krka)",
+        "vzrok": "Roadworks",
+        "opis": "R3-651, Novo mesto, Bučna vas - Krka, Andrijaničeva cesta, roadworks, traffic obstructed, until 20. 11. 2020.",
+        "dodatnoPojasnilo": "preureditev priključka in ureditev pločnika"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T11:37:58.123+02:00",
+        "id": 461718,
+        "EntityId": "4fb558e1-0c2a-4ce2-863d-39ad5febe5e6",
+        "kategorija": "H4",
+        "cesta": "H4 , Razdrto - Nova Gorica",
+        "vzrok": "Roadworks",
+        "opis": "H4, expressway, between Vipava and Vrtojba in the direction of Italy, roadworks, one lane closed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-12T11:36:37.253+02:00",
+        "id": 461713,
+        "EntityId": "2839246d-ea96-4476-80a1-24e011137057",
+        "kategorija": "H4",
+        "cesta": "H4 , Nova Gorica - Razdrto",
+        "vzrok": "Roadworks",
+        "opis": "H4, expressway, between Vipava and Vrtojba - between Vipava and Vrtojba in the direction of Razdrto, roadworks, carriageway closed, traffic diverted to the other side where it flows in two directions.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-17T08:29:00.71+02:00",
+        "id": 461338,
+        "EntityId": "ef8215e7-e1a0-467e-8956-3fc943cd1055",
+        "kategorija": "R2",
+        "cesta": "R2-403, Podbrdo - Petrovo Brdo",
+        "vzrok": "Roadworks",
+        "opis": "R2-403, Podbrdo - Petrovo Brdo, at Podbrdo, roadworks, single alternate lane traffic.",
+        "dodatnoPojasnilo": "ureditve ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-17T07:15:44.78+02:00",
+        "id": 461301,
+        "EntityId": "a09f67f6-0933-4eed-8eb0-c2de51dc8ca9",
+        "kategorija": "R2",
+        "cesta": "R2-425, Pesje - Velenje",
+        "vzrok": "Roadworks",
+        "opis": "R2-425, Pesje - Velenje, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": "zapora levega zavijalnega pasu, zaradi del na lokalni cesti"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-15T12:22:22.79+02:00",
+        "id": 460868,
+        "EntityId": "71c48b11-d031-441d-b90c-b3b26bf98b98",
+        "kategorija": "R2",
+        "cesta": "R2-419, Soteska - Novo mesto",
+        "vzrok": "Roadworks",
+        "opis": "R2-419, Soteska - Novo mesto, in Novo mesto, on Topliška cesta, roadworks, traffic obstructed, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja meteorne kanalizacije. Zaprta je tudi kolesarska steza."
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-14T08:16:39.627+02:00",
+        "id": 460860,
+        "EntityId": "bf182cec-af1b-4ff6-8706-7ff4601c6e39",
+        "kategorija": "G2",
+        "cesta": "G2-102, Logatec",
+        "vzrok": "Roadworks",
+        "opis": "G2-102, highway connection Logatec - Logatec, at Logatec, single alternate lane traffic, road works, until 25. 12. 2020.",
+        "dodatnoPojasnilo": "ureditve ceste, izgradnje pločnika in krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-31T10:15:24.867+01:00",
+        "id": 459879,
+        "EntityId": "6e5c308e-6002-41e6-8c35-a971bb459e0f",
+        "kategorija": "A2",
+        "cesta": "A2-E61, Karavanke - Ljubljana",
+        "vzrok": "Roadworks",
+        "opis": "A2-E61, motorway, between Kranj and Jesenice - near Kranj in the direction of Ljubljana, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-03T08:59:41.553+02:00",
+        "id": 459522,
+        "EntityId": "cae54dce-99c9-4415-8b79-40f2ce979c92",
+        "kategorija": "R2",
+        "cesta": "R2-454, Hajdina (Mariborska cesta - Gomile)",
+        "vzrok": "Roadworks",
+        "opis": "R2-454, Ptuj - Sl. Bistrica, in Zgornja Hajdina, roadworks, single alternate lane traffic, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "izgradnja krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-02T08:41:36.257+02:00",
+        "id": 459375,
+        "EntityId": "5ef0e9b3-0e36-468e-96d4-7ed88600943b",
+        "kategorija": "A2",
+        "cesta": "A2-E61, Ljubljana - Karavanke",
+        "vzrok": "Roadworks",
+        "opis": "A2-E61, motorway, near Karavanke tunnel and Jesenice - near Karavanke tunnel in the direction of Austria, roadworks, one lane closed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-08T08:05:31.167+02:00",
+        "id": 459303,
+        "EntityId": "2fcb99db-ae5f-4882-a065-d79651dbcb5a",
+        "kategorija": "A2",
+        "cesta": "A2-E61, Ljubljana - Karavanke",
+        "vzrok": "Roadworks",
+        "opis": "A2-E61, motorway, near Kranj - between Kranj and Jesenice in the direction of Austria, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-31T13:57:53.897+02:00",
+        "id": 459110,
+        "EntityId": "d43f4f70-6dd6-4299-adae-99e14c0f2596",
+        "kategorija": "R2",
+        "cesta": "R2-447, Želodnik - Domžale",
+        "vzrok": "Roadworks",
+        "opis": "R2-447, Želodnik - Domžale, in Dob, roadworks, one lane closed, until 6. 11. 2020.",
+        "dodatnoPojasnilo": "v vsako smer, rekonstrukcija lokalne ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T07:50:47.423+01:00",
+        "id": 459095,
+        "EntityId": "479c23f1-7223-4c68-b045-d250f3867636",
+        "kategorija": "R2",
+        "cesta": "R2-408, Logatec - Žiri",
+        "vzrok": "Roadworks",
+        "opis": "R2-408, Logatec - Žiri, roadworks, single alternate lane traffic, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja vodovoda"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-09T07:51:09.553+02:00",
+        "id": 458507,
+        "EntityId": "df3b100a-b12b-4767-aa67-a4f7f554fd47",
+        "kategorija": "R2",
+        "cesta": "R2-447, Želodnik - Domžale",
+        "vzrok": "Roadworks",
+        "opis": "R2-447, Želodnik - Domžale, at Dob, roadworks, traffic obstructed, until 7. 11. 2020.",
+        "dodatnoPojasnilo": "prenova vodovoda na lokalni cesti"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-06T01:21:38.63+02:00",
+        "id": 458209,
+        "EntityId": "99800ef7-3f12-45a4-b8b5-3407d4e4cde2",
+        "kategorija": "R3",
+        "cesta": "R3-675, Mokrice - Obrežje - Slovenska vas",
+        "vzrok": "Roadworks",
+        "opis": "R3-675, Obrežje - Slovenska vas, roadworks, single alternate lane traffic, until 23. 7. 2021.",
+        "dodatnoPojasnilo": "rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-30T10:43:49.3+02:00",
+        "id": 458204,
+        "EntityId": "c8a702ac-3d89-4950-b96f-15b253f569e4",
+        "kategorija": "R2",
+        "cesta": "R2-440, Cankova - Kuzma",
+        "vzrok": "Roadworks",
+        "opis": "R2-440, Cankova - Kuzma, at Krašči, at Ropoča, roadworks, single alternate lane traffic, until 6. 4. 2021.",
+        "dodatnoPojasnilo": "gradnja pločnika/kolesarske steze"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-18T07:50:31.607+02:00",
+        "id": 457588,
+        "EntityId": "2d7a0edc-709f-4b28-ae25-d30d22d3d686",
+        "kategorija": "R2",
+        "cesta": "R2-447, Petrovče - Žalec",
+        "vzrok": "Roadworks",
+        "opis": "R2-447, Šempeter - Žalec - Celje, in Žalec, roadworks, single alternate lane traffic, until 24. 12. 2020.",
+        "dodatnoPojasnilo": "izgradnje krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:24:39.107+01:00",
+        "id": 456267,
+        "EntityId": "a1507e1e-69b2-4214-9a0a-592c8a2feabd",
+        "kategorija": "R3",
+        "cesta": "R3-712, Žihlava - Rogoznica (Ptuj)",
+        "vzrok": "Roadworks",
+        "opis": "R3-712, Žihlava - Rogoznica (Ptuj), at Grabšinci, roadworks, single alternate lane traffic.",
+        "dodatnoPojasnilo": "rušitev brežine in bankine"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:20:37.803+01:00",
+        "id": 455771,
+        "EntityId": "b7c9fd1d-617a-4ec8-b155-b5e12e56cc64",
+        "kategorija": "R2",
+        "cesta": "R2-409, Ljubljana (Vič) - Brezovica",
+        "vzrok": "Roadworks",
+        "opis": "R2-409, Brezovica - Ljubljana (Vič), roadworks, one lane closed.",
+        "dodatnoPojasnilo": "dograditev komunalne infrastrukture"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-31T19:53:41.397+01:00",
+        "id": 455238,
+        "EntityId": "4a3ed15d-1fa7-48af-86b9-2e25151daa3c",
+        "kategorija": "A5",
+        "cesta": "A5 , Maribor - Lendava",
+        "vzrok": "Roadworks",
+        "opis": "A5, motorway, near Murska Sobota - between Murska Sobota and Lendava in the direction of Hungary, roadworks, one lane closed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-31T19:54:00.947+01:00",
+        "id": 455235,
+        "EntityId": "9b853190-d279-41e6-84d5-403afda39267",
+        "kategorija": "A5",
+        "cesta": "A5 , Lendava - Maribor",
+        "vzrok": "Roadworks",
+        "opis": "A5, motorway, between Murska Sobota and Lendava - near Murska Sobota in the direction of Maribor, roadworks, one lane closed.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-26T09:55:14.883+01:00",
+        "id": 453969,
+        "EntityId": "54aa84fc-13a6-4c97-8d1d-8d007171a18b",
+        "kategorija": "R3",
+        "cesta": "R3-749, Jurovski Dol - Lenart",
+        "vzrok": "Roadworks",
+        "opis": "R3-749, Jurovski Dol - Lenart, at Jurovski Dol, roadworks, single alternate lane traffic, until 1. 12. 2020.",
+        "dodatnoPojasnilo": "ureditev šolske poti"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-20T06:39:26.33+02:00",
+        "id": 453951,
+        "EntityId": "e08900f2-8345-4ce3-985d-5aee1004cb28",
+        "kategorija": "R2",
+        "cesta": "R2-430, Slivnica - Slovenska Bistrica",
+        "vzrok": "Roadworks",
+        "opis": "R2-430, Slivnica - Slovenska Bistrica, at Bukovec, roadworks, single alternate lane traffic, until 22. 11. 2020, at 5 pm.",
+        "dodatnoPojasnilo": "zaradi ureditve pločnika in kolesarske steze"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-02T08:27:05.773+02:00",
+        "id": 453655,
+        "EntityId": "8efdeca9-04eb-4bbc-b752-11e0466f2bcd",
+        "kategorija": "G2",
+        "cesta": "G2-112, Poljana - Ravne",
+        "vzrok": "Roadworks",
+        "opis": "G2-112, Ravne - Prevalje, at Dobja vas, roadworks, traffic obstructed, until 15. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja kanalizacije"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-16T07:21:52.353+02:00",
+        "id": 453511,
+        "EntityId": "fdae4fa1-da4b-4252-a183-e4dccca8dd14",
+        "kategorija": "R2",
+        "cesta": "R2-437, Šentilj - Pesnica",
+        "vzrok": "Roadworks",
+        "opis": "R2-437, Pesnica - Šentilj, at Kaniža, roadworks, single alternate lane traffic, until 31. 5. 2021.",
+        "dodatnoPojasnilo": "ureditev križanja ceste in železnice"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-09-06T05:32:27.57+02:00",
+        "id": 453294,
+        "EntityId": "b8afe661-e1e8-43ac-95be-d2653b651c69",
+        "kategorija": "R1",
+        "cesta": "R1-225, Stahovica - Črnivec",
+        "vzrok": "Roadworks",
+        "opis": "R1-225, Kamnik - Stahovica - Črnivec, at Stahovica, at crossroads for Kamniška Bistrica, roadworks, single alternate lane traffic, until 27. 11. 2020.",
+        "dodatnoPojasnilo": "ureditev križišča in ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-13T07:32:48.663+02:00",
+        "id": 453124,
+        "EntityId": "eba06e6c-575c-438f-baf7-837e614c1f5a",
+        "kategorija": "R2",
+        "cesta": "R2-418, Dobruška vas - Šentjernej",
+        "vzrok": "Roadworks",
+        "opis": "R3-669, Dobruška vas - Šentjernej, Dobruška vas - Dobrava pri Škocjanu, roadworks, single alternate lane traffic, until 27. 11. 2020.",
+        "dodatnoPojasnilo": "gradnja krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-10T10:55:10.947+02:00",
+        "id": 452849,
+        "EntityId": "3824f9a5-81f4-417c-a294-e748204147fa",
+        "kategorija": "G2",
+        "cesta": "G2-102, Peršeti - Most na Soči",
+        "vzrok": "Roadworks",
+        "opis": "G2-102, Most na Soči - Tolmin, in Podljubinj, roadworks, single alternate lane traffic, until 18. 12. 2020.",
+        "dodatnoPojasnilo": "izgradnja krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-07T14:36:18.287+02:00",
+        "id": 451753,
+        "EntityId": "456f4ddf-0277-40b9-b507-6ca9a6bbfb56",
+        "kategorija": "LG",
+        "cesta": "LG-211030, Tržaška cesta",
+        "vzrok": "Roadworks",
+        "opis": "Ljubljana, Tržaška cesta, roadworks, traffic obstructed.",
+        "dodatnoPojasnilo": "spremenjena prometna signalizacija"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-01T08:45:34.793+02:00",
+        "id": 451600,
+        "EntityId": "e8274784-4473-4948-b6d8-b9be879fbc50",
+        "kategorija": "R2",
+        "cesta": "R2-440, Cankova - Kuzma",
+        "vzrok": "Roadworks",
+        "opis": "R2-440, Cankova - Kuzma, Krašči - Rogašovci, traffic obstructed, on several sections, until 6. 4. 2021.",
+        "dodatnoPojasnilo": "na več odsekih, dograditve pločnikov"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-07T07:17:22.81+02:00",
+        "id": 451468,
+        "EntityId": "af240024-7ea7-4c89-86bf-3af91eb86d43",
+        "kategorija": "R1",
+        "cesta": "R1-227, Kotlje - Slovenj Gradec",
+        "vzrok": "Roadworks",
+        "opis": "R1-227, Ravne na Koroškem - Kotlje - Slovenj Gradec, at Slovenj Gradec, on Celjska cesta, roadworks, traffic obstructed, until 19. 10. 2021.",
+        "dodatnoPojasnilo": "gradnja nove šole"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-27T08:34:00.22+01:00",
+        "id": 451331,
+        "EntityId": "a0415848-add5-4e85-a314-72061ceb4fc7",
+        "kategorija": "R3",
+        "cesta": "R3-651, Trebnje - Novo mesto (Bučna vas)",
+        "vzrok": "Roadworks",
+        "opis": "R3-651, Novo mesto (Bučna vas) - Mirna Peč, Novo mesto - Hudo, roadworks, single alternate lane traffic, until 14. 12. 2020, until 15/11/2020 local road Muhaber - Potočna vas is closed.",
+        "dodatnoPojasnilo": "obnova cestišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-06-22T07:57:43.36+02:00",
+        "id": 450459,
+        "EntityId": "45dea81e-7946-4978-a5f4-4d86b5f770bf",
+        "kategorija": "R2",
+        "cesta": "R2-437, Šentilj - Pesnica",
+        "vzrok": "Roadworks",
+        "opis": "R2-437, Pesnica - Šentilj, Pesnica - Gačnik, roadworks, single alternate lane traffic, until 14. 9. 2021.",
+        "dodatnoPojasnilo": "dve polovični zapori zaradi izgradnje izvennivojskega prehoda, na enem delu zapore je obvoz po deviaciji ob gradbišču"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-06-17T07:48:47.147+02:00",
+        "id": 449798,
+        "EntityId": "465b1fa7-8407-4096-8913-7eb5e5e5a599",
+        "kategorija": "R2",
+        "cesta": "R2-435, Maribor - Ruše",
+        "vzrok": "Roadworks",
+        "opis": "R2-435, Maribor - Ruše, at the turn for Pekre, roadworks, single alternate lane traffic, until 21. 12. 2020.",
+        "dodatnoPojasnilo": "novogradnja ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-06-11T08:45:21.597+02:00",
+        "id": 449003,
+        "EntityId": "2465badf-1ea4-4250-b588-62b68cf45d76",
+        "kategorija": "R2",
+        "cesta": "R2-444, Vipava - Ajdovščina",
+        "vzrok": "Roadworks",
+        "opis": "R2-444, Vipava - Ajdovščina, at Vipava, roadworks, single alternate lane traffic, until 8. 11. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-13T08:56:19.54+02:00",
+        "id": 448581,
+        "EntityId": "938227db-7ae9-48dc-9c1e-6783ec4b4465",
+        "kategorija": "G1",
+        "cesta": "G1-5, Zidani Most - Radeče",
+        "vzrok": "Roadworks",
+        "opis": "G1-5, Celje - Krško, Zidani Most - Radeče, roadworks, single alternate lane traffic, until 21. 3. 2021.",
+        "dodatnoPojasnilo": "rekonstrukcija ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-01T07:44:29.787+02:00",
+        "id": 448560,
+        "EntityId": "84b5b8ac-f357-49bc-afae-b18bb466c575",
+        "kategorija": "RT",
+        "cesta": "RT-915, Grda Draga - Pudob",
+        "vzrok": "Roadworks",
+        "opis": "RT-915, Ilirska Bistrica - Grda Draga - Pudob, Sviščaki - Kozarišče, roadworks, single alternate lane traffic, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "sečnja, spravilo in odvoz lesa"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-06-01T09:20:44.46+02:00",
+        "id": 447638,
+        "EntityId": "6a5b6144-cc80-4e3c-9968-fed31d90ef87",
+        "kategorija": "R2",
+        "cesta": "R2-441, Murska Sobota - Gederovci",
+        "vzrok": "Roadworks",
+        "opis": "R2-441, Murska Sobota - Gederovci, in Murska Sobota, roadworks, traffic obstructed, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "prenove mestnega središča, 3. faza"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-05-26T07:55:56.337+02:00",
+        "id": 446981,
+        "EntityId": "1a0040d3-586d-4b1c-93dd-8db052018149",
+        "kategorija": "G2",
+        "cesta": "G2-108, Šentjakob - Ribče",
+        "vzrok": "Roadworks",
+        "opis": "G2-108, Ljubljana - Litija, at Senožeti, roadworks, single alternate lane traffic, until 25. 1. 2021.",
+        "dodatnoPojasnilo": "obnova cestišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T08:31:02.827+01:00",
+        "id": 446459,
+        "EntityId": "c56eb0ed-c880-4f54-8b1f-e9c40a37b835",
+        "kategorija": "R2",
+        "cesta": "R2-447, Žalec - Šempeter",
+        "vzrok": "Roadworks",
+        "opis": "R2-447, Žalec - Šempeter, Šempeter v Savinjski dolini, single alternate lane traffic, between 6 am and 6 pm.",
+        "dodatnoPojasnilo": "obnova cestišča dnevno med 6. in 18. uro"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-31T09:48:33.55+02:00",
+        "id": 446178,
+        "EntityId": "31721f27-b51b-416b-b0b4-fb9272ddd7de",
+        "kategorija": "G2",
+        "cesta": "G2-112, Poljana - Ravne",
+        "vzrok": "Roadworks",
+        "opis": "G2-112, Poljana - Ravne, at Prevalje, roadworks, traffic obstructed, until 31. 5. 2021.",
+        "dodatnoPojasnilo": "gradnje stanovanjsko poslovnega objekta \"K\""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-05-18T09:50:43.56+02:00",
+        "id": 446070,
+        "EntityId": "efc9293c-d7ae-481a-b6f2-6e573cb3a87b",
+        "kategorija": "G1",
+        "cesta": "G1-4, Slovenj Gradec - Gornji Dolič",
+        "vzrok": "Roadworks",
+        "opis": "G1-4, Slovenj Gradec - Velenje, in Šmartno pri Slovenj Gradec, roadworks, single alternate lane traffic, until 28. 12. 2020.",
+        "dodatnoPojasnilo": "izgradnja krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-05-15T07:45:49.853+02:00",
+        "id": 445756,
+        "EntityId": "12fb1527-75a1-4457-b3fb-7205802a2e24",
+        "kategorija": "R3",
+        "cesta": "R3-626, Gračišče - Brezovica",
+        "vzrok": "Roadworks",
+        "opis": "R3-626, Gračišče - Brezovica, at Brezovica pri Gradinu, roadworks, single alternate lane traffic, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "rekonstrukcije ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-19T09:09:51.767+02:00",
+        "id": 445353,
+        "EntityId": "e20a232e-6622-4252-a2e0-fc9096f06097",
+        "kategorija": "G1",
+        "cesta": "G1-2, Spuhlja - Ormož",
+        "vzrok": "Roadworks",
+        "opis": "G1-2, Spuhlja - Ormož, Borovci - Gorišnica, roadworks, single alternate lane traffic, until 15. 11. 2020.",
+        "dodatnoPojasnilo": "izgradnja krožišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-30T09:14:58.007+01:00",
+        "id": 443668,
+        "EntityId": "a7e54f8a-fb1c-4871-b998-7e214e0cf71b",
+        "kategorija": "R1",
+        "cesta": "R1-229, Rogoznica - Senarska",
+        "vzrok": "Roadworks",
+        "opis": "R1-229, Rogoznica - Senarska, roadworks, traffic obstructed, until 31. 12. 2020.",
+        "dodatnoPojasnilo": "po začasnem nadomestnem mostu"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-15T07:10:20.737+02:00",
+        "id": 432121,
+        "EntityId": "b8559663-62d1-4184-b8f7-64ff8bc8bcf5",
+        "kategorija": "R2",
+        "cesta": "R2-444, Razdrto - Manče",
+        "vzrok": "Roadworks",
+        "opis": "R2-444, Razdrto - Podnanos, roadworks, single alternate lane traffic, until 26. 12. 2020, occasionally road closed for 10 minutes between 8 am and 5 pm.",
+        "dodatnoPojasnilo": "obnova ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-08-31T10:22:25.68+02:00",
+        "id": 421716,
+        "EntityId": "bfd6b977-0918-4fcd-a074-0f6554e9fc6e",
+        "kategorija": "RT",
+        "cesta": "RT-912, Zali Log - Davča",
+        "vzrok": "Roadworks",
+        "opis": "RT-912, Zali log - Davča, roadworks, single alternate lane traffic.",
+        "dodatnoPojasnilo": "popravilo vozišča"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-01-30T08:33:11.373+01:00",
+        "id": 384551,
+        "EntityId": "3b28d192-0647-412a-b462-0e7f9a359ec7",
+        "kategorija": "RT",
+        "cesta": "RT-903, Idrsko - Livek",
+        "vzrok": "Roadworks",
+        "opis": "RT-903,  Idrsko - Livek, at Idrsko, partial road block until 30/11/2020. Alternative one-way traffic is possible.",
+        "dodatnoPojasnilo": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-07-11T09:27:20.41+02:00",
+        "id": 382920,
+        "EntityId": "eba2439c-1352-40bb-a8a0-7f12ddb4fb02",
+        "kategorija": "R1",
+        "cesta": "R1-203, Predel - Bovec",
+        "vzrok": "Roadworks",
+        "opis": "R1-203, Predel - Bovec, Strmec - Log pod Mangartom, roadworks on several sections, till 30th of November, 2020.",
+        "dodatnoPojasnilo": "več polovičnih zapor zaradi rekonstrukcije ceste"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2020-10-05T08:28:32.793+02:00",
+        "id": 363356,
+        "EntityId": "38ca6114-9194-464f-9936-51ee014e5889",
+        "kategorija": "G1",
+        "cesta": "G1-5, Celje - Šmarjeta",
+        "vzrok": "Roadworks",
+        "opis": "G1-5, Celje - Krško, in Laško, roadworks, single alternate lane traffic, until 30. 11. 2020.",
+        "dodatnoPojasnilo": "ureditev ceste in gradnja mostu"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "updated": "2019-03-29T08:15:03.603+01:00",
+        "id": 206486,
+        "EntityId": "3b036cc8-7688-4100-960e-402e4dbdef11",
+        "kategorija": "R3",
+        "cesta": "R3-716, Lemerje - Grad",
+        "vzrok": "Roadworks",
+        "opis": "R3-716, Lemerje - Grad, at Zenkovci, traffic obstructed until the end of 2020.",
+        "dodatnoPojasnilo": ""
+      }
+    }
+  ],
+  "properties": {
+    "LastUpdateTS": "2020-11-02T11:08:25.737Z",
+    "PeriodFrom": "2020-11-02T21:50:09.5179349Z",
+    "PeriodTo": "2020-11-02T21:50:09.5179349Z",
+    "Language": "en_US"
+  }
+}

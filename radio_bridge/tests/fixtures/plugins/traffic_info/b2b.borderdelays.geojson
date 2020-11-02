@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "epsg:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.866542083236388,
+          46.275325531030418
+        ]
+      },
+      "properties": {
+        "BorderCrossingId": "c5b5ee5d-d98e-4504-8478-6d2ff7246cda",
+        "BorderCrossingName": "Gruškovje, Macelj",
+        "BorderCrossingForeignName": null,
+        "Updated": "2020-11-02T20:03:22.703+01:00",
+        "Description": "Mejni prehod Gruškovje, Macelj, tovorna vozila 6 h pri vstopu",
+        "Description_i18n": {
+          "en_US": "Border crossing Gruškovje, Macelj, heavy vehicles 6 h at entrance",
+          "sl_SI": "Mejni prehod Gruškovje, Macelj, tovorna vozila 6 h pri vstopu"
+        },
+        "Road": "A4, Gruškovje - Podlehnik",
+        "RoadName": "A4",
+        "InboundTruckDelaySeconds": 21600,
+        "InboundTruckQueueMeters": null,
+        "InboundBusDelaySeconds": null,
+        "InboundBusQueueMeters": null,
+        "InboundCarDelaySeconds": null,
+        "InboundCarQueueMeters": null,
+        "OutboundTruckDelaySeconds": null,
+        "OutboundTruckQueueMeters": null,
+        "OutboundBusDelaySeconds": null,
+        "OutboundBusQueueMeters": null,
+        "OutboundCarDelaySeconds": null,
+        "OutboundCarQueueMeters": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.690720905128657,
+          45.848509525692627
+        ]
+      },
+      "properties": {
+        "BorderCrossingId": "1e2662d2-5f11-4abb-a602-839f7740ed98",
+        "BorderCrossingName": "Obrežje, Bregana",
+        "BorderCrossingForeignName": null,
+        "Updated": "2020-11-02T21:07:48.16+01:00",
+        "Description": "Mejni prehod Obrežje, Bregana, tovorna vozila 2 h pri vstopu",
+        "Description_i18n": {
+          "en_US": "Border crossing Obrežje, Bregana, heavy vehicles 2 h at entrance",
+          "sl_SI": "Mejni prehod Obrežje, Bregana, tovorna vozila 2 h pri vstopu"
+        },
+        "Road": "A2, Obrežje - Brežice",
+        "RoadName": "A2",
+        "InboundTruckDelaySeconds": 7200,
+        "InboundTruckQueueMeters": null,
+        "InboundBusDelaySeconds": null,
+        "InboundBusQueueMeters": null,
+        "InboundCarDelaySeconds": null,
+        "InboundCarQueueMeters": null,
+        "OutboundTruckDelaySeconds": null,
+        "OutboundTruckQueueMeters": null,
+        "OutboundBusDelaySeconds": null,
+        "OutboundBusQueueMeters": null,
+        "OutboundCarDelaySeconds": null,
+        "OutboundCarQueueMeters": null
+      }
+    }
+  ]
+}

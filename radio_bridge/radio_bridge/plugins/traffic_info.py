@@ -34,6 +34,8 @@ BASE_URL = "https://www.promet.si/dc/"
 # necessary.
 URL_RESPONSE_CACHE = ExpiringDict(max_len=20, max_age_seconds=(5 * 60))
 
+__all__ = ["TrafficInfoPlugin"]
+
 
 class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
     ID = "traffic_info"

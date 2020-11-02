@@ -63,12 +63,20 @@ class BaseTextToSpeechImplementation(object):
         else:
             file_path = os.path.join("/tmp", file_name)
 
-        if cache_generated_audio_files and use_cache:
-            if os.path.isfile(file_path):
-                LOG.debug("Using existing cached file: %s" % (file_path))
-                return file_path
+        if self._is_valid_cached_file(file_path=file_path, use_cache=use_cache):
+            return file_path
 
         return file_path
+
+    def _is_valid_cached_file(self, file_path: str, use_cache: bool = True):
+        cache_generated_audio_files = get_config_option(
+            "tts", "enable_cache", "bool", fallback=False
+        )
+
+        if not cache_generated_audio_files or not use_cache:
+            return False
+
+        return os.path.isfile(file_path) and os.stat(file_path).st_size > 0
 
 
 class ESpeakTextToSpeech(BaseTextToSpeechImplementation):
@@ -87,12 +95,10 @@ class ESpeakTextToSpeech(BaseTextToSpeechImplementation):
         from espeakng import ESpeakNG
 
         file_path = self._get_cache_file_path(text=text, use_cache=use_cache)
-        cache_generated_audio_files = get_config_option(
-            "tts", "enable_cache", "bool", fallback=False
-        )
 
-        if cache_generated_audio_files and use_cache and os.path.isfile(file_path):
+        if self._is_valid_cached_file(file_path=file_path, use_cache=use_cache):
             LOG.debug("Using existing cached file: %s" % (file_path))
+            return file_path
 
         LOG.trace('Performing TTS on text "%s" and saving result to %s' % (text, file_path))
 
@@ -128,18 +134,24 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
         from gtts import gTTS
 
         file_path = self._get_cache_file_path(text=text, use_cache=use_cache)
-        cache_generated_audio_files = get_config_option(
-            "tts", "enable_cache", "bool", fallback=False
-        )
 
-        if cache_generated_audio_files and use_cache and os.path.isfile(file_path):
+        if self._is_valid_cached_file(file_path=file_path, use_cache=use_cache):
             LOG.debug("Using existing cached file: %s" % (file_path))
             return file_path
 
         LOG.trace('Performing TTS on text "%s" and saving result to %s' % (text, file_path))
 
-        audio_file = gTTS(text=text, lang="en-US", slow=slow, lang_check=False)
-        audio_file.save(file_path)
+        # Sometimes API returns "Unable to find token seed" error so we retry up to 3 times
+        for i in range(0, 3):
+            try:
+                audio_file = gTTS(text=text, lang="en-US", slow=slow, lang_check=False)
+                audio_file.save(file_path)
+                break
+            except ValueError as e:
+                if "Unable to find token seed" not in str(e):
+                    raise e
+
+                LOG.debug("Retrying gtts call due to failure: %s" % (str(e)))
 
         return file_path
 

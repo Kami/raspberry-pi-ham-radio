@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
 from typing import Optional
 from typing import Tuple
 
@@ -98,7 +97,9 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
 
         items = []
 
-        for entry in data.get("features", [])[:5]:
+        items_count = get_plugin_config_option(self.ID, "items_count", "int", fallback=5)
+
+        for entry in data.get("features", [])[:items_count]:
             item = "%s" % entry.get("properties", {}).get("opis", None)
 
             if not item:
@@ -118,7 +119,9 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
 
         items = []
 
-        for entry in data.get("features", [])[:5]:
+        items_count = get_plugin_config_option(self.ID, "items_count", "int", fallback=5)
+
+        for entry in data.get("features", [])[:items_count]:
             item = "%s" % entry.get("properties", {}).get("Description_i18n", {}).get("en_US", None)
 
             if not item:
@@ -172,19 +175,3 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
             return False, {}
 
         return True, result
-
-    def _entries_to_text_string(self, entries: List[dict], count=5) -> str:
-        result = ""
-
-        items = []
-
-        for entry in entries[:count]:
-            item = "%s" % entry.get("properties", {}).get("opis", None)
-
-            if not item:
-                continue
-
-            items.append(item)
-
-        result = "\n".join(items)
-        return result

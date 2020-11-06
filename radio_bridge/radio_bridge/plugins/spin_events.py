@@ -46,11 +46,15 @@ class SPINEventsPlugin(BaseDTMFPlugin):
         url = self._config.get("url", DEFAULT_URL)
 
         response = requests.get(url)
+
+        with open("1.xml", "w") as fp:
+            fp.write(response.text)
         data = xmltodict.parse(response.text)
 
-        text_to_say = ""
+        result = []
 
         for item in data["rss"]["channel"]["item"][:5]:
-            text_to_say += item["description"] + "\n"
+            result.append(item["description"])
 
+        text_to_say = "\n".join(result)
         self.say(text=text_to_say, language=self._language)

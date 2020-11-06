@@ -89,3 +89,24 @@ class TTSTestCase(BaseTestCase):
 
         duration = get_audio_file_duration(file_path=output_file_path)
         self.assertTrue(duration >= 1.5)
+
+    def test_text_to_speech_govornik(self):
+        tts = TextToSpeech(implementation="govornik")
+
+        text = "Dober dan. Dobro jutri vsi."
+        output_file_path = tts._tts._get_cache_file_path(text=text, use_cache=True)
+
+        self.assertFalse(os.path.isfile(output_file_path))
+
+        for i in range(0, 3):
+            try:
+                tts.text_to_speech(text=text, language="sl_SI")
+                break
+            except Exception as e:
+                print("Retrying govornik call due to failure: %s" % (str(e)))
+                time.sleep(random.randint(2, 5))
+
+        self.assertTrue(os.path.isfile(output_file_path))
+
+        duration = get_audio_file_duration(file_path=output_file_path)
+        self.assertTrue(duration >= 1.5)

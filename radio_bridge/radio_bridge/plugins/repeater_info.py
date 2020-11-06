@@ -76,6 +76,8 @@ class RepeaterInfoPlugin(BaseDTMFWithDataPlugin):
     NAME = "Repeater info"
     DESCRIPTION = "Display information for a specific repeater."
     REQUIRES_INTERNET_CONNECTION = True
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
     # Usage: 38<1 digit for repeater type, 2 = vhf, 7 = 70cm><2 digits for repeater id, e.g. 01>
     # For example 3 8 2 0 1 - First 2m repeater
     # For example 3 8 7 0 1 - First 70cm repeater

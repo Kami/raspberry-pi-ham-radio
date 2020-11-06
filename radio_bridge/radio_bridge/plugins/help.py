@@ -29,6 +29,8 @@ class HelpPlugin(BaseDTMFPlugin):
     NAME = "Help Plugin"
     DESCRIPTION = "List available commands."
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="12")
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False

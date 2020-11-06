@@ -16,6 +16,7 @@
 from typing import Dict
 from typing import Callable
 from typing import Tuple
+from typing import List
 from typing import Any
 
 import os
@@ -58,10 +59,24 @@ INITIALIZED = False
 
 
 class BasePlugin(object):
+    # Plugin ID
     ID: str
+
+    # Plugin name
     NAME: str
+
+    # Plugin description
     DESCRIPTION: str
+
+    # True if plugin requires internet connection to operate
     REQUIRES_INTERNET_CONNECTION: bool
+
+    # Default language which will be used by this plugin if one is not explicitly configured in the
+    # config file
+    DEFAULT_LANGUAGE: str
+
+    # A list of supported languages by this plugin
+    SUPPORTED_LANGUAGES: List[str]
 
     def __init__(self):
         self._callsign = get_config_option("tx", "callsign")
@@ -82,6 +97,12 @@ class BasePlugin(object):
         Initialize plugin with plugin specific configuration and validate it (if any exists).
         """
         self._config = config or {}
+        self._language = self._config.get("language", self.DEFAULT_LANGUAGE)
+
+        if self._language not in self.SUPPORTED_LANGUAGES:
+            raise ValueError(
+                "Language %s is not supported for plugin %s" % (self._language, self.ID)
+            )
 
     def enable_tx(self):
         """
@@ -112,13 +133,13 @@ class BasePlugin(object):
 
         GPIO.output(self._gpio_pin, GPIO.LOW)
 
-    def say(self, text: str):
+    def say(self, text: str, language: str = "en_US"):
         """
         Alias for say_text().
         """
-        return self.say_text(text=text)
+        return self.say_text(text=text, language=language)
 
-    def say_text(self, text: str):
+    def say_text(self, text: str, language: str = "en_US"):
         """
         Run tts on the provided text and play it via the audio player.
         """
@@ -131,8 +152,10 @@ class BasePlugin(object):
             # 2. Play actual requested text
             LOG.debug('Playing text "%s"' % (text))
 
-            file_path = self._tts.text_to_speech(text=text)
-            self._audio_player.play_file(file_path=file_path, delete_after_play=False)
+            file_path = self._tts.text_to_speech(text=text, language=language)
+
+            if file_path:
+                self._audio_player.play_file(file_path=file_path, delete_after_play=False)
         finally:
             self.disable_tx()
 

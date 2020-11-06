@@ -35,6 +35,8 @@ class SPINEventsPlugin(BaseDTMFPlugin):
     NAME = "SPIN Events"
     DESCRIPTION = "Events from SPIN SOS Portal"
     REQUIRES_INTERNET_CONNECTION = True
+    DEFAULT_LANGUAGE = "sl_SI"
+    SUPPORTED_LANGUAGES = ["sl_SI"]
 
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="26")
 
@@ -51,4 +53,4 @@ class SPINEventsPlugin(BaseDTMFPlugin):
         for item in data["rss"]["channel"]["item"][:5]:
             text_to_say += item["description"] + "\n"
 
-        self.say(text=text_to_say)
+        self.say(text=text_to_say, language=self._language)

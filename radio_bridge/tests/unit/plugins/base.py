@@ -41,7 +41,7 @@ class MockBasePlugin(BasePlugin):
         super(MockBasePlugin, self).__init__(*args, **kwargs)
         self.mock_said_text = []
 
-    def say(self, text: str):
+    def say(self, text: str, language: str = "en_US"):
         """
         Mock say function which records said text on the class instance variable.
         """

@@ -133,10 +133,14 @@ def _validate_config(config):
             "Invalid tx.mode value: %s. Valid values: vox, gpio" % (config["tx"]["mode"])
         )
 
-    if config["tts"]["implementation"] not in ["gtts", "espeak"]:
+    from radio_bridge.tts import TextToSpeech
+
+    valid_tts_implementations = TextToSpeech.implementations.keys()
+
+    if config["tts"]["implementation"] not in valid_tts_implementations:
         raise ValueError(
-            "Invalid tts.library value: %s. Valid values: gtts, espeak"
-            % (config["tts"]["implementation"])
+            "Invalid tts.library value: %s. Valid values: %s"
+            % (config["tts"]["implementation"], ", ".join(valid_tts_implementations))
         )
 
     if config["plugins"]["executor"] not in ["native", "process"]:

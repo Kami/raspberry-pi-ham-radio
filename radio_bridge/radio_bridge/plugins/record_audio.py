@@ -34,6 +34,8 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
     NAME = "Record Audio"
     DESCRIPTION = "Record audio and write it to a file on disk."
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
@@ -54,6 +56,7 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
         # TODO: Refactor plugin to use a single pyaudio instance for this plugin + main loop and
         # share data via queue.
         # This is more efficient and only requires us to run a single record audio function.
+        # TODO: Throw if executor used is not process
         chunk_size = 2 ** 12
 
         stream = self._audio.open(
@@ -71,7 +74,9 @@ class RecordAudioPlugin(BaseNonDTMFPlugin):
         LOG.info(
             "Recording audio with duration of %s seconds to %s" % (self._record_duration, file_path)
         )
+
         frames_buffer = []
+        # TODO: Add support for removing silence
         for i in range(0, int(self._rate / chunk_size * self._record_duration)):
             data = stream.read(chunk_size, exception_on_overflow=False)
             frames_buffer.append(data)

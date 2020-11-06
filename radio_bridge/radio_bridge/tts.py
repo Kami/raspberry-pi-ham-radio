@@ -20,6 +20,7 @@ import abc
 import hashlib
 
 import structlog
+import requests
 
 from radio_bridge.configuration import get_config_option
 
@@ -89,6 +90,7 @@ class ESpeakTextToSpeech(BaseTextToSpeechImplementation):
 
     implementation_id = "espeak"
     file_extension = ".wav"
+    supported_languages = ["en_US"]
 
     def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
         # TODO: Allow various settings to be changed via config option
@@ -129,6 +131,7 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
 
     implementation_id = "gtts"
     file_extension = ".mp3"
+    supported_languages = ["en_US"]
 
     def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
         from gtts import gTTS
@@ -141,10 +144,12 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
 
         LOG.trace('Performing TTS on text "%s" and saving result to %s' % (text, file_path))
 
+        lang = "en-US"
+
         # Sometimes API returns "Unable to find token seed" error so we retry up to 3 times
         for i in range(0, 3):
             try:
-                audio_file = gTTS(text=text, lang="en-US", slow=slow, lang_check=False)
+                audio_file = gTTS(text=text, lang=lang, slow=slow, lang_check=False)
                 audio_file.save(file_path)
                 break
             except ValueError as e:
@@ -153,6 +158,44 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
 
                 LOG.debug("Retrying gtts call due to failure: %s" % (str(e)))
 
+        if not os.path.isfile(file_path) or os.stat(file_path).st_size == 0:
+            LOG.error('Failed to perform TTS on text "%s"' % (text))
+            return ""
+
+        return file_path
+
+
+class GovornikTextToSpeech(BaseTextToSpeechImplementation):
+    implementation_id = "govornik"
+    file_extension = ".wav"
+    supported_languages = ["sl_SI"]
+
+    def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
+        file_path = self._get_cache_file_path(text=text, use_cache=use_cache)
+
+        if self._is_valid_cached_file(file_path=file_path, use_cache=use_cache):
+            LOG.debug("Using existing cached file: %s" % (file_path))
+            return file_path
+
+        LOG.trace('Performing TTS on text "%s" and saving result to %s' % (text, file_path))
+
+        url = "http://sintetizator.nikigre.si"
+        data = {
+            "text": text,
+            "voice": "nik-unit",
+            "version": "2",
+            "source": "radio_bridge",
+            "format": "wav",
+        }
+        resp = requests.post(url=url, data=data)
+
+        if resp.status_code != 200:
+            LOG.warning("Received invalid status code (%s): %s." % (resp.status_code, resp.text))
+
+        with open(file_path, "wb") as fp:
+            for chunk in resp.iter_content(chunk_size=4096):
+                fp.write(chunk)
+
         return file_path
 
 
@@ -160,6 +203,7 @@ class TextToSpeech(object):
     implementations = {
         "gtts": GoogleTextToSpeech,
         "espeak": ESpeakTextToSpeech,
+        "govornik": GovornikTextToSpeech,
     }
 
     def __init__(
@@ -184,7 +228,21 @@ class TextToSpeech(object):
                 % (implementation, ",".join(self.implementations))
             )
 
-        self._tts = self.implementations[implementation]()
+        self._tts = self.implementations[implementation]()  # type: ignore
 
-    def text_to_speech(self, text: str, slow: bool = False, use_cache: bool = True) -> str:
-        return self._tts.text_to_speech(text=text, slow=slow, use_cache=use_cache)
+    def text_to_speech(
+        self, text: str, language: str = "en_US", slow: bool = False, use_cache: bool = True
+    ) -> str:
+        tts = self._get_tts_implementation_for_language(language=language)
+        return tts.text_to_speech(text=text, slow=slow, use_cache=use_cache)
+
+    def _get_tts_implementation_for_language(self, language: str) -> BaseTextToSpeechImplementation:
+        if language == "sl_SI":
+            return self.implementations["govornik"]()  # type: ignore
+        elif language == "en_US":
+            if "en_US" in self._tts.supported_languages:  # type: ignore
+                return self._tts
+            else:
+                return self.implementations["espeak"]()  # type: ignore
+        else:
+            return self._tts  # type: ignore

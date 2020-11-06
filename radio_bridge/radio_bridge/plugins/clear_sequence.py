@@ -33,6 +33,8 @@ class ClearSequencePlugin(BaseDTMFWithDataPlugin):
     NAME = "Clear sequence"
     DESCRIPTION = "Clear currently accumulated DTMF sequence."
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="*D*")
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False

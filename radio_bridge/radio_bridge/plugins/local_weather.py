@@ -34,6 +34,8 @@ class LocalWeatherPlugin(BaseDTMFPlugin):
     NAME = "Current weather"
     DESCRIPTION = "Current weather information for local weather station."
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="34")
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False

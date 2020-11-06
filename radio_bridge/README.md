@@ -118,17 +118,18 @@ for different pre-defined locations.
 
 ### Regular Plugins
 
-| Name | DTMF Sequence | Requires Internet Connection | Description | Example Recording |
-| --- | :---: | :---: | --- | --- |
-| Help | ``12`` | No | Display all the available DTMF commands. | [plugin_help.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_help.mp3) |
-| Clean DTMF Sequence | ``*D*`` | No | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar. | none |
-| Current Time | ``21`` | No | Say current local time for local timezone and UTC. | [plugin_current_time.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_current_time.mp3) |
-| Local Weather | ``34`` | No | Display weather information for a local weather station connected to this Raspberry Pi | [plugin_local_weather.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_local_weather.mp3) |
-| Location Weather | ``35??`` | Yes | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si | [plugin_location_weather_ljubljana.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_location_weather_ljubljana.mp3) |
-| Repeater Info | ``38??`` | Yes | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si | [plugin_repeater_info.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_repeater_info.mp3) |
-| Traffic Information | ``25?`` | Yes | ``251`` to display recent traffic information and events (incidents, road works) and ``252`` to display border crossings delays. |
-| Cron Say | none | No | Plugin which allows various announcements and information defined in the config to be played at defined intervals. | none |
-| Record Audio | none | None | Plugin which records audio from the audio in and stores it in a file. This can be useful when troubleshooting things, etc. | none |
+| Name | DTMF Sequence | Requires Internet Connection | Supported Languages | Description | Example Recording |
+| --- | :---: | :---: | --- | --- | --- |
+| Help | ``12`` | No | English | Display all the available DTMF commands. | [plugin_help.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_help.mp3) |
+| Clean DTMF Sequence | ``*D*`` | No | English | Special plugin which clears all the currently accumulated DTMF sequence. Comes handy in case of a typo and similar. | none |
+| Current Time | ``21`` | No | English, Slovene | Say current local time for local timezone and UTC. | [plugin_current_time.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_current_time.mp3) |
+| Local Weather | ``34`` | No | English | Display weather information for a local weather station connected to this Raspberry Pi | [plugin_local_weather.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_local_weather.mp3) |
+| Location Weather | ``35??`` | Yes | English | Display weather for a specific location. Data is retrieved from vreme.arso.gov.si | [plugin_location_weather_ljubljana.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_location_weather_ljubljana.mp3) |
+| Repeater Info | ``38??`` | Yes | English | Display information for a specific VHF / UHF repeater. Data is retrieved from rpt.hamradio.si | [plugin_repeater_info.mp3](https://raw.githubusercontent.com/Kami/raspberry-pi-ham-radio/master/radio_bridge/examples/audio/plugin_repeater_info.mp3) |
+| Traffic Information | ``25?`` | Yes | English, Slovene | ``251`` to display recent traffic information and events (incidents, road works) and ``252`` to display border crossings delays. |
+| SPIN Events | ``26`` | Yes | Slovene | Retrieve information about most recent interventions and accidents. |
+| Cron Say | none | No | English | Plugin which allows various announcements and information defined in the config to be played at defined intervals. | none |
+| Record Audio | none | none | none | Plugin which records audio from the audio in and stores it in a file. This can be useful when troubleshooting things, etc. | none |
 
 NOTE: Sequences in the table above are default sequences defined in the code base. Those can be
 overwritten / changed on per plugin basis inside the config.
@@ -350,6 +351,7 @@ DTMF Decoding
 Plugins
 
 - [ ] Support Jinja templates for cron plugin text strings.
+- [ ] Simplex repeater mode
 
 CI/CD
 

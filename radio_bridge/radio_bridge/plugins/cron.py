@@ -125,6 +125,8 @@ class CronSayPlugin(BaseNonDTMFPlugin):
     NAME = "Cron Plugin"
     DESCRIPTION = "Say text on play an audio file on defined time interval(s)."
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 

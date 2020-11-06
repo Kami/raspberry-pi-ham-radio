@@ -30,6 +30,16 @@ LOG = structlog.getLogger(__name__)
 
 BASE_URL = "https://www.promet.si/dc/"
 
+TEXT_NO_EVENTS = {
+    "en_US": "No recent events.",
+    "sl_SI": "Ni dogodkov.",
+}
+
+TEXT_NO_BORDER_CROSSING_DATA = {
+    "en_US": "No reported delays.",
+    "sl_SI": "Ni cakalnih dob.",
+}
+
 # Dictionary where we stored cached HTTP responses to avoid re-fetching the data when it's not
 # necessary.
 URL_RESPONSE_CACHE = ExpiringDict(max_len=20, max_age_seconds=(5 * 60))
@@ -42,7 +52,8 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
     NAME = "Traffic Events and Border Crossings info"
     DESCRIPTION = "Traffic events and border crossings delays information"
     REQUIRES_INTERNET_CONNECTION = True
-
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US", "sl_SI"]
     # 1 for traffic events
     # 2 for border crossing times
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="25?")
@@ -50,6 +61,7 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 
     def run(self, sequence: str):
+        # TODO: Query params based on language
         if sequence not in ["1", "2"]:
             self.say(text="Invalid sequence.")
             return
@@ -69,19 +81,24 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
         auth = (username, password)
 
         # TODO: Normalize and clean up text to make it more suitable for tts
+        language = self._config.get("language", "en_US")
+
         if sequence == "1":
-            text_to_say = self._get_traffic_events_text_to_say(auth=auth)
+            text_to_say = self._get_traffic_events_text_to_say(auth=auth, language=language)
         elif sequence == "2":
-            text_to_say = self._get_border_delays_text_to_say(auth=auth)
+            # Border crossings wait times API only supports English
+            text_to_say = self._get_border_delays_text_to_say(auth=auth, language=language)
 
-        self.say(text=text_to_say)
+        self.say(text=text_to_say, language=language)
 
-    def _get_traffic_events_text_to_say(self, auth: Optional[Tuple[str, str]] = None) -> str:
+    def _get_traffic_events_text_to_say(
+        self, auth: Optional[Tuple[str, str]] = None, language: str = "en_US"
+    ) -> str:
         """
         Return text which should be read for the traffic events.
         """
         method = "b2b.dogodki.json"
-        query_params = {"language": "en_US"}
+        query_params = {"language": language}
 
         query_params["eventtype"] = get_plugin_config_option(
             self.ID, "event_types", "str", fallback="all"
@@ -110,9 +127,15 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
             items.append(item)
 
         result = "\n".join(items)
+
+        if not result:
+            result = TEXT_NO_EVENTS[language]
+
         return result
 
-    def _get_border_delays_text_to_say(self, auth: Optional[Tuple[str, str]] = None) -> str:
+    def _get_border_delays_text_to_say(
+        self, auth: Optional[Tuple[str, str]] = None, language: str = "en_US"
+    ) -> str:
         method = "b2b.borderdelays.geojson"
         success, data = self._retrieve_and_parse_data_for_method(method=method, auth=auth)
 
@@ -124,7 +147,9 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
         items_count = get_plugin_config_option(self.ID, "items_count", "int", fallback=5)
 
         for entry in data.get("features", [])[:items_count]:
-            item = "%s" % entry.get("properties", {}).get("Description_i18n", {}).get("en_US", None)
+            item = "%s" % entry.get("properties", {}).get("Description_i18n", {}).get(
+                language, None
+            )
 
             if not item:
                 continue
@@ -132,6 +157,10 @@ class TrafficInfoPlugin(BaseDTMFWithDataPlugin):
             items.append(item)
 
         result = "\n".join(items)
+
+        if not result:
+            result = TEXT_NO_BORDER_CROSSING_DATA[language]
+
         return result
 
     def _get_full_url(self, method: str, query_params: Optional[dict] = None) -> str:

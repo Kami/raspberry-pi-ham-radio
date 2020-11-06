@@ -30,7 +30,7 @@ class CurrentTimePluginForTest(CurrentTimePlugin, MockBasePlugin):
 
 class CurrentTimePluginTestCase(BasePluginTestCase):
     @mock.patch("radio_bridge.plugins.current_time.datetime")
-    def test_run_success(self, mock_datetime):
+    def test_run_success_en_US(self, mock_datetime):
         mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 10, 26, 19, 57)
         plugin = CurrentTimePluginForTest()
         self.assertEqual(len(plugin.mock_said_text), 0)
@@ -39,6 +39,20 @@ class CurrentTimePluginTestCase(BasePluginTestCase):
         plugin.run()
 
         expected_text = "Current time is 20 57 local. 19 57 U T C."
+
+        self.assertEqual(len(plugin.mock_said_text), 1)
+        self.assertEqual(plugin.mock_said_text[0], expected_text)
+
+    @mock.patch("radio_bridge.plugins.current_time.datetime")
+    def test_run_success_si_SL(self, mock_datetime):
+        mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 10, 26, 19, 57)
+        plugin = CurrentTimePluginForTest()
+        self.assertEqual(len(plugin.mock_said_text), 0)
+
+        plugin.initialize(config={"local_timezone": "CET", "language": "sl_SI"})
+        plugin.run()
+
+        expected_text = "Trenuten cas je 20 57 lokalno. 19 57 U T C."
 
         self.assertEqual(len(plugin.mock_said_text), 1)
         self.assertEqual(plugin.mock_said_text[0], expected_text)

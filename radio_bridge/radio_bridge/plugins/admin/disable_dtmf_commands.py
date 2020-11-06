@@ -25,8 +25,10 @@ class DisableDTMFCommandsAdminPlugin(BaseAdminDTMFPlugin):
     ID = "disable_dtmf_commands"
     NAME = "Disable DTMF commands"
     DESCRIPTION = "Disable all the non-admin DTMF commands."
-    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="93")
     REQUIRES_INTERNET_CONNECTION = False
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
+    DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="93")
 
     _skipload_ = get_plugin_config_option(ID, "enable", "bool", fallback=True) is False
 

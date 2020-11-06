@@ -25,7 +25,8 @@ class ChangeTTSImplementationAdminPlugin(BaseAdminDTMFWithDataPlugin):
     NAME = "Change TTS mode"
     DESCRIPTION = "Change TTS mode to online / offline"
     REQUIRES_INTERNET_CONNECTION = False
-
+    DEFAULT_LANGUAGE = "en_US"
+    SUPPORTED_LANGUAGES = ["en_US"]
     # 92???1 - To change it to online one (gtts)
     # 92???2 - To change it to offline one (espeak)
     DTMF_SEQUENCE = get_plugin_config_option(ID, "dtmf_sequence", fallback="92?")

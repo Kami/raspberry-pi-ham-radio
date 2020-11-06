@@ -21,8 +21,10 @@ import hashlib
 
 import structlog
 import requests
+import mutagen
 
 from radio_bridge.configuration import get_config_option
+from radio_bridge.audio_player import get_audio_file_duration
 
 LOG = structlog.getLogger(__name__)
 
@@ -147,16 +149,26 @@ class GoogleTextToSpeech(BaseTextToSpeechImplementation):
         lang = "en-US"
 
         # Sometimes API returns "Unable to find token seed" error so we retry up to 3 times
-        for i in range(0, 3):
+        for index in range(0, 3):
             try:
                 audio_file = gTTS(text=text, lang=lang, slow=slow, lang_check=False)
                 audio_file.save(file_path)
+                # Even on successful response API sometimes returns a corrupted response so we need
+                # to retry on such scenario as well
+                # TODO: Could we just perform file size check to speed the operation up?
+                get_audio_file_duration(file_path)
                 break
             except ValueError as e:
                 if "Unable to find token seed" not in str(e):
                     raise e
 
-                LOG.debug("Retrying gtts call due to failure: %s" % (str(e)))
+                LOG.debug(
+                    "Retrying gtts call due to failure: %s (attempt=%s)" % (str(e), (index + 1))
+                )
+            except mutagen.mp3.HeaderNotFoundError as e:
+                LOG.debug(
+                    "Retrying gtts call due to failure: %s (attempt=%s)" % (str(e), (index + 1))
+                )
 
         if not os.path.isfile(file_path) or os.stat(file_path).st_size == 0:
             LOG.error('Failed to perform TTS on text "%s"' % (text))

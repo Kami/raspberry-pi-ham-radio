@@ -41,9 +41,10 @@ Available commands:
 2. Sequence 1 2 . List available commands.
 3. Sequence 2 1 . Current date and time.
 4. Sequence 2 5 ? . Traffic events and border crossings delays information
-5. Sequence 3 4 . Current weather information for local weather station.
-6. Sequence 3 5 ? ? . Current weather for location.
-7. Sequence 3 8 ? ? ? . Display information for a specific repeater.
+5. Sequence 2 6 . Events from SPIN SOS Portal
+6. Sequence 3 4 . Current weather information for local weather station.
+7. Sequence 3 5 ? ? . Current weather for location.
+8. Sequence 3 8 ? ? ? . Display information for a specific repeater.
 """.strip()
 
         self.assertEqual(len(plugin.mock_said_text), 1)
